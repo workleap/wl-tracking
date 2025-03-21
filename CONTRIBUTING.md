@@ -20,7 +20,7 @@ The main difference to account for is that the `devDependencies` must now be ins
 
 ### Turborepo
 
-This repository use [Turborepo](https://turbo.build/repo/docs) to execute it's commands. Turborepo help saving time with it's built-in cache but also ensure the packages topological order is respected when executing commands.
+This repository uses [Turborepo](https://turbo.build/repo/docs) to execute its commands. Turborepo helps save time with its built-in cache but also ensures the packages' topological order is respected when executing commands.
 
 To be understand the relationships between the commands, have a look at this repository [turbo.json](./turbo.json) configuration file.
 
