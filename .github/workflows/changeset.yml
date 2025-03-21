@@ -1,0 +1,70 @@
+name: Changesets
+
+# Pnpm setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
+
+on:
+  push:
+    branches: ["main"]
+env:
+  CI: true
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ">=22.0.0"
+          check-latest: true
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Restore Turborepo cache
+        id: cache-turborepo-restore
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-turborepo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turborepo-
+          path: .turbo
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Save Turborepo cache
+        id: cache-turborepo-save
+        if: always() && steps.cache-turborepo-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
+          path: .turbo
+
+      - name: Create release Pull Request or publish to NPM
+        uses: changesets/action@v1
+        with:
+          commit: "ci(changesets): version packages"
+          title: "Changeset: New Version"
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: pnpm publish-pkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.WORKLEAP_NPM_TOKEN }}

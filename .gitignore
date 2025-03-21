@@ -1,0 +1,12 @@
+node_modules
+dist
+storybook-static
+.pnpm-debug.log*
+.netlify
+.turbo
+.rslib
+.retype
+
+# Mac
+.DS_Store
+*.pem
