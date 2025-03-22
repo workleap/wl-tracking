@@ -20,7 +20,7 @@ test("when an event is tracked, sends a request to the default endpoint", async 
 
     await track("customEvent", {});
 
-    const [url, init] = fetchMock.mock.calls[0];
+    const [url] = fetchMock.mock.calls[0];
 
     expect(url).toBe("/api/navigation/tracking/track");
 });
