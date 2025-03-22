@@ -32,7 +32,7 @@ interface CreateTrackingFunctionOptions {
      * The product identifier of the target product.
      * @default null
      */
-    targetProductIdentifier?: string | null;
+    targetProductId?: string | null;
     /**
      * The endpoint to send the tracking event to.
      * @default "tracking/track"
@@ -42,14 +42,14 @@ interface CreateTrackingFunctionOptions {
 
 /**
  * Creates a function that sends tracking events to the tracking API.
- * @param productIdentifier Your product identifier. e.g. "wlp", "ov"
- * @param trackingApiUrl The base URL of the tracking controlled.  /api/navigation
+ * @param productId Your product identifier. e.g. "wlp", "ov"
+ * @param trackingApiUrl The base URL of the tracking controlled. e.g. "/api/navigation"
  * @param createOptions Options for creating the tracking function.
  * @returns A function that sends tracking events to the tracking API.
  */
-export function createTrackingFunction(productIdentifier: string, trackingApiBaseUrl: string, createOptions: CreateTrackingFunctionOptions = {}) : TrackingFunction {
+export function createTrackingFunction(productId: string, trackingApiBaseUrl: string, createOptions: CreateTrackingFunctionOptions = {}) : TrackingFunction {
     const endpoint = createOptions?.trackingEndpoint ?? "tracking/track";
-    const targetProductIdentifier = createOptions?.targetProductIdentifier ?? null;
+    const targetProductId = createOptions?.targetProductId ?? null;
 
     return async (eventName, properties, options) => {
         const baseProperties = getBaseProperties();
@@ -62,8 +62,8 @@ export function createTrackingFunction(productIdentifier: string, trackingApiBas
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 eventName,
-                productIdentifier,
-                targetProductIdentifier: targetProductIdentifier,
+                productId,
+                targetProductId: targetProductId,
                 properties: allProperties
             })
         });

@@ -2,26 +2,18 @@
     "$schema": "https://turbo.build/schema.json",
     "ui": "tui",
     "tasks": {
-        "dev": {
-            "dependsOn": ["^dev"],
-            "cache": false,
-            "persistent": true
-        },
         "build": {
             "dependsOn": ["^build"],
             "outputs": ["dist/**"]
         },
         "lint": {
-            "dependsOn": ["eslint", "stylelint", "typecheck", "//#syncpack"]
+            "dependsOn": ["eslint", "typecheck", "//#syncpack"]
         },
         "//#eslint": {
             "outputs": ["node_modules/.cache/eslint"]
         },
         "eslint": {
             "outputs": ["node_modules/.cache/eslint"]
-        },
-        "stylelint": {
-            "outputs": ["node_modules/.cache/stylelint"]
         },
         "//#typecheck": {
             "outputs": ["node_modules/.cache/tsbuildinfo.json"]

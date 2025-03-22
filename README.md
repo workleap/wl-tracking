@@ -11,8 +11,8 @@ To use it you must first call the `createTrackingFunction` factory, which will r
 import { createTrackingFunction } from "@workleap/mixpanel";
 
 const environmentVariables = getEnvironmentVariables();
-const productIdentifier = "wlp" //Workleap Management
-const track = createTrackingFunction(productIdentifier, environmentVariables.navigationApiBaseUrl);
+const productId = "wlp" //Workleap Management
+const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
@@ -22,10 +22,10 @@ You might want to track an action done in Workleap Management (or another produc
 import { createTrackingFunction } from "@workleap/mixpanel";
 
 const environmentVariables = getEnvironmentVariables();
-const productIdentifier = "wlp" //Workleap Management
-const targetProductIdentifier = "wov" //Officevibe
-const track = createTrackingFunction(productIdentifier, environmentVariables.navigationApiBaseUrl, {
-    targetProductIdentifier
+const productId = "wlp" //Workleap Management
+const targetProductId = "wov" //Officevibe
+const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
+    targetProductId
 });
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
@@ -36,8 +36,8 @@ If you want to use the tracking function but for a different endpoint, you can u
 import { createTrackingFunction } from "@workleap/mixpanel";
 
 const environmentVariables = getEnvironmentVariables();
-const productIdentifier = "wlp" //Workleap Management
-const track = createTrackingFunction(productIdentifier, environmentVariables.navigationApiBaseUrl, {
+const productId = "wlp" //Workleap Management
+const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
     trackingEndpoint: "/trackEvent"
 });
 
@@ -50,7 +50,7 @@ If you want to track a link click, you can use the `track` function and add the 
 
 ```ts
 
-const track = createTrackingFunction(productIdentifier, environmentVariables.navigationApiBaseUrl, {
+const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
     trackingEndpoint: "/trackEvent"
 });
 

@@ -5,9 +5,11 @@ const fetchMock = vi.fn();
 globalThis.fetch = fetchMock;
 
 beforeEach(() => {
-    vi.clearAllMocks(); // clears call history but keeps mock implementations
+    vi.clearAllMocks();
 });
+
 const mockBaseProps = { baseProp: "base" };
+
 vi.mock("../src/properties.ts", () => ({
     getBaseProperties: () => mockBaseProps
 }));
@@ -25,8 +27,8 @@ test("when called, sends a request to the default endpoint with merged propertie
         baseProp: "base",
         customProp: 123
     });
-    expect(body.productIdentifier).toBe("wlp");
-    expect(body.targetProductIdentifier).toBeNull();
+    expect(body.productId).toBe("wlp");
+    expect(body.targetProductId).toBeNull();
 });
 
 test("when an event is tracked, includes the event name in the request body", async ({ expect }) => {
@@ -60,19 +62,19 @@ test("when keepAlive is true, includes keepalive in the fetch options", async ({
     expect(init.keepalive).toBe(true);
 });
 
-test("when a targetProductIdentifier is provided, includes it in the request body", async ({ expect }) => {
+test("when a targetProductId is provided, includes it in the request body", async ({ expect }) => {
     const track = createTrackingFunction("wlp", "/api/navigation", {
-        targetProductIdentifier: "target-app"
+        targetProductId: "target-app"
     });
 
     await track("event", {});
 
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
-    expect(body.targetProductIdentifier).toBe("target-app");
+    expect(body.targetProductId).toBe("target-app");
 });
 
-test("when targetProductIdentifier is not provided, add it from the request body with null", async ({ expect }) => {
+test("when targetProductId is not provided, add it from the request body with null", async ({ expect }) => {
     const track = createTrackingFunction("wlp", "/api/navigation");
 
     await track("event", {});
@@ -80,7 +82,7 @@ test("when targetProductIdentifier is not provided, add it from the request body
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
 
-    expect(body).toHaveProperty("targetProductIdentifier", null);
+    expect(body).toHaveProperty("targetProductId", null);
 });
 
 test("when base URL ends with a slash, builds correct final URL", async ({ expect }) => {

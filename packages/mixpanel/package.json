@@ -12,7 +12,6 @@
         "provenance": true
     },
     "type": "module",
-    "main": "./dist/index.js",
     "exports": {
         ".": {
             "import": "./dist/index.js",
@@ -21,7 +20,10 @@
         }
     },
     "files": [
-        "dist"
+        "src",
+        "dist",
+        "CHANGELOG.md",
+        "README.md"
     ],
     "scripts": {
         "build": "rslib build --config ./rslib.build.ts",
@@ -32,7 +34,6 @@
     "devDependencies": {
         "@rsbuild/core": "1.2.19",
         "@rslib/core": "0.5.5",
-        "@types/node": "22.13.11",
         "@workleap/eslint-plugin": "3.3.1",
         "@workleap/rslib-configs": "1.0.3",
         "@workleap/typescript-configs": "3.0.2",
