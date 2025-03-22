@@ -14,6 +14,17 @@ vi.mock("../src/properties.ts", () => ({
     getBaseProperties: () => mockBaseProps
 }));
 
+
+test("when an event is tracked, sends a request to the default endpoint", async ({ expect }) => {
+    const track = createTrackingFunction("wlp", "/api/navigation");
+
+    await track("customEvent", {});
+
+    const [url, init] = fetchMock.mock.calls[0];
+
+    expect(url).toBe("/api/navigation/tracking/track");
+});
+
 test("when called, sends a request to the default endpoint with merged properties", async ({ expect }) => {
     const track = createTrackingFunction("wlp", "/api/navigation");
 
