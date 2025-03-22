@@ -7,19 +7,37 @@ globalThis.fetch = fetchMock;
 beforeEach(() => {
     vi.clearAllMocks(); // clears call history but keeps mock implementations
 });
+const mockBaseProps = { baseProp: "base" };
+vi.mock("../src/properties.ts", () => ({
+    getBaseProperties: () => mockBaseProps
+}));
 
 test("when called, sends a request to the default endpoint with merged properties", async ({ expect }) => {
     const track = createTrackingFunction("wlp", "/api/navigation");
 
-    await track("event", { fromCaller: true });
+    await track("event", { customProp: 123 });
 
     const [url, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
 
     expect(url).toBe("/api/navigation/tracking/track");
-    expect(body.properties).toHaveProperty("fromCaller");
+    expect(body.properties).toMatchObject({
+        baseProp: "base",
+        customProp: 123
+    });
     expect(body.productIdentifier).toBe("wlp");
     expect(body.targetProductIdentifier).toBeNull();
+});
+
+test("when an event is tracked, includes the event name in the request body", async ({ expect }) => {
+    const track = createTrackingFunction("wlp", "/api/navigation");
+
+    await track("customEvent", {});
+
+    const [, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body);
+
+    expect(body.eventName).toBe("customEvent");
 });
 
 test("when a custom endpoint is provided, uses the custom endpoint", async ({ expect }) => {
@@ -52,6 +70,17 @@ test("when a targetProductIdentifier is provided, includes it in the request bod
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
     expect(body.targetProductIdentifier).toBe("target-app");
+});
+
+test("when targetProductIdentifier is not provided, add it from the request body with null", async ({ expect }) => {
+    const track = createTrackingFunction("wlp", "/api/navigation");
+
+    await track("event", {});
+
+    const [, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body);
+
+    expect(body).toHaveProperty("targetProductIdentifier", null);
 });
 
 test("when base URL ends with a slash, builds correct final URL", async ({ expect }) => {
