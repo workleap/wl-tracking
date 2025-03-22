@@ -17,7 +17,7 @@ const track = createTrackingFunction(productIdentifier, environmentVariables.nav
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
-You might want to track an action done in Workleap Management (or another product) that targets another product. The library provide a function options to specify the target product identifier.
+You might want to track an action done in Workleap Management (or another product) that targets another product. The library provides a function options to specify the target product identifier.
 ```ts
 import { createTrackingFunction } from "@workleap/mixpanel";
 
