@@ -1,2 +1,2 @@
-export * from "./trackEvent.ts";
+export * from "./createTrackingFunction.ts";
 

@@ -1,6 +1,6 @@
 {
-    "name": "@workleap/tracking",
-    "version": "2.3.0",
+    "name": "@workleap/mixpanel",
+    "version": "1.0.0",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
@@ -26,7 +26,8 @@
     "scripts": {
         "build": "rslib build --config ./rslib.build.ts",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "test": "vitest --config vitest.config.ts --no-watch"
     },
     "devDependencies": {
         "@rsbuild/core": "1.2.19",
@@ -36,7 +37,9 @@
         "@workleap/rslib-configs": "1.0.3",
         "@workleap/typescript-configs": "3.0.2",
         "eslint": "8.57.1",
-        "typescript": "5.8.2"
+        "jsdom": "26.0.0",
+        "typescript": "5.8.2",
+        "vitest": "3.0.9"
     },
     "engines": {
         "node": ">=18.0.0"
