@@ -1,7 +1,3 @@
-# wl-tracking
-
-This monorepo contains some packages related to tracking.
-
 # `@workleap/tracking`
 
 This package allows you to add basic tracking capabilities to your applications. It exposes a single `track` function that calls a tracking endpoint that conforms to the Workleap Platform Tracking API in the environment URL you have provided.
