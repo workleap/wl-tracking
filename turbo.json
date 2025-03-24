@@ -1,0 +1,29 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "ui": "tui",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
+        },
+        "lint": {
+            "dependsOn": ["eslint", "typecheck", "//#syncpack"]
+        },
+        "//#eslint": {
+            "outputs": ["node_modules/.cache/eslint"]
+        },
+        "eslint": {
+            "outputs": ["node_modules/.cache/eslint"]
+        },
+        "//#typecheck": {
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+        },
+        "typecheck": {
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+        },
+        "//#syncpack": {},
+        "test": {
+            "outputs": ["node_modules/.cache/vitest/**"]
+        }
+    }
+}

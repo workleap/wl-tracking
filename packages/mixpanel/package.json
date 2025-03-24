@@ -1,0 +1,49 @@
+{
+    "name": "@workleap/mixpanel",
+    "version": "1.0.0",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/workleap/wl-tracking.git",
+        "directory": "packages/mixpanel"
+    },
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "src",
+        "dist",
+        "CHANGELOG.md",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "rslib build --config ./rslib.build.ts",
+        "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc",
+        "test": "vitest --config vitest.config.ts --no-watch"
+    },
+    "devDependencies": {
+        "@rsbuild/core": "1.2.19",
+        "@rslib/core": "0.5.5",
+        "@workleap/eslint-plugin": "3.3.1",
+        "@workleap/rslib-configs": "1.0.3",
+        "@workleap/typescript-configs": "3.0.2",
+        "eslint": "8.57.1",
+        "happy-dom": "17.4.4",
+        "typescript": "5.8.2",
+        "vitest": "3.0.9"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "sideEffects": false
+}
