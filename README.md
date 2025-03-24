@@ -39,7 +39,7 @@ If you want to track a link click, you can use the `track` function and add the 
 
 const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
 
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" }, { keepAlive: true });
+track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, { keepAlive: true });
 ```
 
 ## Migration Notes
