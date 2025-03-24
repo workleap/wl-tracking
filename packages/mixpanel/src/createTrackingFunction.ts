@@ -33,11 +33,6 @@ interface CreateTrackingFunctionOptions {
      * @default null
      */
     targetProductId?: string | null;
-    /**
-     * The endpoint to send the tracking event to.
-     * @default "tracking/track"
-     */
-    trackingEndpoint?: string;
 }
 
 /**
@@ -48,14 +43,13 @@ interface CreateTrackingFunctionOptions {
  * @returns A function that sends tracking events to the tracking API.
  */
 export function createTrackingFunction(productId: string, trackingApiBaseUrl: string, createOptions: CreateTrackingFunctionOptions = {}) : TrackingFunction {
-    const endpoint = createOptions?.trackingEndpoint ?? "tracking/track";
     const targetProductId = createOptions?.targetProductId ?? null;
 
     return async (eventName, properties, options) => {
         const baseProperties = getBaseProperties();
         const allProperties = { ...baseProperties, ...properties };
 
-        await fetch(resolveApiUrl(endpoint, trackingApiBaseUrl), {
+        await fetch(resolveApiUrl("tracking/track", trackingApiBaseUrl), {
             method: "POST",
             credentials: "include",
             keepalive: options?.keepAlive,
