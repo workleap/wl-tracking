@@ -31,28 +31,13 @@ const track = createTrackingFunction(productId, environmentVariables.navigationA
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
-If you want to use the tracking function but for a different endpoint, you can use the `trackingEndpoint` option.
-```ts
-import { createTrackingFunction } from "@workleap/mixpanel";
-
-const environmentVariables = getEnvironmentVariables();
-const productId = "wlp" //Workleap Management
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
-    trackingEndpoint: "/trackEvent"
-});
-
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
-```
-
 ## Link Tracking
 
 If you want to track a link click, you can use the `track` function and add the `keepAlive` option to keep the current page alive while the tracking request is being made.
 
 ```ts
 
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
-    trackingEndpoint: "/trackEvent"
-});
+const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" }, { keepAlive: true });
 ```
