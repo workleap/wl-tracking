@@ -93,3 +93,12 @@ test("when base URL ends with a slash, builds correct final URL", async ({ expec
     const [url] = fetchMock.mock.calls[0];
     expect(url).toBe("/api/navigation/tracking/track");
 });
+
+test("when env is passed, builds correct final URL", async ({ expect }) => {
+    const track = createTrackingFunction("wlp", "development");
+
+    await track("event", {});
+
+    const [url] = fetchMock.mock.calls[0];
+    expect(url).toBe("https://api.platform.workleap-dev.com/shell/navigation/tracking/track");
+});

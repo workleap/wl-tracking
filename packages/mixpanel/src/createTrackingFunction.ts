@@ -1,3 +1,4 @@
+import { getTrackingEndpoint, type Environment } from "./env.ts";
 import { getBaseProperties, type TrackEventProperties } from "./properties.ts";
 
 export interface TrackingOptions {
@@ -22,11 +23,6 @@ export interface TrackingOptions {
  */
 export type TrackingFunction = (eventName: string, properties: TrackEventProperties, options?: TrackingOptions) => Promise<void>;
 
-// Cannot use URL() because it doesn't support relative base url: https://github.com/whatwg/url/issues/531.
-function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
-    return `${baseUrl}${baseUrl!.endsWith("/") ? "" : "/"}${path.startsWith("/") ? path.substring(1) : path}`;
-}
-
 export interface CreateTrackingFunctionOptions {
     /**
      * The product identifier of the target product.
@@ -38,18 +34,28 @@ export interface CreateTrackingFunctionOptions {
 /**
  * Creates a function that sends tracking events to the tracking API.
  * @param productId Your product identifier. e.g. "wlp", "ov"
- * @param trackingApiUrl The base URL of the tracking controlled. e.g. "/api/navigation"
+ * @param env The environment to get the navigation url from . e.g. "local", "prod"
  * @param createOptions Options for creating the tracking function.
  * @returns A function that sends tracking events to the tracking API.
  */
-export function createTrackingFunction(productId: string, trackingApiBaseUrl: string, createOptions: CreateTrackingFunctionOptions = {}) : TrackingFunction {
+export function createTrackingFunction(productId: string, env: Environment, createOptions?: CreateTrackingFunctionOptions) : TrackingFunction;
+/**
+ * Creates a function that sends tracking events to the tracking API.
+ * @param productId Your product identifier. e.g. "wlp", "ov"
+ * @param trackingApiBaseUrl The base Url to get the tracking api from . e.g. "https://api.platform.workleap-dev.com/shell/navigation/"
+ * @param createOptions Options for creating the tracking function.
+ * @returns A function that sends tracking events to the tracking API.
+ */
+export function createTrackingFunction(productId: string, trackingApiBaseUrl: string, createOptions?: CreateTrackingFunctionOptions) : TrackingFunction;
+export function createTrackingFunction(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), createOptions: CreateTrackingFunctionOptions = {}) : TrackingFunction {
     const targetProductId = createOptions?.targetProductId ?? null;
+    const fullUrl = getTrackingEndpoint(envOrTrackingApiBaseUrl);
 
     return async (eventName, properties, options) => {
         const baseProperties = getBaseProperties();
         const allProperties = { ...baseProperties, ...properties };
 
-        await fetch(resolveApiUrl("tracking/track", trackingApiBaseUrl), {
+        await fetch(fullUrl, {
             method: "POST",
             credentials: "include",
             keepalive: options?.keepAlive,
@@ -57,7 +63,7 @@ export function createTrackingFunction(productId: string, trackingApiBaseUrl: st
             body: JSON.stringify({
                 eventName,
                 productId,
-                targetProductId: targetProductId,
+                targetProductId,
                 properties: allProperties
             })
         });
