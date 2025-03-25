@@ -27,7 +27,7 @@ function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
     return `${baseUrl}${baseUrl!.endsWith("/") ? "" : "/"}${path.startsWith("/") ? path.substring(1) : path}`;
 }
 
-interface CreateTrackingFunctionOptions {
+export interface CreateTrackingFunctionOptions {
     /**
      * The product identifier of the target product.
      * @default null
