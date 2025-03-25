@@ -1,5 +1,15 @@
 # @workleap/mixpanel
 
+## 1.1.0
+
+### Minor Changes
+
+- [#8](https://github.com/workleap/wl-tracking/pull/8) [`5199dc1`](https://github.com/workleap/wl-tracking/commit/5199dc1cce5d9ab05c0cda84be2ac81cdf6a9456) Thanks [@alexasselin008](https://github.com/alexasselin008)! - Add the possibility to specify only the environment to use, and the tracking function will provide the correct URL
+
+### Patch Changes
+
+- [#6](https://github.com/workleap/wl-tracking/pull/6) [`e26a764`](https://github.com/workleap/wl-tracking/commit/e26a764282f881b4ab50009db1f88879e8a02776) Thanks [@alexasselin008](https://github.com/alexasselin008)! - Export types from the packages
+
 ## 1.0.2
 
 ### Patch Changes
