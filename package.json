@@ -11,6 +11,7 @@
     },
     "scripts": {
         "build": "turbo run build",
+        "dev-docs": "retype start",
         "lint": "turbo run lint --continue",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",
