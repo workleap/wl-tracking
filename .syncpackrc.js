@@ -3,29 +3,26 @@
 /** @type {import("syncpack").RcFile} */
 export default {
     "lintFormatting": false,
-    "dependencyTypes": ["prod", "dev"],
     "semverGroups": [
         {
+            "packages": ["@workleap/**"],
+            "dependencyTypes": ["prod", "peer"],
             "range": "^",
-            "dependencyTypes": ["prod"],
-            "dependencies": ["**"],
-            "packages": ["@workleap/**"]
+            "label": "Packages should use ^ for dependencies and peerDependencies."
         },
         {
-            "range": "",
-            "dependencyTypes": ["prod", "dev"],
-            "dependencies": ["**"],
             "packages": ["**"],
-            "label": "packages version should be pinned"
+            "dependencyTypes": ["prod", "dev"],
+            "range": "",
+            "label": "Packages should pin devDependencies."
         },
     ],
     "versionGroups": [
         {
-            "dependencyTypes": ["prod", "dev"],
-            "preferVersion": "highestSemver",
-            "dependencies": ["**"],
             "packages": ["**"],
-            "label": "packages should have a single version across the repository"
+            "dependencyTypes": ["prod", "peer", "dev"],
+            "preferVersion": "highestSemver",
+            "label": "Packages should have a single version across the repository"
         }
     ]
 };

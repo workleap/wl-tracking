@@ -38,6 +38,20 @@ To install the project, open a terminal at the root of the workspace and execute
 pnpm install
 ```
 
+### Setup Retype
+
+[Retype](https://retype.com/) is the documentation platform that this repository is using for its documentation. As this project is leveraging a few [Pro features](https://retype.com/pro/) of Retype.
+
+Everything should work fine as-is but there are a few limitations to use Retype Pro features without a wallet with a licence. If you want to circumvent these limitations, you can optionally, setup your [Retype wallet](https://retype.com/guides/cli/#retype-wallet).
+
+To do so, first make sure that you retrieve the Retype license from your Vault (or ask IT).
+
+Then, open a terminal at the root of the workspace and execute the following command:
+
+```bash
+npx retype wallet --add <your-license-key-here>
+```
+
 ## Release the packages
 
 When you are ready to release the packages, you must follow the following steps:
@@ -78,20 +92,28 @@ Build the packages for release.
 pnpm build
 ```
 
+### dev-docs
+
+Start the [Retype](https://retype.com/) dev server. If you are experiencing issue with the license, refer to the [setup Retype section](#setup-retype).
+
+```bash
+pnpm dev-docs
+```
+
+### lint
+
+Lint the packages files.
+
+```bash
+pnpm lint
+```
+
 ### test
 
 Run the packages unit tests.
 
 ```bash
 pnpm test
-```
-
-### lint
-
-Lint the packages files & the sample application.
-
-```bash
-pnpm lint
 ```
 
 ### changeset
@@ -149,6 +171,10 @@ This action runs on a push on the `main` branch. If there is a file present in t
 ### CI
 
 This action will trigger when a commit is done in a PR to `main` or after a push to `main`. The action will run `build`, `lint` and `test` commands on the source code.
+
+### Retype
+
+This action will trigger when a commit is done in a PR to `main` or after a push to `main`. The action will generate the documentation website into the `retype` branch. This repository [Github Pages](https://github.com/workleap/wl-tracking/settings/pages) is configured to automatically deploy the website from the `retype` branch.
 
 ## Add a new package to the monorepo
 

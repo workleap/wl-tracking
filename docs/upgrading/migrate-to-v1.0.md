@@ -1,10 +1,13 @@
-# Migration Notes
+---
+label: Migrate to v1.0
+---
 
-## @workleap/tracking to 1.0.0
+# Migrate to v1.0
 
 `buildTrackingFunction` has been renamed to `createTrackingFunction`.
 
-createTrackingFunction now takes:
+`createTrackingFunction` now accepts the following arguments:
+
 - `productId` as the first argument
 - `baseUrl` as the second argument
 - `options` as the third argument
@@ -14,7 +17,7 @@ createTrackingFunction now takes:
 + const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
 ```
 
-the buildTrackingFunction had multiple overloads, the new createTrackingFunction has a single signature, with an options object.
+The `buildTrackingFunction` function had multiple overloads, the new `createTrackingFunction` function has a single signature with an options object.
 
 ```diff
 - const track = buildTrackingFunction(productId, targetProductIdentifier, environmentVariables.navigationApiBaseUrl);
