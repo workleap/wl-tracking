@@ -3,7 +3,7 @@
 A set of packages to track telemetry for the Workleap platform.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-[![CI](https://github.com/workleap/wl-squide/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-tracking/actions/workflows/ci.yml)
+[![CI](https://github.com/workleap/wl-tracking/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-tracking/actions/workflows/ci.yml)
 
 ### Packages
 
