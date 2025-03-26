@@ -1,0 +1,29 @@
+name: Publish documentation website to GitHub Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  publish:
+    name: Publish documentation website
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+        - uses: actions/checkout@v4
+
+        - uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: 7.0.x
+
+        - uses: retypeapp/action-build@latest
+          with:
+            license: ${{ secrets.RETYPE_API_KEY }}
+
+        - uses: retypeapp/action-github-pages@latest
+          with:
+            update-branch: true
