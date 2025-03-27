@@ -47,14 +47,39 @@ const productId = "wlp";
 const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
 ```
 
-Then, use the `track` function in the application code to send telemetry:
+#### Specify an environment
+
+The second parameter of `createTrackingFunction` can be either a full URL (typically from `environmentVariables.navigationApiBaseUrl`) or a predefined environment string.
+
+Accepted environment strings are:
+- `development`
+- `staging`
+- `production`
+- `msw`
+- `local`
+
+For example:
+
+```ts !#5
+import { createTrackingFunction } from "@workleap/mixpanel";
+
+const environment = "staging";
+const productId = "wlp";
+const track = createTrackingFunction(productId, environment);
+```
+
+This is useful if your application doesn’t manage environment variables for the API base URL and instead relies on environment naming conventions.
+
+#### Tracking events
+
+Now that you have your `track` function, use it in the application code to send telemetry:
 
 ```ts !#7
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environmentVariables = getEnvironmentVariables();
+const environment = "staging";
 const productId = "wlp";
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
+const track = createTrackingFunction(productId, environment);
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
@@ -66,10 +91,10 @@ To track an action targeting another product, use the `targetProductId` option:
 ```ts !#7
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environmentVariables = getEnvironmentVariables();
+const environment = "staging";
 const productId = "wlp";
 const targetProductId = "wov";
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
+const track = createTrackingFunction(productId, environment, {
     targetProductId
 });
 
@@ -81,12 +106,12 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 To track a link click, use the `keepAlive` option to keep the page alive while the tracking request is being processed:
 
 ```ts !#6
-const environmentVariables = getEnvironmentVariables();
+const environment = "staging";
 const productId = "wlp";
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
+const track = createTrackingFunction(productId, environment);
 
-track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, { 
-    keepAlive: true 
+track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
+    keepAlive: true
 });
 ```
 
