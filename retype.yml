@@ -32,7 +32,7 @@ output: .retype
 url: https://workleap.github.io/wl-tracking/
 
 branding:
-    title: "Tracking"
+    title: "Mixpanel"
     logo: ./static/logo.png
 
 favicon: ./static/favicon.png
