@@ -62,8 +62,8 @@ export function createTrackingFunction(productId: string, envOrTrackingApiBaseUr
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 eventName,
-                productId,
-                targetProductId,
+                productIdentifier: productId,
+                targetProductIdentifier : targetProductId,
                 properties: allProperties
             })
         });
