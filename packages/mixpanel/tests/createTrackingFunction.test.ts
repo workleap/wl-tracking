@@ -38,8 +38,8 @@ test("when called, sends a request to the default endpoint with merged propertie
         baseProp: "base",
         customProp: 123
     });
-    expect(body.productId).toBe("wlp");
-    expect(body.targetProductId).toBeNull();
+    expect(body.productIdentifier).toBe("wlp");
+    expect(body.targetProductIdentifier).toBeNull();
 });
 
 test("when an event is tracked, includes the event name in the request body", async ({ expect }) => {
@@ -71,7 +71,7 @@ test("when a targetProductId is provided, includes it in the request body", asyn
 
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
-    expect(body.targetProductId).toBe("target-app");
+    expect(body.targetProductIdentifier).toBe("target-app");
 });
 
 test("when targetProductId is not provided, add it from the request body with null", async ({ expect }) => {
@@ -82,7 +82,7 @@ test("when targetProductId is not provided, add it from the request body with nu
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
 
-    expect(body).toHaveProperty("targetProductId", null);
+    expect(body).toHaveProperty("targetProductIdentifier", null);
 });
 
 test("when base URL ends with a slash, builds correct final URL", async ({ expect }) => {
