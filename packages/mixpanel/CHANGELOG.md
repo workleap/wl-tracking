@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 1.1.1
+
+### Patch Changes
+
+- [#14](https://github.com/workleap/wl-tracking/pull/14) [`a639574`](https://github.com/workleap/wl-tracking/commit/a639574d5d9f1f3a4227db6e356e6a71fad6af1d) Thanks [@alexasselin008](https://github.com/alexasselin008)! - Fixed an issue where the payload had the wrong name for productIdentifier and targetProductIdentifier
+
 ## 1.1.0
 
 ### Minor Changes
