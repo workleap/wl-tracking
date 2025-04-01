@@ -6,17 +6,23 @@ export default {
     "dependencyTypes": ["prod", "dev"],
     "semverGroups": [
         {
-            "packages": ["@workleap/**"],
+            "packages": ["@workleap/*"],
             "dependencyTypes": ["prod", "peer"],
             "range": "^",
             "label": "Packages should use ^ for dependencies and peerDependencies."
         },
         {
-            "packages": ["**"],
-            "dependencyTypes": ["prod", "dev"],
+            "packages": ["@workleap/*"],
+            "dependencyTypes": ["dev"],
             "range": "",
             "label": "Packages should pin devDependencies."
         },
+        {
+            "packages": ["workspace-root"],
+            "dependencyTypes": ["dev"],
+            "range": "",
+            "label": "Workspace root should pin devDependencies."
+        }
     ],
     "versionGroups": [
         {
