@@ -10,7 +10,7 @@
         "url": "git+https://github.com/workleap/wl-tracking.git"
     },
     "scripts": {
-        "build": "turbo run build",
+        "build-pkg": "turbo run build",
         "dev-docs": "retype start",
         "lint": "turbo run lint --continue",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
@@ -19,12 +19,12 @@
         "test": "turbo run test --continue",
         "changeset": "changeset",
         "publish-pkg": "changeset publish",
+        "publish-pr-pkg": "pkg-pr-new publish ./packages/* --packageManager=pnpm --pnpm",
         "clean": "pnpm -r --parallel --include-workspace-root exec pnpm dlx rimraf dist .turbo .rslib node_modules/.cache",
         "reset": "pnpm clean && pnpm reset:modules",
         "reset:modules": "pnpm -r --parallel --include-workspace-root exec pnpm dlx rimraf node_modules pnpm-lock.yaml",
         "list-outdated-deps": "pnpm outdated -r --format list !eslint",
         "update-outdated-deps": "pnpm update -r --latest \"!eslint\""
-
     },
     "devDependencies": {
         "@changesets/changelog-github": "0.5.1",
@@ -33,6 +33,7 @@
         "@workleap/eslint-plugin": "3.3.1",
         "@workleap/typescript-configs": "3.0.2",
         "eslint": "8.57.1",
+        "pkg-pr-new": "0.0.42",
         "prettier": "3.5.3",
         "retypeapp": "3.6.0",
         "syncpack": "13.0.3",
