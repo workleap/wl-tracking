@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 1.1.2
+
+### Patch Changes
+
+- [#22](https://github.com/workleap/wl-tracking/pull/22) [`0c437d0`](https://github.com/workleap/wl-tracking/commit/0c437d055a2f0fcdfd5130a9a2239631d6cdfc4d) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Updated dependencies.
+
 ## 1.1.1
 
 ### Patch Changes
