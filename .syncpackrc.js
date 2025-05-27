@@ -3,7 +3,6 @@
 /** @type {import("syncpack").RcFile} */
 export default {
     "lintFormatting": false,
-    "dependencyTypes": ["prod", "dev"],
     "semverGroups": [
         {
             "packages": ["@workleap/*"],
@@ -27,7 +26,7 @@ export default {
     "versionGroups": [
         {
             "packages": ["**"],
-            "dependencyTypes": ["prod", "peer", "dev"],
+            "dependencyTypes": ["prod", "dev", "peer"],
             "preferVersion": "highestSemver",
             "label": "Packages should have a single version across the repository."
         }
