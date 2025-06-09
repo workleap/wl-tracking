@@ -1,6 +1,5 @@
 ---
 order: 100
-icon: rocket
 ---
 
 # Getting started
@@ -15,23 +14,9 @@ This package add basic Mixpanel tracking capabilities to an application. It prov
 
 First, open a terminal at the root of the application and install the following package:
 
-+++ pnpm
 ```bash
 pnpm add @workleap/mixpanel
 ```
-+++ yarn
-```bash
-yarn add @workleap/mixpanel
-```
-+++ npm
-```bash
-npm install @workleap/mixpanel
-```
-+++
-
-!!!warning
-While you can use any package manager to develop an application with the tracking libraries, it is highly recommended that you use [PNPM](https://pnpm.io/) as the guides has been developed and tested with PNPM.
-!!!
 
 ### Usage
 

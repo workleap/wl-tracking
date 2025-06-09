@@ -6,4 +6,4 @@ expanded: true
 
 # Upgrading
 
-- [Migrate from @workleap/tracking](./migrate-from-workleap-tracking.md)
+- [Migrate from @workleap/tracking](./migrate-to-v1.0.md)
