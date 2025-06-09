@@ -102,7 +102,7 @@ track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 
 ### Migrate from @workleap/tracking
 
-To migrate from the `@workleap/tracking` package, follow the [migration guide](./upgrading/migrate-to-v1.0.md).
+To migrate from the `@workleap/tracking` package, follow the [migration guide](../upgrading/migrate-to-v1.0.md).
 
 
 
