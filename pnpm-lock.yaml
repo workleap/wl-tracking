@@ -33,8 +33,8 @@ importers:
         specifier: 3.5.3
         version: 3.5.3
       retypeapp:
-        specifier: 3.10.0
-        version: 3.10.0
+        specifier: 3.10.1
+        version: 3.10.1
       syncpack:
         specifier: 13.0.4
         version: 13.0.4(typescript@5.8.3)
@@ -3075,8 +3075,8 @@ packages:
     resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==}
     engines: {node: '>= 4'}
 
-  retypeapp@3.10.0:
-    resolution: {integrity: sha512-HaOabpJsB23jmrm8p6NKQ1bL9wlXSXJoTEcl3okIuUv6GZh5ROQECRPxDiYiqi8VNTPhtsEHxmsHE2LQYcu2mA==}
+  retypeapp@3.10.1:
+    resolution: {integrity: sha512-IGIoiA/I9Qlk92huWgjIpbGh+OAUcLm5UNmH6yDDuves1q8s/cLp2ViymPX1BGQVF2Ls8hJn1EqMcGgdgQShPQ==}
     hasBin: true
 
   reusify@1.1.0:
@@ -7380,7 +7380,7 @@ snapshots:
 
   retry@0.12.0: {}
 
-  retypeapp@3.10.0: {}
+  retypeapp@3.10.1: {}
 
   reusify@1.1.0: {}
 
