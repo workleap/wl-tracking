@@ -1,13 +1,13 @@
 {
-    "name": "@workleap/mixpanel",
+    "name": "@workleap/logrocket",
     "author": "Workleap",
-    "version": "1.1.2",
-    "description": "A package containing utilities for Mixpanel telemetry.",
+    "version": "0.0.0",
+    "description": "A package containing utilities for LogRocket.",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/workleap/wl-tracking.git",
-        "directory": "packages/mixpanel"
+        "directory": "packages/logrocket"
     },
     "publishConfig": {
         "access": "public",

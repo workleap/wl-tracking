@@ -17,6 +17,12 @@ export default {
             "label": "Packages should pin devDependencies."
         },
         {
+            "packages": ["@logrocket/*"],
+            "dependencyTypes": ["prod", "dev"],
+            "range": "",
+            "label": "Samples should pin dependencies and devDependencies."
+        },
+        {
             "packages": ["workspace-root"],
             "dependencyTypes": ["dev"],
             "range": "",

@@ -10,8 +10,11 @@
         "url": "git+https://github.com/workleap/wl-tracking.git"
     },
     "scripts": {
-        "build-pkg": "turbo run build",
+        "dev-logrocket": "turbo run dev --filter=./samples/logrocket/**",
         "dev-docs": "retype start",
+        "build-pkg": "turbo run build",
+        "build-logrocket": "turbo run build --filter=./samples/logrocket/**",
+        "serve-logrocket": "turbo run serve-build --filter=./samples/logrocket/**",
         "lint": "turbo run lint --continue",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",
@@ -30,18 +33,20 @@
     },
     "devDependencies": {
         "@changesets/changelog-github": "0.5.1",
-        "@changesets/cli": "2.29.4",
-        "@typescript-eslint/parser": "8.33.0",
+        "@changesets/cli": "2.29.5",
+        "@typescript-eslint/parser": "8.35.0",
         "@workleap/eslint-plugin": "3.4.2",
         "@workleap/typescript-configs": "3.0.4",
         "eslint": "8.57.1",
-        "pkg-pr-new": "0.0.50",
-        "prettier": "3.5.3",
+        "pkg-pr-new": "0.0.54",
+        "prettier": "3.6.2",
         "retypeapp": "3.10.1",
         "syncpack": "13.0.4",
-        "turbo": "2.5.3",
+        "turbo": "2.5.4",
         "typescript": "5.8.3"
+    },
+    "engines": {
+        "node": ">=22.0.0"
     },
     "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }
-

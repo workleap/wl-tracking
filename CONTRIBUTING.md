@@ -5,6 +5,7 @@ The following documentation is only for the maintainers of this repository.
 - [Monorepo setup](#monorepo-setup)
 - [Project overview](#project-overview)
 - [Installation](#installation)
+- [Develop the packages](#develop-the-packages)
 - [Release the packages](#release-the-packages)
 - [Available commands](#commands)
 - [CI](#ci)
@@ -26,7 +27,20 @@ To be understand the relationships between the commands, have a look at this rep
 
 ## Project overview
 
-This project is composed of many packages. Each package is located in the [packages](packages/) directory. These packages represent shared configuration for tools that are used across the Workleap projects.
+This project is split into two major sections, [packages/](./packages) and [samples/](./samples).
+
+### Packages
+
+Under [packages/](./packages/) are the actual tracking libraries.
+
+### Samples
+
+Under [samples/](./samples/) are applications to test the library functionalities while developing.
+
+You'll find two samples:
+
+- `api-key`: A sample application authenticating traces with an Honeycomb [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/).
+- `proxy`: A sample application using a proxy to forward traces to Honeycomb
 
 ## Installation
 
@@ -51,6 +65,16 @@ Then, open a terminal at the root of the workspace and execute the following com
 ```bash
 npx retype wallet --add <your-license-key-here>
 ```
+
+## Develop the packages
+
+Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start the sample application with either of the following scripts:
+
+```bash
+pnpm dev-logrocket
+```
+
+You can then open your favorite browser and navigate to `http://localhost:8080/` to get a live preview of your code.
 
 ## Release the packages
 
@@ -84,12 +108,12 @@ By default, packages compilation output will be in their respective *dist* direc
 
 From the project root, you have access to many commands the main ones are:
 
-### build
+### dev-logrocket
 
-Build the packages for release.
+Build the LogRocket sample application for development and start the dev servers.
 
 ```bash
-pnpm build
+pnpm dev-logrocket
 ```
 
 ### dev-docs
@@ -98,6 +122,30 @@ Start the [Retype](https://retype.com/) dev server. If you are experiencing issu
 
 ```bash
 pnpm dev-docs
+```
+
+### build-pkg
+
+Build the packages for release.
+
+```bash
+pnpm build-pkg
+```
+
+### build-logrocket
+
+Build the LogRocket sample application for release.
+
+```bash
+pnpm build-logrocket
+```
+
+### serve-logrocket
+
+Build the LogRocket sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-logrocket
 ```
 
 ### lint
