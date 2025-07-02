@@ -1,7 +1,7 @@
 import type { TelemetryContext } from "@workleap/telemetry";
 import { isDefined } from "./assertions.ts";
 
-export interface WorkleapLogRocketIdentification {
+export interface LogRocketIdentification {
     userId: string;
     organizationId: string;
     organizationName: string;
@@ -36,14 +36,14 @@ export interface WorkleapLogRocketIdentification {
     };
 }
 
-export interface WorkleapUserTraits extends Record<string, unknown> {
+export interface LogRocketUserTraits extends Record<string, unknown> {
     "User Id": string;
     "Organization Id": string;
     "Organization Name": string;
     "Is Migrated To Workleap": boolean;
     "Is Admin": boolean;
     "Device Id": string;
-    "Visit Id": string;
+    "Telemetry Id": string;
     "Is Organization Creator"?: boolean;
     "Is Executive"?: boolean;
     "Is Executive - Officevibe"?: boolean;
@@ -70,7 +70,7 @@ export interface WorkleapUserTraits extends Record<string, unknown> {
 }
 
 export const DeviceIdTrait = "Device Id";
-export const VisitIdTrait = "Visit Id";
+export const TelemetryIdTrait = "Telemetry Id";
 
 let telemetryContext: TelemetryContext | undefined;
 
@@ -78,7 +78,7 @@ export function setTelemetryContext(context: TelemetryContext) {
     telemetryContext = context;
 }
 
-export function createWorkleapUserTraits(identification: WorkleapLogRocketIdentification, additionalTraits?: Record<string, string>) {
+export function createDefaultUserTraits(identification: LogRocketIdentification) {
     const {
         userId,
         organizationId,
@@ -111,10 +111,6 @@ export function createWorkleapUserTraits(identification: WorkleapLogRocketIdenti
         isCollaborator?.pbd
     );
 
-    const processedAdditionalTraits = additionalTraits
-        ? Object.keys(additionalTraits).reduce((acc, key) => additionalTraits[key] ? { ...acc } : { ...acc, [key]: additionalTraits[key] }, {})
-        : {};
-
     return {
         "User Id": userId,
         "Organization Id": organizationId,
@@ -122,7 +118,7 @@ export function createWorkleapUserTraits(identification: WorkleapLogRocketIdenti
         "Is Migrated To Workleap": isMigratedToWorkleap,
         "Is Admin": isAdmin,
         [DeviceIdTrait]: telemetryContext?.deviceId ?? "N/A",
-        [VisitIdTrait]: telemetryContext?.visitId ?? "N/A",
+        [TelemetryIdTrait]: telemetryContext?.telemetryId ?? "N/A",
         ...(isDefined(isOrganizationCreator) && { "Is Organization Creator": isOrganizationCreator }),
         ...(isExecutiveInAnyProduct && { "Is Executive": true }),
         ...(isDefined(isExecutive?.wov) && { "Is Executive - Officevibe": isExecutive.wov }),
@@ -145,7 +141,6 @@ export function createWorkleapUserTraits(identification: WorkleapLogRocketIdenti
         ...(isDefined(planCode?.onb) && { "Plan Code - Onboarding": planCode.onb }),
         ...(isDefined(planCode?.sks) && { "Plan Code - Skills": planCode.sks }),
         ...(isDefined(planCode?.wpm) && { "Plan Code - Performance": planCode.wpm }),
-        ...(isDefined(planCode?.pbd) && { "Plan Code - Pingboard": planCode.pbd }),
-        ...processedAdditionalTraits
-    } satisfies WorkleapUserTraits;
+        ...(isDefined(planCode?.pbd) && { "Plan Code - Pingboard": planCode.pbd })
+    } satisfies LogRocketUserTraits;
 }

@@ -5,13 +5,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-const telemetryContext = createTelemetryContext();
-
-registerLogRocketInstrumentation(process.env.LOGROCKET_APP_ID as string, telemetryContext, {
+const telemetryContext = createTelemetryContext({
     verbose: true
 });
 
-LogRocket.identify("toto");
+registerLogRocketInstrumentation(process.env.LOGROCKET_APP_ID as string, telemetryContext);
+
+LogRocket.identify(crypto.randomUUID());
 
 const root = createRoot(document.getElementById("root")!);
 

@@ -15,13 +15,16 @@ export function Layout() {
                     <Link to="/subscription">Subscription</Link>
                 </li>
                 <li>
+                    <Link to="/identify">Identify</Link>
+                </li>
+                <li>
                     <Link to="/failing">Failing</Link>
                 </li>
                 <li>
                     <Link to="/throwing">Throwing</Link>
                 </li>
             </ul>
-            <div>
+            <div data-public>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Outlet />
                 </Suspense>

@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 
-// The identity cookie is a concept created by Workleap's marketing teams. This cookie will allow apps to
-// identify a device accross multiple sites / apps.
+// The identity cookie is a concept created by Workleap's marketing teams. With this cookie, telemetry data can be
+// correlated with a device id accross multiple sites / apps.
 const IdentityCookieName = "wl-identity";
 
 interface IdentityCookie {
@@ -10,16 +10,16 @@ interface IdentityCookie {
 }
 
 export class TelemetryContext {
-    readonly #visitId: string;
+    readonly #telemetryId: string;
     readonly #deviceId: string;
 
-    constructor(visitId: string, deviceId: string) {
-        this.#visitId = visitId;
+    constructor(telemetryId: string, deviceId: string) {
+        this.#telemetryId = telemetryId;
         this.#deviceId = deviceId;
     }
 
-    get visitId() {
-        return this.#visitId;
+    get telemetryId() {
+        return this.#telemetryId;
     }
 
     get deviceId() {
@@ -28,46 +28,52 @@ export class TelemetryContext {
 }
 
 export interface GetTelemetryContextOptions {
-    cookieExpirationInDays?: number;
+    cookieExpiration?: Date;
     cookieDomain?: string;
+    verbose?: boolean;
 }
 
 export function createTelemetryContext(options: GetTelemetryContextOptions = {}) {
-    const visitId = uuidv4();
-    const identityCookie = getIdentityCookie();
-
-    if (identityCookie && identityCookie.deviceId) {
-        return new TelemetryContext(visitId, identityCookie.deviceId);
-    }
-
     const {
-        cookieExpirationInDays = 365,
-        cookieDomain = ".workleap"
+        cookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        cookieDomain = ".workleap",
+        verbose = false
     } = options;
 
-    const deviceId = uuidv4();
+    let deviceId = getDeviceId();
 
-    setIdentityCookie(deviceId, cookieExpirationInDays, cookieDomain);
+    if (!deviceId) {
+        deviceId = uuidv4();
 
-    return new TelemetryContext(visitId, deviceId);
+        setDeviceId(deviceId, cookieExpiration, cookieDomain);
+    }
+
+    const telemetryId = uuidv4();
+
+    if (verbose) {
+        console.log(`[telemetry] Context id is: ${telemetryId}`);
+        console.log(`[Telemetry] Device id is: ${deviceId}`);
+    }
+
+    return new TelemetryContext(telemetryId, deviceId);
 }
 
-function getIdentityCookie() {
-    const cookie = Cookies.get(IdentityCookieName);
+function getDeviceId() {
+    try {
+        const cookie = Cookies.get(IdentityCookieName);
 
-    if (cookie) {
-        try {
-            const parsedCookie = JSON.parse(cookie);
+        if (cookie) {
+            const parsedCookie = JSON.parse(cookie) as IdentityCookie;
 
-            return parsedCookie as IdentityCookie;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error: unknown) {
-            // Do nothing.
+            return parsedCookie.deviceId;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error: unknown) {
+        // Do nothing.
     }
 }
 
-function setIdentityCookie(deviceId: string, cookieExpirationInDays: number, cookieDomain: string) {
+function setDeviceId(deviceId: string, cookieExpiration: Date, cookieDomain: string) {
     const value = {
         deviceId
     } satisfies IdentityCookie;
@@ -75,7 +81,7 @@ function setIdentityCookie(deviceId: string, cookieExpirationInDays: number, coo
     try {
         // Not setting an expiration date because we want a "session" cookie.
         Cookies.set(IdentityCookieName, JSON.stringify(value), {
-            expires: cookieExpirationInDays,
+            expires: cookieExpiration,
             domain: cookieDomain
         });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary.tsx";
 import { FailingPage } from "./FailingPage.tsx";
 import { HomePage } from "./HomePage.tsx";
+import { IdentifyPage } from "./Identify.tsx";
 import { Layout } from "./Layout.tsx";
 import { MoviesPage } from "./MoviesPage.tsx";
 import { SubscriptionPage } from "./SubscriptionPage.tsx";
@@ -42,6 +43,12 @@ export function App() {
                                         <QueryClientProvider client={queryClient}>
                                             <SubscriptionPage />
                                         </QueryClientProvider>
+                                    )
+                                },
+                                {
+                                    path: "identify",
+                                    element: (
+                                        <IdentifyPage />
                                     )
                                 },
                                 {

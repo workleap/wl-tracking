@@ -2,7 +2,7 @@ import type { TelemetryContext } from "@workleap/telemetry";
 import LogRocket from "logrocket";
 import LogrocketFuzzySanitizer from "logrocket-fuzzy-search-sanitizer";
 import { applyTransformers, type LogRocketSdkOptionsTransformer } from "./applyTransformers.ts";
-import { DeviceIdTrait, setTelemetryContext, VisitIdTrait } from "./createDefaultUserTraits.ts";
+import { DeviceIdTrait, setTelemetryContext, TelemetryIdTrait } from "./createDefaultUserTraits.ts";
 import { createRequestSanitizer } from "./createRequestSanitizer.ts";
 import { createResponseSanitizer } from "./createResponseSanitizer.ts";
 import { createUrlSanitizer } from "./createUrlSanitizer.ts";
@@ -13,7 +13,6 @@ export interface RegisterLogRocketInstrumentationOptions {
     rootHostname?: LogRocketSdkOptions["rootHostname"];
     privateFieldNames?: string[];
     privateQueryParameterNames?: string[];
-    verbose?: boolean;
     transformers?: LogRocketSdkOptionsTransformer[];
 }
 
@@ -71,10 +70,6 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
 }
 
 export function registerLogRocketInstrumentation(appId: string, telemetryContext: TelemetryContext, options: RegisterLogRocketInstrumentationOptions = {}) {
-    const {
-        verbose = false
-    } = options;
-
     const sdkOptions = getLogRocketSdkOptions(options);
 
     // Session starts anonymously when LogRocket.init() is called.
@@ -84,16 +79,11 @@ export function registerLogRocketInstrumentation(appId: string, telemetryContext
     // If LogRocket.identify is called multiple times during a recording, you can search for any of the identified users in the session.
     LogRocket.identify(telemetryContext.deviceId, {
         [DeviceIdTrait]: telemetryContext.deviceId,
-        [VisitIdTrait]: telemetryContext.visitId
+        [TelemetryIdTrait]: telemetryContext.telemetryId
     });
 
     // Save the tracking id to include it as a trait if the user is identified.
     setTelemetryContext(telemetryContext);
-
-    if (verbose) {
-        console.log(`[logrocket] Telemetry context device id is: ${telemetryContext.deviceId}`);
-        console.log(`[logrocket] Telemetry context visit id is: ${telemetryContext.visitId}`);
-    }
 
     // Indicates to the host applications that logrocket has been initialized.
     // It's useful in cases where an "add-on", like the platform widgets needs
