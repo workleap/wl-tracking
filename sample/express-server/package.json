@@ -1,5 +1,5 @@
 {
-    "name": "@logrocket/express-server",
+    "name": "@sample/express-server",
     "author": "Workleap",
     "version": "0.0.0",
     "description": "Express server for the LogRocket sample appication.",

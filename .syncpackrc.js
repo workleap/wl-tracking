@@ -5,6 +5,12 @@ export default {
     "lintFormatting": false,
     "semverGroups": [
         {
+            // Only the version "0.0.2" of the dependency seems to work.
+            "packages": ["@workleap/*"],
+            "dependencies": ["logrocket-fuzzy-search-sanitizer"],
+            "isIgnored": true
+        },
+        {
             "packages": ["@workleap/*"],
             "dependencyTypes": ["prod", "peer"],
             "range": "^",
@@ -17,7 +23,7 @@ export default {
             "label": "Packages should pin devDependencies."
         },
         {
-            "packages": ["@logrocket/*"],
+            "packages": ["@sample/*"],
             "dependencyTypes": ["prod", "dev"],
             "range": "",
             "label": "Samples should pin dependencies and devDependencies."

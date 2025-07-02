@@ -1,13 +1,13 @@
 {
-    "name": "@workleap/logrocket",
+    "name": "@workleap/telemetry",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "A package containing utilities for LogRocket.",
+    "description": "A package including telemetry utilities for Workleap web applications.",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/workleap/wl-tracking.git",
-        "directory": "packages/logrocket"
+        "directory": "packages/telemetry"
     },
     "type": "module",
     "publishConfig": {
@@ -31,26 +31,21 @@
     "scripts": {
         "build": "rslib build --config ./rslib.build.ts",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
-        "typecheck": "tsc",
-        "test": "vitest --config vitest.config.ts --no-watch"
-    },
-    "peerDependencies": {
-        "logrocket": "^10.1.0"
+        "typecheck": "tsc"
     },
     "dependencies": {
-        "@workleap/telemetry": "workspace:*",
-        "logrocket-fuzzy-search-sanitizer": "0.0.2"
+        "js-cookie": "^3.0.5",
+        "uuid": "^11.1.0"
     },
     "devDependencies": {
         "@rsbuild/core": "1.4.2",
         "@rslib/core": "0.10.4",
+        "@types/js-cookie": "3.0.6",
         "@workleap/eslint-plugin": "3.4.2",
         "@workleap/rslib-configs": "1.0.6",
         "@workleap/typescript-configs": "3.0.4",
         "eslint": "8.57.1",
-        "happy-dom": "18.0.1",
-        "typescript": "5.8.3",
-        "vitest": "3.2.4"
+        "typescript": "5.8.3"
     },
     "sideEffects": false
 }

@@ -1,5 +1,5 @@
 {
-    "name": "@logrocket/app",
+    "name": "@sample/app",
     "author": "Workleap",
     "version": "0.0.0",
     "description": "Sample application to test the LogRocket library.",
@@ -18,6 +18,8 @@
     "dependencies": {
         "@tanstack/react-query": "5.81.5",
         "@workleap/logrocket": "workspace:*",
+        "@workleap/telemetry": "workspace:*",
+        "logrocket": "10.1.0",
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-router-dom": "7.6.3"

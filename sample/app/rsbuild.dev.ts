@@ -3,7 +3,7 @@ import { defineDevConfig } from "@workleap/rsbuild-configs";
 import path from "node:path";
 
 const { parsed } = loadEnv({
-    cwd: path.resolve("../../..")
+    cwd: path.resolve("../..")
 });
 
 export default defineDevConfig({

@@ -54,8 +54,8 @@ jobs:
       - name: Build packages
         run: pnpm build-pkg
 
-      - name: Build logrocket sample
-        run: pnpm build-logrocket
+      - name: Build sample
+        run: pnpm build-sample
 
       - name: Test packages
         run: pnpm test

@@ -27,20 +27,15 @@ To be understand the relationships between the commands, have a look at this rep
 
 ## Project overview
 
-This project is split into two major sections, [packages/](./packages) and [samples/](./samples).
+This project is split into two major sections, [packages/](./packages) and [sample/](./sample).
 
 ### Packages
 
 Under [packages/](./packages/) are the actual tracking libraries.
 
-### Samples
+### Sample
 
-Under [samples/](./samples/) are applications to test the library functionalities while developing.
-
-You'll find two samples:
-
-- `api-key`: A sample application authenticating traces with an Honeycomb [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/).
-- `proxy`: A sample application using a proxy to forward traces to Honeycomb
+Under [sample/](./sample/) is an applications to test the libraries functionalities while developing.
 
 ## Installation
 
@@ -108,12 +103,12 @@ By default, packages compilation output will be in their respective *dist* direc
 
 From the project root, you have access to many commands the main ones are:
 
-### dev-logrocket
+### dev-sample
 
-Build the LogRocket sample application for development and start the dev servers.
+Build the sample application for development and start the dev servers.
 
 ```bash
-pnpm dev-logrocket
+pnpm dev-sample
 ```
 
 ### dev-docs
@@ -132,20 +127,20 @@ Build the packages for release.
 pnpm build-pkg
 ```
 
-### build-logrocket
+### build-sample
 
-Build the LogRocket sample application for release.
+Build the sample application for release.
 
 ```bash
-pnpm build-logrocket
+pnpm build-sample
 ```
 
-### serve-logrocket
+### serve-sample
 
-Build the LogRocket sample application for deployment and start a local web server to serve the application.
+Build the sample application for deployment and start a local web server to serve the application.
 
 ```bash
-pnpm serve-logrocket
+pnpm serve-sample
 ```
 
 ### lint
@@ -228,7 +223,7 @@ This action will trigger when a commit is done in a PR to `main` or after a push
 
 There are a few steps to add new packages to the monorepo.
 
-Before you add a new package, please read the [GSoft GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name).
+Before you add a new package, please read the [Workleap GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name).
 
 ### Create the package
 
@@ -242,7 +237,7 @@ pnpm init
 
 Answer the CLI questions.
 
-Once the *package.json* is generated, please read again the [GSoft GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name) and make sure the package name, author and license are valid.
+Once the *package.json* is generated, please read again the [Workleap GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name) and make sure the package name, author and license are valid.
 
 Don't forget to add the [npm scope](https://docs.npmjs.com/about-scopes) *"@workleap"* before the package name. For example, if the project name is "foo", your package name should be "@workleap/foo".
 

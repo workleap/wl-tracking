@@ -9,19 +9,19 @@
         "url": "git+https://github.com/workleap/wl-tracking.git",
         "directory": "packages/mixpanel"
     },
+    "type": "module",
     "publishConfig": {
         "access": "public",
-        "provenance": true
-    },
-    "type": "module",
-    "main": "./dist/index.js",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
+        "provenance": true,
+        "exports": {
+            ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "default": "./dist/index.js"
+            }
         }
     },
+    "exports": "./src/index.ts",
     "files": [
         "src",
         "dist",
