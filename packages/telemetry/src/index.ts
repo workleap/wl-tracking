@@ -1,2 +1,2 @@
-export { createTelemetryContext, type GetTelemetryContextOptions, type TelemetryContext } from "./TelemetryContext.ts";
+export { createTelemetryContext, TelemetryContext, type GetTelemetryContextOptions } from "./createTelemetryContext.ts";
 

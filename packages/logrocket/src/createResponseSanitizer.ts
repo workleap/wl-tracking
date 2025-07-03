@@ -1,7 +1,7 @@
 import type { LogRocketResponse } from "./logRocketTypes.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ResponseSanitizerFunction = (req: LogRocketResponse) => any;
+export type ResponseSanitizerFunction = (res: LogRocketResponse) => any;
 
 export function createResponseSanitizer(fuzzyResponseSanitizer: ResponseSanitizerFunction) {
     return (res: LogRocketResponse) => {

@@ -31,7 +31,8 @@
     "scripts": {
         "build": "rslib build --config ./rslib.build.ts",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "test": "vitest --config vitest.config.ts --no-watch"
     },
     "dependencies": {
         "js-cookie": "^3.0.5",
@@ -45,7 +46,9 @@
         "@workleap/rslib-configs": "1.0.6",
         "@workleap/typescript-configs": "3.0.4",
         "eslint": "8.57.1",
-        "typescript": "5.8.3"
+        "happy-dom": "18.0.1",
+        "typescript": "5.8.3",
+        "vitest": "3.2.4"
     },
     "sideEffects": false
 }

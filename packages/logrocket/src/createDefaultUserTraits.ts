@@ -72,13 +72,13 @@ export interface LogRocketUserTraits extends Record<string, unknown> {
 export const DeviceIdTrait = "Device Id";
 export const TelemetryIdTrait = "Telemetry Id";
 
-let telemetryContext: TelemetryContext | undefined;
+let internalTelemetryContext: TelemetryContext | undefined;
 
 export function setTelemetryContext(context: TelemetryContext) {
-    telemetryContext = context;
+    internalTelemetryContext = context;
 }
 
-export function createDefaultUserTraits(identification: LogRocketIdentification) {
+export function createDefaultUserTraits(identification: LogRocketIdentification, telemetryContext?: TelemetryContext) {
     const {
         userId,
         organizationId,
@@ -111,14 +111,16 @@ export function createDefaultUserTraits(identification: LogRocketIdentification)
         isCollaborator?.pbd
     );
 
+    const _telemetryContext = telemetryContext ?? internalTelemetryContext;
+
     return {
         "User Id": userId,
         "Organization Id": organizationId,
         "Organization Name": organizationName,
         "Is Migrated To Workleap": isMigratedToWorkleap,
         "Is Admin": isAdmin,
-        [DeviceIdTrait]: telemetryContext?.deviceId ?? "N/A",
-        [TelemetryIdTrait]: telemetryContext?.telemetryId ?? "N/A",
+        [DeviceIdTrait]: _telemetryContext?.deviceId ?? "N/A",
+        [TelemetryIdTrait]: _telemetryContext?.telemetryId ?? "N/A",
         ...(isDefined(isOrganizationCreator) && { "Is Organization Creator": isOrganizationCreator }),
         ...(isExecutiveInAnyProduct && { "Is Executive": true }),
         ...(isDefined(isExecutive?.wov) && { "Is Executive - Officevibe": isExecutive.wov }),

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // The identity cookie is a concept created by Workleap's marketing teams. With this cookie, telemetry data can be
 // correlated with a device id accross multiple sites / apps.
-const IdentityCookieName = "wl-identity";
+export const IdentityCookieName = "wl-identity";
 
 interface IdentityCookie {
     deviceId: string;
@@ -42,8 +42,14 @@ export function createTelemetryContext(options: GetTelemetryContextOptions = {})
 
     let deviceId = getDeviceId();
 
+    console.log("!!!!!!!!!!!!");
+    console.log("!!!!!!!!!!!!", deviceId);
+
     if (!deviceId) {
         deviceId = uuidv4();
+
+        console.log("$$$$$$$$$$$");
+        console.log("$$$$$$$$$$$");
 
         setDeviceId(deviceId, cookieExpiration, cookieDomain);
     }
@@ -78,14 +84,19 @@ function setDeviceId(deviceId: string, cookieExpiration: Date, cookieDomain: str
         deviceId
     } satisfies IdentityCookie;
 
-    try {
-        // Not setting an expiration date because we want a "session" cookie.
-        Cookies.set(IdentityCookieName, JSON.stringify(value), {
-            expires: cookieExpiration,
-            domain: cookieDomain
-        });
+    console.log("aaaaaaaaaaa");
+    console.log("aaaaaaaaaaa", value);
+
+    //try {
+    // Not setting an expiration date because we want a "session" cookie.
+    Cookies.set(IdentityCookieName, JSON.stringify(value), {
+        expires: cookieExpiration,
+        domain: cookieDomain
+    });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error: unknown) {
-        // Do nothing.
-    }
+    // } catch (error: unknown) {
+    //     console.error(error);
+
+    //     // Do nothing.
+    // }
 }
