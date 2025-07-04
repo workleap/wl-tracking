@@ -41,7 +41,7 @@ output: .retype
 url: https://workleap.github.io/wl-tracking/
 
 branding:
-    title: "Mixpanel"
+    title: "Telemetry"
     logo: ./static/logo.png
 
 favicon: ./static/favicon.png
