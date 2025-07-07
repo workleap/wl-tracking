@@ -27,24 +27,6 @@ registerLogRocketInstrumentation(appId, telemetryContext, options?: {})
 
 Nothing
 
-## Privacy
-
-By default, this instrumentation hides a wide range of information from session replays to protect user privacy:
-
-- **DOM sanitization**: [LogRocket's DOM sanitization](https://docs.logrocket.com/reference/dom) to hide sensitive text elements from session replays. To allow specific content to appear, add the `data-public` attribute to the elements you want to expose.
-- **Network sanitization**: [LogRocket's network data sanitization](https://docs.logrocket.com/reference/network) is used to strip sensitive information from request/response headers and body from session replays.
-- **URL sanitization**: [LogRocket's URLs sanitization](https://docs.logrocket.com/reference/browser) is used to strip sensitive information from URLs' query string parameters.
-
-### Record the content of an element
-
-Use `data-public` to explicitly allow LogRocket to record the content of an element. When this attribute is present, the content inside the element (including child elements) will be captured in the session replay:
-
-```html
-<div data-public>
-    This text will be visible in the session replay.
-</div>
-```
-
 ## Predefined options
 
 The `registerLogRocketInstrumentation(appId, telemetryContext, options?: {})` function also accepts a few predefined options 👇
@@ -67,7 +49,7 @@ registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
 });
 ```
 
-### privateFieldNames
+### `privateFieldNames`
 
 - **Type**: `string[]`
 - **Default**:  `undefined`
@@ -87,12 +69,12 @@ registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
 
 To view the default private fields, have a look at the [registerLogRocketInstrumentation.ts](TBD) file on GitHub.
 
-### privateQueryParameterNames
+### `privateQueryParameterNames`
 
 - **Type**: `string[]`
 - **Default**:  `undefined`
 
-Names of additional fields to exclude from session replays. These fields will be removed from query string parameters using a fuzzy-matching algorithm.
+Names of additional fields to exclude from session replays. These fields will be removed from query parameters using a fuzzy-matching algorithm.
 
 ```ts !#7
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";

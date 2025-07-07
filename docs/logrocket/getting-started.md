@@ -11,7 +11,7 @@ toc:
 
 To gain full visibility into frontend behavior in production, Workleap has adopted [LogRocket](https://logrocket.com/), a tool that combines session replay, performance tracking, and error logging to help understand and resolve issues in production.
 
-This package provides default LogRocket instrumentation tailored to Workleap's web applications needs, including the removal of sensitive information from HTML documents, URLs, and HTTP requests/responses.
+This package provides default LogRocket instrumentation tailored to Workleap's web applications needs, including the removal of sensitive information from HTML documents, HTTP requests/responses and URLs.
 
 ## Install the packages
 
@@ -115,6 +115,26 @@ Session replays offer a wide range of features to help debug production issues, 
 ![](../static/logrocket/logrocket-dom-interactions.png)
 :::
 
+## Record elements
+
+By default, this instrumentation sanitizes all user-provided text inputs and content. This includes:
+
+- Form fields (like `<input>`, `<textarea>`)
+- Text content inside HTML elements
+- Dynamic DOM mutations containing text
+
+Use `data-public` to explicitly allow LogRocket to record the content of an element. When this attribute is present, the content inside the element (including child elements) will be captured in the session replay:
+
+```html
+<div data-public>
+    This text will be visible in the session replay.
+</div>
+```
+
+!!!tip
+To learn more about the built-in privacy settings of this instrumentation, refer to the [Privacy](./privacy.md) page.
+!!!
+
 ## Identify a user
 
 Most applications need to identify the current user environment. To help with that, `@workleap/logrocket` exposes the [createDefaultUserTraits](./reference/createDefaultUserTraits.md) function. When used with [LogRocket.identify](https://docs.logrocket.com/reference/identify), it provides all the tools to identify a  user with the key information that we track at Workleap.
@@ -156,22 +176,6 @@ LogRocket.identify("6a5e6b06-0cac-44ee-8d2b-00b9419e7da9", createDefaultUserTrai
     isOrganizationCreator: false,
     isAdmin: false
 }));
-```
-
-## Privacy
-
-By default, this instrumentation sanitizes all user-provided text inputs and content. This includes:
-
-- Form fields (like `<input>`, `<textarea>`)
-- Text content inside HTML elements
-- Dynamic DOM mutations containing text
-
-Use `data-public` to explicitly allow LogRocket to record the content of an element. When this attribute is present, the content inside the element (including child elements) will be captured in the session replay:
-
-```html
-<div data-public>
-    This text will be visible in the session replay.
-</div>
 ```
 
 ## Try it :rocket:
