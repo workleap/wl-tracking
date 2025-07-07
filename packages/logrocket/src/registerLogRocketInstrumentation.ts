@@ -49,12 +49,15 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
 
     // The "LogrocketFuzzySearch.setup" code is akward. For now, we prefer to play it safe and call it once here, then forward the sanitize functions
     // to the appropriate factories.
-    // No clue with the "setup" method is not available. This package is shady.
+    // No clue why the "setup" method is not available. This package is shady.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { requestSanitizer: fuzzyRequestSanitizer, responseSanitizer: fuzzyResponseSanitizer } = LogrocketFuzzySanitizer.setup(mergedPrivateFieldNames);
 
     const sdkOptions = {
+        console: {
+            isEnabled: false
+        },
         rootHostname,
         dom: {
             textSanitizer: true,

@@ -25,12 +25,11 @@ pnpm add @workleap/mixpanel
 
 First, retrieve a `track` function by executing the `createTrackingFunction` factory function.
 
-```ts !#5
+```ts !#4
 import { createTrackingFunction } from "@workleap/mixpanel";
 
 const environmentVariables = getEnvironmentVariables();
-const productId = "wlp";
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
+const track = createTrackingFunction("wlp", environmentVariables.navigationApiBaseUrl);
 ```
 
 ## Specify an environment
@@ -46,12 +45,10 @@ Accepted environment strings are:
 
 For example:
 
-```ts !#5
+```ts
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
+const track = createTrackingFunction("wlp", "staging");
 ```
 
 This is useful if your application doesn’t manage environment variables for the API base URL and instead relies on environment naming conventions.
@@ -60,12 +57,10 @@ This is useful if your application doesn’t manage environment variables for th
 
 Now that you have your `track` function, use it in the application code to send telemetry:
 
-```ts !#7
+```ts !#5
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
+const track = createTrackingFunction("wlp", "staging");
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
@@ -74,14 +69,11 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 
 To track an action targeting another product, use the `targetProductId` option:
 
-```ts !#7
+```ts !#4
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environment = "staging";
-const productId = "wlp";
-const targetProductId = "wov";
-const track = createTrackingFunction(productId, environment, {
-    targetProductId
+const track = createTrackingFunction("wlp", "staging";, {
+    targetProductId: "wov"
 });
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
@@ -91,10 +83,8 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 
 To track a link click, use the `keepAlive` option to keep the page alive while the tracking request is being processed:
 
-```ts !#6
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
+```ts !#4
+const track = createTrackingFunction("wlp", "staging");
 
 track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
     keepAlive: true
@@ -103,7 +93,7 @@ track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 
 ## Migrate to v1.0
 
-To migrate from the `@workleap/tracking` package, follow the [migration guide](../upgrading/migrate-to-v1.0.md).
+To migrate from the `@workleap/tracking` package, follow the [migration guide](./updating/migrate-to-v1.0.md).
 
 
 
