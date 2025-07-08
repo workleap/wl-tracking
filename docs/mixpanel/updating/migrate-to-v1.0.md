@@ -7,25 +7,12 @@ meta:
 
 # Migrate to v1.0
 
-`buildTrackingFunction` has been renamed to `createTrackingFunction`.
+## Breaking changes
 
-`createTrackingFunction` now accepts the following arguments:
+- The `buildTrackingFunction` function has been renamed to `createTrackingFunction`.
+- The `createTrackingFunction` function now accepts a new sets of arguments.
 
-- `productId` as the first argument
-- `baseUrl` as the second argument
-- `options` as the third argument
-
-Before:
-
-```ts
-const track = buildTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
-```
-
-After:
-
-```ts
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
-```
+### New function arguments
 
 The `buildTrackingFunction` function had multiple overloads, the new `createTrackingFunction` function has a single signature with an options object.
 

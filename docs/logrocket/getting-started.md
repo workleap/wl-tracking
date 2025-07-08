@@ -185,8 +185,8 @@ Start the application in a development environment using the dev script. Render 
 You can try filtering the session list using different user traits, such as:
 
 - `User Id`
+- `Telemetry Id`
 - `Device Id`
-- `Tracking Id`
 
 ## Migrate to v1.0
 

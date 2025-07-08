@@ -53,13 +53,9 @@ const traits = createDefaultUserTraits(identification, telemetryContext?)
 
 ### Returns
 
-An object including the [default user traits](#default-user-traits) matching the provided identification values.
-
-## Default user traits
-
 An object including the default user traits matching the provided identification values:
 
-{.compact}
+{.user-traits-table}
 User Trait Name | Description
 ---  | ---
 User Id | <p>A value that uniquely identifies the current user.<br/>(in case of multiple workspaces, this id would be different per workspace)</p><p>ex. `fa88ed6b-9ff4-48a0-b3a6-cee17b4855e9`</p>
@@ -78,7 +74,7 @@ Plan Code - Officevibe<br/>Plan Code - LMS<br/>Plan Code - Onboarding<br/>Plan C
 
 ## Send additional user traits
 
-You can send custom user traits to improve filtering in LogRocket. To do so, merge the default user traits with your additional traits before sending them:
+You can send custom user traits to improve filtering in [LogRocket](https://app.logrocket.com). To do so, merge the default user traits with your additional traits before sending them:
 
 ```ts !#13
 import { createDefaultUserTraits } from "@workleap/logrocket";
