@@ -51,7 +51,7 @@ export function createTelemetryContext(options: GetTelemetryContextOptions = {})
     const telemetryId = uuidv4();
 
     if (verbose) {
-        console.log(`[telemetry] Context id is: ${telemetryId}`);
+        console.log(`[telemetry] Telemetry id is: ${telemetryId}`);
         console.log(`[Telemetry] Device id is: ${deviceId}`);
     }
 

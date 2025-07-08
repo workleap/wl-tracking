@@ -33,9 +33,15 @@ This project is split into two major sections, [packages/](./packages) and [samp
 
 Under [packages/](./packages/) are the actual tracking libraries.
 
-### Sample
+### Samples
 
-Under [sample/](./sample/) is an applications to test the libraries functionalities while developing.
+Under [samples/](samples/) are applications to test the Squide functionalities while developing.
+
+You'll find 3 samples:
+
+- `all-platforms`: A sample application showcasing the integrations of all Workleap's telemetry platforms.
+- `honeycomb-api-key`: A sample application authenticating traces with an Honeycomb [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/).
+- `honeycomb-proxy`: A sample application using a proxy to forward traces to Honeycomb
 
 ## Installation
 
@@ -103,12 +109,28 @@ By default, packages compilation output will be in their respective *dist* direc
 
 From the project root, you have access to many commands the main ones are:
 
-### dev-sample
+### dev-all-platforms
 
-Build the sample application for development and start the dev servers.
+Build the all-platforms sample application for development and start the dev servers.
 
 ```bash
-pnpm dev-sample
+pnpm dev-all-platforms
+```
+
+### dev-honeycomb-api-key
+
+Build the honeycomb-api-key sample application for development and start the dev servers.
+
+```bash
+pnpm dev-honeycomb-api-key
+```
+
+### dev-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for development and start the dev servers.
+
+```bash
+pnpm dev-honeycomb-proxy
 ```
 
 ### dev-docs
@@ -127,20 +149,52 @@ Build the packages for release.
 pnpm build-pkg
 ```
 
-### build-sample
+### build-all-platforms
 
-Build the sample application for release.
+Build the all-platforms sample application for release.
 
 ```bash
-pnpm build-sample
+pnpm build-all-platforms
 ```
 
-### serve-sample
+### build-honeycomb-api-key
 
-Build the sample application for deployment and start a local web server to serve the application.
+Build the honeycomb-api-key sample application for release.
 
 ```bash
-pnpm serve-sample
+pnpm build-honeycomb-api-key
+```
+
+### build-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for release.
+
+```bash
+pnpm build-honeycomb-proxy
+```
+
+### serve-all-platforms
+
+Build the all-platforms sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-all-platforms
+```
+
+### serve-honeycomb-api-key
+
+Build the honeycomb-api-key sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-honeycomb-api-key
+```
+
+### serve-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-honeycomb-proxy
 ```
 
 ### lint

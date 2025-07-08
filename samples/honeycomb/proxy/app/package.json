@@ -1,8 +1,8 @@
 {
-    "name": "@sample/app",
+    "name": "@honeycomb-proxy/app",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Sample application to test the LogRocket library.",
+    "description": "Sample application to tests the Honeycomb library with a setup using a proxy to send the traces to Honeycomb.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
@@ -16,26 +16,25 @@
         "typecheck": "tsc"
     },
     "dependencies": {
-        "@tanstack/react-query": "5.81.5",
-        "@workleap/logrocket": "workspace:*",
-        "@workleap/telemetry": "workspace:*",
-        "logrocket": "10.1.0",
+        "@opentelemetry/api": "1.9.0",
+        "@tanstack/react-query": "5.77.2",
+        "@workleap/honeycomb": "workspace:*",
         "react": "19.1.0",
         "react-dom": "19.1.0",
-        "react-router-dom": "7.6.3"
+        "react-router-dom": "7.6.1"
     },
     "devDependencies": {
-        "@rsbuild/core": "1.4.2",
-        "@rspack/core": "1.4.1",
-        "@types/react": "19.1.8",
-        "@types/react-dom": "19.1.6",
+        "@rsbuild/core": "1.3.21",
+        "@rspack/core": "1.3.11",
+        "@types/react": "19.1.5",
+        "@types/react-dom": "19.1.5",
         "@workleap/browserslist-config": "2.0.4",
         "@workleap/eslint-plugin": "3.4.2",
         "@workleap/rsbuild-configs": "3.0.2",
         "@workleap/typescript-configs": "3.0.4",
-        "browserslist": "4.25.1",
+        "browserslist": "4.24.5",
         "copyfiles": "2.4.1",
-        "eslint": "8.57.1",
+        "eslint": "8.57.0",
         "http-server": "14.1.1",
         "typescript": "5.8.3"
     }

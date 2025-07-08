@@ -94,7 +94,7 @@ LogRocket.identify(form.userId, {
 ```
 
 !!!info
-Additional user trait names should align with Mixpanel property conventions. We recommend using human-readable names and appending a `- {PRODUCTNAME}` suffix for product-specific traits, for example: `Plan Code - Officevibe`.
+Additional user trait names should align with [Mixpanel](https://mixpanel.com/) property conventions. We recommend using human-readable names and appending a `- {PRODUCTNAME}` suffix for product-specific traits, for example: `Plan Code - Officevibe`.
 !!!
 
 
