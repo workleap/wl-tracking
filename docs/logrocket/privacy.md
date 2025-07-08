@@ -7,9 +7,9 @@ label: Privacy
 
 By default, this instrumentation hides a wide range of Personally Identifiable Information (PII) from session replays to protect user privacy:
 
-- **DOM sanitization**: [LogRocket's DOM sanitization](https://docs.logrocket.com/reference/dom) to hide sensitive text elements from session replays. To allow specific content to appear, add the `data-public` attribute to the elements you want to expose.
-- **Network sanitization**: [LogRocket's network data sanitization](https://docs.logrocket.com/reference/network) is used to strip sensitive information from request/response headers and body from session replays.
-- **URL sanitization**: [LogRocket's URLs sanitization](https://docs.logrocket.com/reference/browser) is used to strip sensitive information from URLs' query parameters.
+- **DOM sanitization**: [LogRocket's DOM sanitization](https://docs.logrocket.com/reference/dom) hide sensitive text elements from session replays.
+- **Network sanitization**: [LogRocket's network data sanitization](https://docs.logrocket.com/reference/network) strip sensitive information from request/response headers and body from session replays.
+- **URL sanitization**: [LogRocket's URLs sanitization](https://docs.logrocket.com/reference/browser) strip sensitive information from URLs' query parameters exposed in session replays.
 
 ### Record elements
 
