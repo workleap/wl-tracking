@@ -7,7 +7,7 @@ meta:
 
 # Migrate to v1.0
 
-This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away. It also introduces two correlation is, `telemetryId` and `deviceId`, through [createTelemetryContext](../../utilities/createTelemetryContext.md) to help unify and correlate data across LogRocket, Honeycomb, and Mixpanel.
+This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away. It also introduces two correlation is, `telemetryId` and `deviceId`, through [createTelemetryContext](../../utilities/createTelemetryContext.md) to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/).
 
 This guide will help you migrate from `@workleap-tracking/logrocket` to `@workleap/logrocket` version `1.0`.
 
@@ -134,7 +134,7 @@ registerLogRocketInstrumentation(appId, telemetryContext);
 
 ## Improvements
 
-- The [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) now accepts a [TelemetryContext](../../utilities/createTelemetryContext.md) instance, introducing correlation ids to help unify and correlate data across LogRocket, Honeycomb, and Mixpanel.
+The [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) now accepts a [TelemetryContext](../../utilities/createTelemetryContext.md) instance, introducing correlation ids to help unify and correlate data across LogRocket, Honeycomb, and Mixpanel.
 
 A `TelemetryContext` includes two correlation ids: `telemetryId` and `deviceId`:
 

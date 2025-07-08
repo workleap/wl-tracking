@@ -1,12 +1,9 @@
 import { registerHoneycombInstrumentation, setGlobalSpanAttributes } from "@workleap/honeycomb";
-import { createTelemetryContext } from "@workleap/telemetry";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-const telemetryContext = createTelemetryContext({ verbose: true });
-
-registerHoneycombInstrumentation("sample", "honeycomb-api-key-sample", [/http:\/\/localhost:1234\.*/], telemetryContext, {
+registerHoneycombInstrumentation("sample", "honeycomb-api-key-sample", [/http:\/\/localhost:1234\.*/], {
     // Default to a space so it doesn't throw at runtime.
     apiKey: process.env.HONEYCOMB_API_KEY ?? " ",
     verbose: true

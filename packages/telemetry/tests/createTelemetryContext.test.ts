@@ -1,5 +1,5 @@
 import { afterEach, test, vi } from "vitest";
-import { createTelemetryContext, IdentityCookieName } from "../src/createTelemetryContext.ts";
+import { createTelemetryContext, IdentityCookieName } from "../src/TelemetryContext.ts";
 
 afterEach(() => {
     vi.restoreAllMocks();

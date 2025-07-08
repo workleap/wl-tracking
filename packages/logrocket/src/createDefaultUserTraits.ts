@@ -1,4 +1,4 @@
-import type { TelemetryContext } from "@workleap/telemetry";
+import { getTelemetryContext } from "@workleap/telemetry";
 import { isDefined } from "./assertions.ts";
 
 /**
@@ -78,16 +78,10 @@ export interface LogRocketUserTraits extends Record<string, unknown> {
 export const DeviceIdTrait = "Device Id";
 export const TelemetryIdTrait = "Telemetry Id";
 
-let internalTelemetryContext: TelemetryContext | undefined;
-
-export function setTelemetryContext(context: TelemetryContext) {
-    internalTelemetryContext = context;
-}
-
 /**
  * @see https://workleap.github.io/wl-tracking
  */
-export function createDefaultUserTraits(identification: LogRocketIdentification, telemetryContext?: TelemetryContext) {
+export function createDefaultUserTraits(identification: LogRocketIdentification) {
     const {
         userId,
         organizationId,
@@ -120,7 +114,7 @@ export function createDefaultUserTraits(identification: LogRocketIdentification,
         isCollaborator?.pbd
     );
 
-    const _telemetryContext = telemetryContext ?? internalTelemetryContext;
+    const telemetryContext = getTelemetryContext();
 
     return {
         "User Id": userId,
@@ -128,8 +122,8 @@ export function createDefaultUserTraits(identification: LogRocketIdentification,
         "Organization Name": organizationName,
         "Is Migrated To Workleap": isMigratedToWorkleap,
         "Is Admin": isAdmin,
-        [DeviceIdTrait]: _telemetryContext?.deviceId ?? "N/A",
-        [TelemetryIdTrait]: _telemetryContext?.telemetryId ?? "N/A",
+        [DeviceIdTrait]: telemetryContext ? telemetryContext.deviceId : "N/A",
+        [TelemetryIdTrait]: telemetryContext ? telemetryContext.telemetryId : "N/A",
         ...(isDefined(isOrganizationCreator) && { "Is Organization Creator": isOrganizationCreator }),
         ...(isExecutiveInAnyProduct && { "Is Executive": true }),
         ...(isDefined(isExecutive?.wov) && { "Is Executive - Officevibe": isExecutive.wov }),

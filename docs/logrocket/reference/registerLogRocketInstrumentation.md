@@ -89,6 +89,24 @@ registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
 
 To view the default private query parameters, have a look at the [registerLogRocketInstrumentation.ts](TBD) file on GitHub.
 
+### `verbose`
+
+- **Type**: `boolean`
+- **Default**: `false`
+
+Indicates whether or not debug information should be logged to the console.
+
+```ts !#7
+import { registerLogRocketInstrumentation } from "@workleap/logrocket";
+import { createTelemetryContext } from "@workleap/telemetry";
+
+const telemetryContext = createTelemetryContext({ verbose: true });
+
+registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+    verbose: true
+});
+```
+
 ## Configuration transformers
 
 !!!warning
@@ -125,3 +143,22 @@ registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
     transformers: [disableConsoleLogging]
 });
 ```
+
+### Execution context
+
+Generic transformers can use the `context` argument to gather additional information about their execution context, like if they are operating in `verbose` mode:
+
+```ts !#4 transformer.js
+import type { LogRocketSdkOptionsTransformer } from "@workleap/logrocket";
+
+const disableConsoleLogging: LogRocketSdkOptionsTransformer = (config, context) => {
+    if (!context.verbose) {
+        config.console = ...(config.console || {});
+        config.console.isEnabled = false;
+    }
+
+    return config;
+}
+```
+
+- `verbose`: `boolean`

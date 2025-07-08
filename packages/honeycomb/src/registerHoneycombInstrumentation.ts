@@ -5,7 +5,7 @@ import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-
 import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instrumentation-user-interaction";
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
-import type { TelemetryContext } from "@workleap/telemetry";
+import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
@@ -137,12 +137,32 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     });
 }
 
+function registerLogRocketSessionUrlListener(verbose = false) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__) {
+        // Automatically add the LogRocket session URL to all Honeycomb traces as an attribute.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__((sessionUrl: string) => {
+            setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
+        });
+    } else if (verbose) {
+        console.log("[honeycomb] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
+    }
+}
+
 /**
  * @see https://workleap.github.io/wl-tracking
  */
-export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, telemetryContext: TelemetryContext, options: RegisterHoneycombInstrumentationOptions = {}) {
-    if (options.proxy) {
-        patchXmlHttpRequest(options?.proxy);
+export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
+    const {
+        proxy,
+        verbose
+    } = options;
+
+    if (proxy) {
+        patchXmlHttpRequest(proxy);
     }
 
     const sdkOptions = getHoneycombSdkOptions(serviceName, apiServiceUrls, options);
@@ -153,19 +173,24 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // This is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute("service.namespace", namespace);
 
-    // Correlation ids.
+    const telemetryContext = getTelemetryContext({ verbose });
+
+    // Add correlation ids to traces as attributes.
     setGlobalSpanAttribute("app.telemetry_id", telemetryContext.telemetryId);
     setGlobalSpanAttribute("app.device_id", telemetryContext.deviceId);
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__) {
-        // If LogRocket instrumentation is registered, when the LogRocket session URL is ready,
-        // it's automatically added to all Honeycomb traces.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__((sessionUrl: string) => {
-            setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
+    const bootstrappingStore = getBootstrappingStore();
+
+    // If LogRocket is already available, register the listener. Otherwise, subscribe to the bootstrapping store
+    // and register the listener once a notification is received that LogRocket is registered.
+    if (bootstrappingStore.state.isLogRocketReady) {
+        registerLogRocketSessionUrlListener(verbose);
+    } else {
+        bootstrappingStore.subscribe((action, store, unsubscribe) => {
+            if (store.state.isLogRocketReady) {
+                unsubscribe();
+                registerLogRocketSessionUrlListener(verbose);
+            }
         });
     }
 
@@ -187,4 +212,11 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK_AT_START = registerFetchRequestHookAtStart;
+
+    // Let the other telemetry libraries know that Honeycomb instrumentation is ready.
+    bootstrappingStore.dispatch({ type: "honeycomb-ready" });
+
+    if (verbose) {
+        console.log("[honeycomb] Honeycomb instrumentation is registered.");
+    }
 }

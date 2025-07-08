@@ -27,16 +27,16 @@ export class TelemetryContext {
     }
 }
 
-export interface GetTelemetryContextOptions {
+export interface CreateTelemetryContextOptions {
     identityCookieExpiration?: Date;
     identityCookieDomain?: string;
     verbose?: boolean;
 }
 
-export function createTelemetryContext(options: GetTelemetryContextOptions = {}) {
+export function createTelemetryContext(options: CreateTelemetryContextOptions = {}) {
     const {
         identityCookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        identityCookieDomain = ".workleap",
+        identityCookieDomain = ".workleap.com",
         verbose = false
     } = options;
 
@@ -88,4 +88,26 @@ function setDeviceId(deviceId: string, cookieExpiration: Date, cookieDomain: str
     } catch (error: unknown) {
         // Do nothing.
     }
+}
+
+let telemetryContext: TelemetryContext | undefined;
+
+// This function should only be used by tests.
+export function __setTelemetryContext(context: TelemetryContext) {
+    telemetryContext = context;
+}
+
+// This function should only be used by tests.
+export function __clearTelemetryContext() {
+    telemetryContext = undefined;
+}
+
+export type GetTelemetryContextOptions = CreateTelemetryContextOptions;
+
+export function getTelemetryContext(options?: GetTelemetryContextOptions) {
+    if (!telemetryContext) {
+        telemetryContext = createTelemetryContext(options);
+    }
+
+    return telemetryContext;
 }

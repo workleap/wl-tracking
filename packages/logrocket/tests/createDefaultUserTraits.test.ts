@@ -1,8 +1,13 @@
 import { TelemetryContext } from "@workleap/telemetry";
-import { test } from "vitest";
-import { createDefaultUserTraits, setTelemetryContext } from "../src/createDefaultUserTraits.ts";
+import { __clearTelemetryContext, __setTelemetryContext } from "@workleap/telemetry/internal";
+import { afterAll, test } from "vitest";
+import { createDefaultUserTraits } from "../src/createDefaultUserTraits.ts";
 
-test.concurrent("required user traits are returned", ({ expect }) => {
+afterAll(() => {
+    __clearTelemetryContext();
+});
+
+test("required user traits are returned", ({ expect }) => {
     const identification = {
         userId: "123",
         organizationId: "456",
@@ -21,7 +26,7 @@ test.concurrent("required user traits are returned", ({ expect }) => {
     expect(result["Is Admin"]).toEqual(identification.isAdmin);
 });
 
-test.concurrent("optional user traits with no value provided are skipped", ({ expect }) => {
+test("optional user traits with no value provided are skipped", ({ expect }) => {
     const identification = {
         userId: "123",
         organizationId: "456",
@@ -38,7 +43,7 @@ test.concurrent("optional user traits with no value provided are skipped", ({ ex
     expect(Object.keys(result)).not.toContain(["Plan Code - Officevibe", "Plan Code - LMS", "Plan Code - Onboarding", "Plan Code - Skills", "Plan Code - Performance", "Plan Code - Pingboard"]);
 });
 
-test.concurrent("optional user traits with values provided are returned", ({ expect }) => {
+test("optional user traits with values provided are returned", ({ expect }) => {
     const identification = {
         userId: "123",
         organizationId: "456",
@@ -75,7 +80,7 @@ test.concurrent("optional user traits with values provided are returned", ({ exp
     expect(Object.keys(result)).not.toContain(["Plan Code - LMS", "Plan Code - Onboarding", "Plan Code - Skills", "Plan Code - Performance", "Plan Code - Pingboard"]);
 });
 
-test.concurrent("when a telemetry context is provided, telemetry user traits are returned", ({ expect }) => {
+test("when a telemetry context is available, telemetry user traits are returned", ({ expect }) => {
     const identification = {
         userId: "123",
         organizationId: "456",
@@ -87,30 +92,7 @@ test.concurrent("when a telemetry context is provided, telemetry user traits are
 
     const telemetryContext = new TelemetryContext("789", "device-1");
 
-    const result = createDefaultUserTraits(identification, telemetryContext);
-
-    expect(result["User Id"]).toEqual(identification.userId);
-    expect(result["Organization Id"]).toEqual(identification.organizationId);
-    expect(result["Organization Name"]).toEqual(identification.organizationName);
-    expect(result["Is Migrated To Workleap"]).toEqual(identification.isMigratedToWorkleap);
-    expect(result["Is Admin"]).toEqual(identification.isAdmin);
-    expect(result["Device Id"]).toEqual(telemetryContext.deviceId);
-    expect(result["Telemetry Id"]).toEqual(telemetryContext.telemetryId);
-});
-
-test.concurrent("when a telemetry context is provided internally, telemetry user traits are returned", ({ expect }) => {
-    const identification = {
-        userId: "123",
-        organizationId: "456",
-        organizationName: "Test Organization",
-        isMigratedToWorkleap: true,
-        isOrganizationCreator: false,
-        isAdmin: false
-    };
-
-    const telemetryContext = new TelemetryContext("789", "device-1");
-
-    setTelemetryContext(telemetryContext);
+    __setTelemetryContext(telemetryContext);
 
     const result = createDefaultUserTraits(identification);
 
