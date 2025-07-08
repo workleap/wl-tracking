@@ -14,13 +14,12 @@ Initializes [LogRocket](https://logrocket.com/) instrumentation with Workleap's 
 ## Reference
 
 ```ts
-registerLogRocketInstrumentation(appId, telemetryContext, options?: { rootHostname, privateFieldNames, privateQueryParameterNames })
+registerLogRocketInstrumentation(appId, options?: { rootHostname, privateFieldNames, privateQueryParameterNames })
 ```
 
 ### Parameters
 
 - `appId`: The LogRocket application id.
-- `telemetryContext`: A [TelemetryContext](http://localhost:5001/wl-tracking/utilities/createtelemetrycontext/) instance.
 - `options`: An optional object literal of [predefined options](#predefined-options).
 
 ### Returns
@@ -29,7 +28,7 @@ Nothing
 
 ## Predefined options
 
-The `registerLogRocketInstrumentation(appId, telemetryContext, options?: {})` function also accepts a few predefined options 👇
+The `registerLogRocketInstrumentation(appId, options?: {})` function also accepts a few predefined options 👇
 
 ### `rootHostname`
 
@@ -38,11 +37,8 @@ The `registerLogRocketInstrumentation(appId, telemetryContext, options?: {})` fu
 
 A [root hostname](https://docs.logrocket.com/reference/roothostname) to track sessions across subdomains.
 
-```ts !#7
+```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
     rootHostname: "an-host.com"
@@ -56,11 +52,8 @@ registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
 
 Names of additional fields to exclude from session replays. These fields will be removed from network requests, responses using a fuzzy-matching algorithm.
 
-```ts !#7
+```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
     privateFieldNames: ["a-custom-field"]
@@ -76,11 +69,8 @@ To view the default private fields, have a look at the [registerLogRocketInstrum
 
 Names of additional fields to exclude from session replays. These fields will be removed from query parameters using a fuzzy-matching algorithm.
 
-```ts !#7
+```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
     privateQueryParameterNames: ["a-custom-param"]
@@ -96,11 +86,8 @@ To view the default private query parameters, have a look at the [registerLogRoc
 
 Indicates whether or not debug information should be logged to the console.
 
-```ts !#7
+```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
     verbose: true

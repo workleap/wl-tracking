@@ -14,7 +14,7 @@ Creates an object containing the default [user traits](https://docs.logrocket.co
 ## Reference
 
 ```ts
-const traits = createDefaultUserTraits(identification, telemetryContext?)
+const traits = createDefaultUserTraits(identification)
 ```
 
 ### Parameters
@@ -49,7 +49,6 @@ const traits = createDefaultUserTraits(identification, telemetryContext?)
         - `sks`: An optional value indicating the user plan code for Skills.
         - `wpm`: An optional value indicating the user plan code for Performance.
         - `pbd`: An optional value indicating the user plan code for Pingboard.
-- `telemetryContext` A optionnal `TelemetryContext` object. The instance passed to [registerLogRocketInstrumentation](./registerLogRocketInstrumentation.md) is automatically forwarded to `createDefaultUserTraits`, but you can override it by providing a different context if needed.
 
 ### Returns
 

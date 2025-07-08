@@ -31,12 +31,10 @@ This guide will help you migrate from `@workleap-tracking/logrocket` to `@workle
 
 ### Changes to `registerLogRocketInstrumentation`
 
-- The `getTrackingIdentifier` function do not exist anymore, use [createTelemetryContext](../../utilities/createTelemetryContext.md) instead.
-    - The `generateCookieOnDefault` option has been removed. A `wl-identity` cookie is now always created automatically if it doesn't already exist.
-- The `trackingIdentifier` option has been removed, provide a `TelemetryContext` instance instead.
+- The `getTrackingIdentifier` function and `trackingIdentifier` optiondo not exist anymore. A similar identifier is now automatically added as a user traits for every session replay.
 - The `identifyOptions` option has been removed, use [createDefaultUserTraits](../reference/createDefaultUserTraits.md) and the native [LogRocket.identify](https://docs.logrocket.com/reference/identify) function instead.
 - The `onSessionUrlInitialized` option has been removed, use the native [LogRocket.getSessionURL](https://docs.logrocket.com/reference/get-session-url) function instead.
-- The function arguments changed from `(options: {})` to `(appId, telemetryContext, options: {})`.
+- The function arguments changed from `(options: {})` to `(appId, options: {})`.
 
 Before:
 
@@ -73,7 +71,6 @@ registerLogRocketInstrumentation({
 After:
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
 import { registerLogRocketInstrumentation, createDefaultUserTraits } from "@workleap/logrocket";
 import LogRocket from "logrocket";
 
@@ -93,9 +90,7 @@ const userTraits = createDefaultUserTraits({
     planCode: { wov: "wov-essential-monthly-std" }
 });
 
-const telemetryContext = createTelemetryContext();
-
-registerLogRocketInstrumentation(appId, telemetryContext);
+registerLogRocketInstrumentation(appId);
 
 LogRocket.getSessionURL((sessionUrl) => sendSessionUrlToTrackingService(sessionUrl));
 LogRocket.identify(userId, userTraits);
@@ -123,20 +118,27 @@ registerAnonymousLogRocketInstrumentation({
 After:
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import LogRocket from "logrocket";
 
-const telemetryContext = createTelemetryContext();
-
-registerLogRocketInstrumentation(appId, telemetryContext);
+registerLogRocketInstrumentation(appId);
 ```
 
 ## Improvements
 
-The [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) now accepts a [TelemetryContext](../../utilities/createTelemetryContext.md) instance, introducing correlation ids to help unify and correlate data across LogRocket, Honeycomb, and Mixpanel.
+### Correlation ids
 
-A `TelemetryContext` includes two correlation ids: `telemetryId` and `deviceId`:
+To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) now automatically add two correlation ids as user traits to every session replay:
 
 - `telemetryId` is a new identifier that represents a single application load.
-- `deviceId` replaces the previous `trackingId` and reuses the original name from the `wl-identity` cookie, better reflecting its purpose as a persistent device identifier.
+- `deviceId` replaces the former `trackingId` and reuses the original name from the `wl-identity` cookie, better reflecting its purpose as a persistent device identifier.
+
+### Automatically add session replay url to other telemetry platforms
+
+A built-in integration now automatically allow other telemetry libraries to add the LogRocket session replay URL to their traces/events.
+
+:::align-image-left
+![Honeycomb integration example](../../static/logrocket/honeycomb_session_url.png)
+:::
+
+

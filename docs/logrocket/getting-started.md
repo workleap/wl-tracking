@@ -23,17 +23,17 @@ pnpm add @workleap/telemetry @workleap/logrocket logrocket
 
 ## Register instrumentation
 
-Then, if the application doesn't already create a telemetry context, update the bootstrapping code to do so using the [createTelemetryContext](../utilities/createTelemetryContext.md) function:
+Then, register LogRocket instrumentation using the [registerLogRocketInstrumentation](./reference/registerLogRocketInstrumentation.md) function:
 
-```tsx !#8 index.tsx
-import { createTelemetryContext } from "@workleap/telemetry";
+```tsx !#6-8 index.tsx
+import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-// It's recommend to log as much relevant information as possible to the console,
-// since LogRocket includes console output in its session replays.
-const telemetryContext = createTelemetryContext({ verbose: true });
+registerLogRocketInstrumentation("an-app-id", {
+    verbose: true
+});
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -43,43 +43,10 @@ root.render(
     </StrictMode>
 );
 ```
-
-:::no-ul-margin-bottom
-!!!info
-The `TelemetryContext` instance returned by `createTelemetryContext` includes the `telemetryId` and `deviceId` fields.
-
-- `telemetryId`: A correlation id generated each time `createTelemetryContext` is executed.
-- `deviceId`: A persistent correlation id retrieved from the `wl-identity` cookie.
-!!!
-:::
 
 !!!tip
 It's recommend to log as much relevant information as possible to the console, since LogRocket includes console output in its session replays.
 !!!
-
-Finally, register LogRocket instrumentation using the [registerLogRocketInstrumentation](./reference/registerLogRocketInstrumentation.md) function and the telemetry context created earlier:
-
-```tsx !#11 index.tsx
-import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { App } from "./App.tsx";
-
-// It's recommend to log as much relevant information as possible to the console,
-// since LogRocket includes console output in its session replays.
-const telemetryContext = createTelemetryContext({ verbose: true });
-
-registerLogRocketInstrumentation("an-app-id", telemetryContext);
-
-const root = createRoot(document.getElementById("root")!);
-
-root.render(
-    <StrictMode>
-        <App />
-    </StrictMode>
-);
-```
 
 ### Session replays
 
@@ -143,14 +110,9 @@ Update your application bootstrapping code to include the `createDefaultUserTrai
 
 ```tsx index.tsx
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
-
-// It's recommend to log as much relevant information as possible to the console,
-// since LogRocket includes console output in its session replays.
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 registerLogRocketInstrumentation("an-app-id", telemetryContext);
 
