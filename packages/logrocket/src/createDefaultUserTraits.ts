@@ -1,6 +1,9 @@
 import type { TelemetryContext } from "@workleap/telemetry";
 import { isDefined } from "./assertions.ts";
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export interface LogRocketIdentification {
     userId: string;
     organizationId: string;
@@ -36,6 +39,9 @@ export interface LogRocketIdentification {
     };
 }
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export interface LogRocketUserTraits extends Record<string, unknown> {
     "User Id": string;
     "Organization Id": string;
@@ -78,6 +84,9 @@ export function setTelemetryContext(context: TelemetryContext) {
     internalTelemetryContext = context;
 }
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export function createDefaultUserTraits(identification: LogRocketIdentification, telemetryContext?: TelemetryContext) {
     const {
         userId,

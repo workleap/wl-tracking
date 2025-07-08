@@ -8,6 +8,9 @@ import { createResponseSanitizer } from "./createResponseSanitizer.ts";
 import { createUrlSanitizer } from "./createUrlSanitizer.ts";
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export interface RegisterLogRocketInstrumentationOptions {
     // Set to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
     rootHostname?: LogRocketSdkOptions["rootHostname"];
@@ -75,6 +78,9 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
     return applyTransformers(sdkOptions, transformers);
 }
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export function registerLogRocketInstrumentation(appId: string, telemetryContext: TelemetryContext, options: RegisterLogRocketInstrumentationOptions = {}) {
     const sdkOptions = getLogRocketSdkOptions(options);
 

@@ -1,14 +1,14 @@
 import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export interface HoneycombSdkOptionsTransformerContext {
     debug: boolean;
 }
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export type HoneycombSdkOptionsTransformer = (options: HoneycombSdkOptions, context: HoneycombSdkOptionsTransformerContext) => HoneycombSdkOptions;
 

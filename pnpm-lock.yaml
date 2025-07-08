@@ -74,6 +74,9 @@ importers:
       '@opentelemetry/sdk-trace-web':
         specifier: ^2.0.1
         version: 2.0.1(@opentelemetry/api@1.9.0)
+      '@workleap/telemetry':
+        specifier: workspace:*
+        version: link:../telemetry
     devDependencies:
       '@rsbuild/core':
         specifier: 1.3.21

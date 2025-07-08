@@ -13,22 +13,22 @@ import { normalizeAttributesSpanProcessor } from "./NormalizeAttributesSpanProce
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export type DefineXmlHttpRequestInstrumentationOptionsFunction = (defaultOptions: XMLHttpRequestInstrumentationConfig) => XMLHttpRequestInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export type DefineDocumentLoadInstrumentationOptionsFunction = (defaultOptions: DocumentLoadInstrumentationConfig) => DocumentLoadInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export type DefineUserInteractionInstrumentationOptionsFunction = (defaultOptions: UserInteractionInstrumentationConfig) => UserInteractionInstrumentationConfig;
 
@@ -41,7 +41,7 @@ const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrum
 };
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export interface RegisterHoneycombInstrumentationOptions {
     proxy?: string;
@@ -137,7 +137,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
 }
 
 /**
- * @see https://workleap.github.io/wl-honeycomb-web
+ * @see https://workleap.github.io/wl-tracking
  */
 export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
     if (options.proxy) {

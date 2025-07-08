@@ -17,6 +17,7 @@ function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
 
 export function getTrackingEndpoint(envOrTrackingApiBaseUrl: Environment | (string & {})) {
     let baseUrl: string;
+
     if (EnvironmentList.includes(envOrTrackingApiBaseUrl as Environment)) {
         baseUrl = NavigationApiBaseUrl[envOrTrackingApiBaseUrl as Environment];
     } else {
