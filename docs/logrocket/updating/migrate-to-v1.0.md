@@ -7,7 +7,7 @@ meta:
 
 # Migrate to v1.0
 
-This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away. It also introduces two correlation is, `telemetryId` and `deviceId`, through [createTelemetryContext](../../utilities/createTelemetryContext.md) to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/).
+This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away. It also introduces two correlation is, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/). Finally a new built-in integration allow other telemetry libraries to automatically add the LogRocket session replay URL to their traces/events.
 
 This guide will help you migrate from `@workleap-tracking/logrocket` to `@workleap/logrocket` version `1.0`.
 
