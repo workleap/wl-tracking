@@ -26,7 +26,8 @@ This guide will help you migrate from `@workleap-tracking/logrocket` to `@workle
 
 ### Others
 
-- The `logrocket` package is no longuer a dependency of the Worleap LogRocket instrumentation library, it's now a peer dependency.
+- The `@workleap/telemetry` package is a new peer dependency of the `@workleap/logrocket` package.
+- The `logrocket` package is a new peer dependency of the `@workleap/logrocket` package.
 
 ### Changes to `registerLogRocketInstrumentation`
 
@@ -122,6 +123,11 @@ import LogRocket from "logrocket";
 
 registerLogRocketInstrumentation(appId);
 ```
+
+### Add new dependencies
+
+- Add the `@workleap/telemetry` dependency to the host application.
+- Add the `logrocket` dependency to the host application.
 
 ## Improvements
 
