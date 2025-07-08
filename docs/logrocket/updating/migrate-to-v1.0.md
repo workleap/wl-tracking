@@ -15,9 +15,9 @@ This guide will help you migrate from `@workleap-tracking/logrocket` to `@workle
 
 ### Removed
 
-- The `registerAnonymousLogRocketInstrumentation` function doesn't exist anymore, [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) instead.
-- The `getTrackingIdentifier` function do not exist anymore, use [createTelemetryContext](../../utilities/createTelemetryContext.md) instead.
-    - The `generateCookieOnDefault` option has been removed. A `wl-identity` cookie is now always created automatically if it doesn't already exist.
+- The `registerAnonymousLogRocketInstrumentation` function doesn't exist anymore, use [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) instead.
+- The `getTrackingIdentifier` function doesn't exist anymore. A similar identifier is now automatically added as a user trait for every session replay.
+- The `registerLogRocketInstrumentation` function `trackingIdentifier`, `identifyOptions` and `onSessionUrlInitialized` options doesn't exist anymore.
 
 ### Renamed
 
@@ -27,11 +27,10 @@ This guide will help you migrate from `@workleap-tracking/logrocket` to `@workle
 ### Others
 
 - The `logrocket` package is no longuer a dependency of the Worleap LogRocket instrumentation library, it's now a peer dependency.
-- The `registerLogRocketInstrumentation` function no longuer accepts a `trackingIdentifier`, `identifyOptions` and `onSessionUrlInitialized` options.
 
 ### Changes to `registerLogRocketInstrumentation`
 
-- The `getTrackingIdentifier` function and `trackingIdentifier` optiondo not exist anymore. A similar identifier is now automatically added as a user traits for every session replay.
+- The `getTrackingIdentifier` function and `trackingIdentifier` option do not exist anymore. A similar identifier is now automatically added as a user trait for every session replay.
 - The `identifyOptions` option has been removed, use [createDefaultUserTraits](../reference/createDefaultUserTraits.md) and the native [LogRocket.identify](https://docs.logrocket.com/reference/identify) function instead.
 - The `onSessionUrlInitialized` option has been removed, use the native [LogRocket.getSessionURL](https://docs.logrocket.com/reference/get-session-url) function instead.
 - The function arguments changed from `(options: {})` to `(appId, options: {})`.

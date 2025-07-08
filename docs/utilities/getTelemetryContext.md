@@ -1,20 +1,20 @@
 ---
 order: 100
-label: createTelemetryContext
+label: getTelemetryContext
 meta:
-    title: createTelemetryContext - Utilities
+    title: getTelemetryContext - Utilities
 toc:
     depth: 2-3
 ---
 
-# createTelemetryContext
+# getTelemetryContext
 
 This utility function simplifies correlation across Workleap's three telemetry platforms: [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/).
 
 ## Reference
 
 ```ts
-const telemetryContext = createTelemetryContext(options?: { identityCookieExpiration, identityCookieDomain, verbose });
+const telemetryContext = getTelemetryContext(options?: { identityCookieExpiration, identityCookieDomain, verbose });
 ```
 
 ### Parameters
@@ -33,39 +33,39 @@ A `TelemetryContext` object containing two correlation ids:
 
 ## Side effects
 
-If the `wl-identity` cookie doesn't exist, `createTelemetryContext` will generate a new `deviceId` and automatically set the `wl-identity` cookie.
+If the `wl-identity` cookie doesn't exist, `getTelemetryContext` will generate a new `deviceId` and automatically set the `wl-identity` cookie.
 
 ## Usage
 
-### Create a context
+### Get a context
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
+import { getTelemetryContext } from "@workleap/telemetry";
 
-const telemetryContext = createTelemetryContext();
+const telemetryContext = getTelemetryContext();
 ```
 
 ### Specify a cookie expiration date
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
+import { getTelemetryContext } from "@workleap/telemetry";
 
-const telemetryContext = createTelemetryContext({ identityCookieExpiration: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) });
+const telemetryContext = getTelemetryContext({ identityCookieExpiration: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) });
 ```
 
 ### Specify a cookie demain
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
+import { getTelemetryContext } from "@workleap/telemetry";
 
-const telemetryContext = createTelemetryContext({ identityCookieDomain: "acme.com" });
+const telemetryContext = getTelemetryContext({ identityCookieDomain: "acme.com" });
 ```
 
 ### Use verbose logs
 
 ```ts
-import { createTelemetryContext } from "@workleap/telemetry";
+import { getTelemetryContext } from "@workleap/telemetry";
 
-const telemetryContext = createTelemetryContext({ verbose: true });
+const telemetryContext = getTelemetryContext({ verbose: true });
 ```
 
