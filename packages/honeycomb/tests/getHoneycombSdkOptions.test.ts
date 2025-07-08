@@ -94,9 +94,9 @@ test.concurrent("throw when both the api key and proxy options are not provided"
     expect(() => getHoneycombSdkOptions("foo", ["/foo"])).toThrow();
 });
 
-test.concurrent("when debug is true", ({ expect }) => {
+test.concurrent("when verbose is true", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
-        debug: true,
+        verbose: true,
         apiKey: "123"
     });
 
@@ -105,9 +105,9 @@ test.concurrent("when debug is true", ({ expect }) => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test.concurrent("when debug is false", ({ expect }) => {
+test.concurrent("when verbose is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
-        debug: false,
+        verbose: false,
         apiKey: "123"
     });
 

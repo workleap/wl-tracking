@@ -106,4 +106,12 @@ export function registerLogRocketInstrumentation(appId: string, telemetryContext
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     globalThis.__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__ = true;
+
+    // While consumers could directly call LogRocket.getSessionURL, by doing it this way,
+    // it allows consumers to not take a dependency on the "logrocket" package.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__ = listener => {
+        LogRocket.getSessionURL(listener);
+    };
 }

@@ -224,6 +224,9 @@ importers:
       '@tanstack/react-query':
         specifier: 5.81.5
         version: 5.81.5(react@19.1.0)
+      '@workleap/honeycomb':
+        specifier: workspace:*
+        version: link:../../../packages/honeycomb
       '@workleap/logrocket':
         specifier: workspace:*
         version: link:../../../packages/logrocket
@@ -331,6 +334,9 @@ importers:
       '@workleap/honeycomb':
         specifier: workspace:*
         version: link:../../../../packages/honeycomb
+      '@workleap/telemetry':
+        specifier: workspace:*
+        version: link:../../../../packages/telemetry
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -450,6 +456,9 @@ importers:
       '@workleap/honeycomb':
         specifier: workspace:*
         version: link:../../../../packages/honeycomb
+      '@workleap/telemetry':
+        specifier: workspace:*
+        version: link:../../../../packages/telemetry
       react:
         specifier: 19.1.0
         version: 19.1.0

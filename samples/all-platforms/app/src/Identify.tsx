@@ -1,3 +1,4 @@
+import { setGlobalSpanAttribute } from "@workleap/honeycomb";
 import { createDefaultUserTraits, type LogRocketIdentification } from "@workleap/logrocket";
 import LogRocket from "logrocket";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -50,12 +51,14 @@ export function IdentifyPage() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        console.log("Form submitted to identify the user", form);
+        console.log("Form submitted to identify the user into telemetry platforms", form);
 
         LogRocket.identify(form.userId, {
             ...createDefaultUserTraits(form),
             "Custom Trait": "Toto"
         });
+
+        setGlobalSpanAttribute("app.user", JSON.stringify(form));
     };
 
     return (

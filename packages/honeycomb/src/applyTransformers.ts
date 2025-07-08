@@ -4,7 +4,7 @@ import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
  * @see https://workleap.github.io/wl-tracking
  */
 export interface HoneycombSdkOptionsTransformerContext {
-    debug: boolean;
+    verbose: boolean;
 }
 
 /**

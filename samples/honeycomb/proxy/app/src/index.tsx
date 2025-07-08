@@ -1,11 +1,14 @@
 import { registerHoneycombInstrumentation, setGlobalSpanAttributes } from "@workleap/honeycomb";
+import { createTelemetryContext } from "@workleap/telemetry";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation("sample", "honeycomb-proxy-sample", [/http:\/\/localhost:1234\.*/], {
+const telemetryContext = createTelemetryContext({ verbose: true });
+
+registerHoneycombInstrumentation("sample", "honeycomb-proxy-sample", [/http:\/\/localhost:1234\.*/], telemetryContext, {
     proxy: "http://localhost:5678/v1/traces",
-    debug: true
+    verbose: true
 });
 
 // Update telemetry global attributes.

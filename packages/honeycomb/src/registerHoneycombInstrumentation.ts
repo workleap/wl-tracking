@@ -5,6 +5,7 @@ import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-
 import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instrumentation-user-interaction";
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
+import type { TelemetryContext } from "@workleap/telemetry";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
@@ -46,7 +47,7 @@ const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrum
 export interface RegisterHoneycombInstrumentationOptions {
     proxy?: string;
     apiKey?: HoneycombSdkOptions["apiKey"];
-    debug?: HoneycombSdkOptions["debug"];
+    verbose?: boolean;
     instrumentations?: HoneycombSdkInstrumentations;
     spanProcessors?: SpanProcessor[];
     fetchInstrumentation?: false | DefineFetchInstrumentationOptionsFunction;
@@ -60,7 +61,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     const {
         proxy,
         apiKey,
-        debug,
+        verbose = false,
         instrumentations = [],
         spanProcessors = [],
         fetchInstrumentation = defaultDefineFetchInstrumentationOptions,
@@ -119,8 +120,8 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     const sdkOptions = {
         endpoint: proxy,
         apiKey,
-        debug,
-        localVisualizations: debug,
+        debug: verbose,
+        localVisualizations: verbose,
         serviceName,
         // Watch out, getWebAutoInstrumentations enables by default all the supported instrumentations.
         // It's important to disabled those that we don't want.
@@ -132,14 +133,14 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     } satisfies HoneycombSdkOptions;
 
     return applyTransformers(sdkOptions, transformers, {
-        debug: !!debug
+        verbose
     });
 }
 
 /**
  * @see https://workleap.github.io/wl-tracking
  */
-export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
+export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, telemetryContext: TelemetryContext, options: RegisterHoneycombInstrumentationOptions = {}) {
     if (options.proxy) {
         patchXmlHttpRequest(options?.proxy);
     }
@@ -151,6 +152,22 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
 
     // This is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute("service.namespace", namespace);
+
+    // Correlation ids.
+    setGlobalSpanAttribute("app.telemetry_id", telemetryContext.telemetryId);
+    setGlobalSpanAttribute("app.device_id", telemetryContext.deviceId);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__) {
+        // If LogRocket instrumentation is registered, when the LogRocket session URL is ready,
+        // it's automatically added to all Honeycomb traces.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__((sessionUrl: string) => {
+            setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
+        });
+    }
 
     // Indicates to the host applications that the Honeycomb instrumentation
     // has been registered.
