@@ -14,7 +14,7 @@ Initializes [LogRocket](https://logrocket.com/) instrumentation with Workleap's 
 ## Reference
 
 ```ts
-registerLogRocketInstrumentation(appId, telemetryContext, options?: {})
+registerLogRocketInstrumentation(appId, telemetryContext, options?: { rootHostname, privateFieldNames, privateQueryParameterNames })
 ```
 
 ### Parameters

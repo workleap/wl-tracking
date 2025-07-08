@@ -28,30 +28,24 @@ export class TelemetryContext {
 }
 
 export interface GetTelemetryContextOptions {
-    cookieExpiration?: Date;
-    cookieDomain?: string;
+    identityCookieExpiration?: Date;
+    identityCookieDomain?: string;
     verbose?: boolean;
 }
 
 export function createTelemetryContext(options: GetTelemetryContextOptions = {}) {
     const {
-        cookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        cookieDomain = ".workleap",
+        identityCookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        identityCookieDomain = ".workleap",
         verbose = false
     } = options;
 
     let deviceId = getDeviceId();
 
-    console.log("!!!!!!!!!!!!");
-    console.log("!!!!!!!!!!!!", deviceId);
-
     if (!deviceId) {
         deviceId = uuidv4();
 
-        console.log("$$$$$$$$$$$");
-        console.log("$$$$$$$$$$$");
-
-        setDeviceId(deviceId, cookieExpiration, cookieDomain);
+        setDeviceId(deviceId, identityCookieExpiration, identityCookieDomain);
     }
 
     const telemetryId = uuidv4();
@@ -73,7 +67,7 @@ function getDeviceId() {
 
             return parsedCookie.deviceId;
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error: unknown) {
         // Do nothing.
     }
@@ -84,19 +78,14 @@ function setDeviceId(deviceId: string, cookieExpiration: Date, cookieDomain: str
         deviceId
     } satisfies IdentityCookie;
 
-    console.log("aaaaaaaaaaa");
-    console.log("aaaaaaaaaaa", value);
-
-    //try {
-    // Not setting an expiration date because we want a "session" cookie.
-    Cookies.set(IdentityCookieName, JSON.stringify(value), {
-        expires: cookieExpiration,
-        domain: cookieDomain
-    });
+    try {
+        // Not setting an expiration date because we want a "session" cookie.
+        Cookies.set(IdentityCookieName, JSON.stringify(value), {
+            expires: cookieExpiration,
+            domain: cookieDomain
+        });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // } catch (error: unknown) {
-    //     console.error(error);
-
-    //     // Do nothing.
-    // }
+    } catch (error: unknown) {
+        // Do nothing.
+    }
 }
