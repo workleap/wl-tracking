@@ -104,9 +104,6 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
         [TelemetryIdTrait]: telemetryContext.telemetryId
     });
 
-    // Save the context to include it as traits when the user is identified.
-    // setTelemetryContext(telemetryContext);
-
     // Indicates to the host applications that logrocket has been initialized.
     // It's useful in cases where an "add-on", like the platform widgets needs
     // to know whether or not the host application is using LogRocket.
