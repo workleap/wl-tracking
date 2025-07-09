@@ -1,7 +1,7 @@
 ---
 order: 0
 meta:
-    title: Upgrading - Mixpanel
+    title: Updating - Mixpanel
 ---
 
 # Updating

@@ -1,7 +1,7 @@
 ---
 order: 10
 meta:
-    title: Upgrading - LogRocket
+    title: Updating - LogRocket
 ---
 
 # Updating

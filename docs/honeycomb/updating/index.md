@@ -1,7 +1,7 @@
 ---
 order: 10
 meta:
-    title: Upgrading - Honeycomb
+    title: Updating - Honeycomb
 ---
 
 # Updating
