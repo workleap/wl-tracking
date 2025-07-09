@@ -7,6 +7,8 @@ The following documentation is only for the maintainers of this repository.
 - [Installation](#installation)
 - [Develop the packages](#develop-the-packages)
 - [Release the packages](#release-the-packages)
+- [LogRocket](#logrocket)
+- [Honeycomb](#honeycomb)
 - [Available commands](#commands)
 - [CI](#ci)
 - [Add a new package to the monorepo](#add-a-new-package-to-the-monorepo)
@@ -31,7 +33,7 @@ This project is split into two major sections, [packages/](./packages) and [samp
 
 ### Packages
 
-Under [packages/](./packages/) are the actual tracking libraries.
+Under [packages/](./packages/) are the actual telemetry libraries.
 
 ### Samples
 
@@ -69,10 +71,18 @@ npx retype wallet --add <your-license-key-here>
 
 ## Develop the packages
 
-Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start the sample application with either of the following scripts:
+Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start one of the sample applications with either of the following scripts:
 
 ```bash
-pnpm dev-logrocket
+pnpm dev-all-platforms
+```
+
+```bash
+pnpm dev-honeycomb-api-key
+```
+
+```bash
+pnpm dev-honeycomb-proxy
 ```
 
 You can then open your favorite browser and navigate to `http://localhost:8080/` to get a live preview of your code.
@@ -104,6 +114,18 @@ pnpm build
 ```
 
 By default, packages compilation output will be in their respective *dist* directory.
+
+## LogRocket
+
+The sample applications' telemetry data is sent to the `frontend-platform-team-dev` project in LogRocket.
+
+## Honeycomb
+
+Depending on the sample application, traces are sent to the corresponding project within the `frontend-platform-team-dev` environment in Honeycomb:
+
+- `all-platforms`: `all-platforms-sample`
+- `honeycomb-api-key`: `honeycomb-api-key-sample`
+- `honeycomb-proxy`: `honeycomb-proxy-sample`
 
 ## Commands
 
