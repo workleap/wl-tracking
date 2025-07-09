@@ -16,24 +16,24 @@ vi.mock("../src/properties.ts", () => ({
 
 
 test("when an event is tracked, sends a request to the default endpoint", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation");
+    const track = createTrackingFunction("wlp", "http://api/navigation");
 
     await track("customEvent", {});
 
     const [url] = fetchMock.mock.calls[0];
 
-    expect(url).toBe("/api/navigation/tracking/track");
+    expect(url).toBe("http://api/navigation/tracking/track");
 });
 
 test("when called, sends a request to the default endpoint with merged properties", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation");
+    const track = createTrackingFunction("wlp", "http://api/navigation");
 
     await track("event", { customProp: 123 });
 
     const [url, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
 
-    expect(url).toBe("/api/navigation/tracking/track");
+    expect(url).toBe("http://api/navigation/tracking/track");
     expect(body.properties).toMatchObject({
         baseProp: "base",
         customProp: 123
@@ -43,7 +43,7 @@ test("when called, sends a request to the default endpoint with merged propertie
 });
 
 test("when an event is tracked, includes the event name in the request body", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation");
+    const track = createTrackingFunction("wlp", "http://api/navigation");
 
     await track("customEvent", {});
 
@@ -54,7 +54,7 @@ test("when an event is tracked, includes the event name in the request body", as
 });
 
 test("when keepAlive is true, includes keepalive in the fetch options", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation");
+    const track = createTrackingFunction("wlp", "http://api/navigation");
 
     await track("keepaliveEvent", {}, { keepAlive: true });
 
@@ -63,7 +63,7 @@ test("when keepAlive is true, includes keepalive in the fetch options", async ({
 });
 
 test("when a targetProductId is provided, includes it in the request body", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation", {
+    const track = createTrackingFunction("wlp", "http://api/navigation", {
         targetProductId: "target-app"
     });
 
@@ -75,7 +75,7 @@ test("when a targetProductId is provided, includes it in the request body", asyn
 });
 
 test("when targetProductId is not provided, add it from the request body with null", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation");
+    const track = createTrackingFunction("wlp", "http://api/navigation");
 
     await track("event", {});
 
@@ -86,12 +86,12 @@ test("when targetProductId is not provided, add it from the request body with nu
 });
 
 test("when base URL ends with a slash, builds correct final URL", async ({ expect }) => {
-    const track = createTrackingFunction("wlp", "/api/navigation/");
+    const track = createTrackingFunction("wlp", "http://api/navigation/");
 
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
-    expect(url).toBe("/api/navigation/tracking/track");
+    expect(url).toBe("http://api/navigation/tracking/track");
 });
 
 test("when env is passed, builds correct final URL", async ({ expect }) => {

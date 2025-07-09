@@ -25,7 +25,7 @@ const track = buildTrackingFunction(productId, targetProductIdentifier, environm
 After:
 
 ```ts
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl, {
+const track = createTrackingFunction(productId, "development", {
     targetProductId
 });
 ```

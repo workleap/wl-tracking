@@ -1,5 +1,6 @@
 
 const EnvironmentList = ["development", "staging", "production", "local", "msw"] as const;
+
 export type Environment = typeof EnvironmentList[number];
 
 const NavigationApiBaseUrl: Record<Environment, string> = {

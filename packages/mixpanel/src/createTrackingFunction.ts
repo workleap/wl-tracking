@@ -40,15 +40,15 @@ export interface CreateTrackingFunctionOptions {
 
 /**
  * Creates a function that sends tracking events to the tracking API.
- * @param productId Your product identifier. e.g. "wlp", "ov"
- * @param env The environment to get the navigation url from . e.g. "local", "prod"
+ * @param productId Your product identifier.
+ * @param envOrTrackingApiBaseUrl The environment to get the navigation url from or a base URL.
  * @param options Options for creating the tracking function.
  * @returns A function that sends tracking events to the tracking API.
  * @see https://workleap.github.io/wl-tracking
  */
-export function createTrackingFunction(productId: string, env: Environment, options?: CreateTrackingFunctionOptions) : TrackingFunction {
+export function createTrackingFunction(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options?: CreateTrackingFunctionOptions) : TrackingFunction {
     const targetProductId = options?.targetProductId ?? null;
-    const fullUrl = getTrackingEndpoint(env);
+    const fullUrl = getTrackingEndpoint(envOrTrackingApiBaseUrl);
 
     return async (eventName, properties, _options) => {
         const baseProperties = getBaseProperties();

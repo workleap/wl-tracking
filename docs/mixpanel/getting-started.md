@@ -25,16 +25,17 @@ pnpm add @workleap/mixpanel
 
 First, retrieve a `track` function by executing the `createTrackingFunction` factory function.
 
-```ts !#4
+
+
+```ts
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const environmentVariables = getEnvironmentVariables();
-const track = createTrackingFunction("wlp", environmentVariables.navigationApiBaseUrl);
+const track = createTrackingFunction("wlp", "development");
 ```
 
 ## Specify an environment
 
-The second parameter of `createTrackingFunction` can be either a full URL (typically from `environmentVariables.navigationApiBaseUrl`) or a predefined environment string.
+The second parameter of `createTrackingFunction` can be either a base URL (e.g: `https://my-tracking-api`) or a predefined environment string.
 
 Accepted environment strings are:
 - `development`

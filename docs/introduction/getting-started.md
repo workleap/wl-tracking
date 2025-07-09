@@ -1,8 +1,93 @@
 ---
 order: 100
+label: Getting started
+meta:
+    title: Getting started - Introduction
+toc:
+    depth: 2-3
 ---
 
 # Getting started
+
+Welcome to `workleap/telemetry`, a collection of telemetry libraries for building web applications at Workleap. On this getting started page, you'll find an overview of the project and a list of [supported platforms](#supported-platforms).
+
+## An integrated experience
+
+
+
+## Supported platforms
+
+{.supported-platforms-table}
+| Name | Description | NPM | Documentation |
+| --- | --- | --- |
+| ![](../static/logos/logrocket.svg){ class="h-5 w-5 mr-2 -mt-1" }[LogRocket](https://logrocket.com/) | Records frontend sessions and logs to help debug and resolve issues in production and surface critical issues. | [![npm version](https://img.shields.io/npm/v/@workleap/logrocket)](https://www.npmjs.com/package/@workleap/logrocket) | [Getting started](../logrocket/getting-started.md) |
+| ![](../static/logos/honeycomb.svg){ class="h-5 w-5 mr-2 -mt-1" }[Honeycomb](https://www.honeycomb.io/) | Captures and analyzes distributed traces and metrics to understand and monitor complex systems, application behaviors, and performance. | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) | [Getting started](../honeycomb/getting-started.md) |
+| ![](../static/logos/mixpanel.svg){ class="h-5 w-5 mr-2 -mt-1" }[Mixpanel](https://mixpanel.com/) | Tracks user interactions to analyze behavior and measure product impact. | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpanel) | [Getting started](../mixpanel/getting-started.md) |
+
+## Setup a project
+
+First, open a terminal at the root of the application and install the telemetry libraries packages:
+
+```bash
+pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemetry/api logrocket
+```
+
+Then, update the application bootstrapping code to initialize the libraries:
+
+```tsx index.tsx
+import { registerLogrocketInstrumentation } from "@workleap/logrocket";
+import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { createTrackingFunction } from "@workleap/mixpanel";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
+
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: true
+});
+
+registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
+    proxy: "https://sample-proxy"
+});
+
+const track = createTrackingFunction("wlp", "development");
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
+
+!!!tip
+For more information about a specific library, refer to its [getting started](#supported-platforms) guide.
+!!!
+
+## Correlation ids
+
+Each library sends the same two correlation id values to its respective platform, using platform-specific naming conventions for the names:
+
+{.correlation-ids-table}
+| Correlation id | Description | LogRocket | Honeycomb | Mixpanel |
+| --- | --- | --- | --- | --- |
+| Telemetry id | Identifies a single application load. It's primarily used to correlate with Honeycomb traces. | `Telemetry Id` | `app.telemetry_id` | `Telemetry Id` |
+| Device id | Identifies the user's device across sessions. | `Device Id` | `app.device_id` | `Device Id` |
+
+For example:
+
+- **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
+- **LogRocket**: Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id value`, and press "Enter" to view the matching sessions.
+- **Mixpanel**: TBD
+
+## LogRocket session URL
+
+In additional to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it's available:
+
+| Honeycomb | Mixpanel |
+| --- | --- |
+| `app.logrocket_session_url` | `LogRocket Session URL` |
 
 
 

@@ -40,7 +40,7 @@ A [root hostname](https://docs.logrocket.com/reference/roothostname) to track se
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
     rootHostname: "an-host.com"
 });
 ```
@@ -55,7 +55,7 @@ Names of additional fields to exclude from session replays. These fields will be
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
     privateFieldNames: ["a-custom-field"]
 });
 ```
@@ -72,7 +72,7 @@ Names of additional fields to exclude from session replays. These fields will be
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
     privateQueryParameterNames: ["a-custom-param"]
 });
 ```
@@ -89,7 +89,7 @@ Indicates whether or not debug information should be logged to the console.
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
     verbose: true
 });
 ```
@@ -126,7 +126,7 @@ const disableConsoleLogging: LogRocketSdkOptionsTransformer = config => {
     return config;
 };
 
-registerLogRocketInstrumentation("an-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
     transformers: [disableConsoleLogging]
 });
 ```

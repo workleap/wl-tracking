@@ -31,7 +31,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("an-app-id", {
+registerLogRocketInstrumentation("my-app-id", {
     verbose: true
 });
 
@@ -114,7 +114,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("an-app-id", telemetryContext);
+registerLogRocketInstrumentation("my-app-id", telemetryContext);
 
 const root = createRoot(document.getElementById("root")!);
 

@@ -2,7 +2,17 @@
 
 <style>
     .user-traits-table th:first-of-type {
-        min-width: 225px;
+        min-width: 225px !important;
+    }
+
+    .supported-platforms-table th:first-of-type {
+        min-width: 175px !important;
+    }
+
+    @media (min-width: 961px) {
+        .correlation-ids-table th:nth-of-type(2) {
+            width: 400px !important;
+        }
     }
 
     .no-ul-margin-bottom ul {
@@ -10,10 +20,10 @@
     }
 
     .getting-started-correlation-ids {
-        display: flex;
+        display: flex !important;
     }
 
     .getting-started-correlation-ids figure:first-of-type {
-        margin-right: 1.5rem;
+        margin-right: 1.5rem !important;
     }
 </style>
