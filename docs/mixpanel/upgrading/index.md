@@ -1,5 +1,7 @@
 ---
 order: 0
+meta:
+    title: Upgrading - Mixpanel
 ---
 
 # Updating

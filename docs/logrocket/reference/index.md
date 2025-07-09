@@ -1,5 +1,7 @@
 ---
 order: 80
+meta:
+    title: Reference - LogRocket
 ---
 
 # Reference

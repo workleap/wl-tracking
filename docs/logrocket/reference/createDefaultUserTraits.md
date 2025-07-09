@@ -71,15 +71,31 @@ Is Collaborator | `true` if this user is a collaborator in any product in the cu
 Is Collaborator - Officevibe<br/>Is Collaborator - LMS<br />Is Collaborator - Onboarding<br/>Is Collaborator - Pingboard<br/>Is Collaborator - Skills<br/>Is Collaborator - Performance | `true` if this user is a collaborator in the corresponding product in the current workspace.
 Plan Code - Officevibe<br/>Plan Code - LMS<br/>Plan Code - Onboarding<br/>Plan Code - Pingboard<br/>Plan Code - Skills<br/>Plan Code - Performance | <p>Indicates the plan code for the corresponding product in the workspace.</p><p>ex. `wov-essential-monthly-std`</p>
 
-## Send additional user traits
+## Usage
+
+### Get default traits
+
+```ts
+import { createDefaultUserTraits } from "@workleap/logrocket";
+
+const traits = createDefaultUserTraits({
+    userId: "6a5e6b06-0cac-44ee-8d2b-00b9419e7da9",
+    organizationId: "e6bb30f8-0a00-4928-8943-1630895a3f14",
+    organizationName: "Acme",
+    isMigratedToWorkleap: true,
+    isOrganizationCreator: false,
+    isAdmin: false
+});
+```
+
+### Send additional traits
 
 You can send custom user traits to improve filtering in [LogRocket](https://app.logrocket.com). To do so, merge the default user traits with your additional traits before sending them:
 
-```ts !#13
+```ts !#12
 import { createDefaultUserTraits } from "@workleap/logrocket";
-import LogRocket from "logrocket";
 
-LogRocket.identify(form.userId, {
+const allTraits = {
     ...createDefaultUserTraits({
         userId: "6a5e6b06-0cac-44ee-8d2b-00b9419e7da9",
         organizationId: "e6bb30f8-0a00-4928-8943-1630895a3f14",
@@ -89,7 +105,7 @@ LogRocket.identify(form.userId, {
         isAdmin: false
     }),
     "Additional Trait": "Trait Value"
-});
+};
 ```
 
 !!!info

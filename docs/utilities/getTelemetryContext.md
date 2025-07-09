@@ -28,8 +28,8 @@ const telemetryContext = getTelemetryContext(options?: { identityCookieExpiratio
 
 A `TelemetryContext` object containing two correlation ids:
 
-- `telemetryId`: Identifies a single application load. Usually to correlate Honeycomb traces with the other telemetry platforms.
-- `deviceId`: Identifies the user's device across sessions. This value is read from the shared `wl-identity` cookie used by both Workleap's marketing sites and web applications.
+- `telemetryId`: Identifies a single application load. It's primarily used to correlate Honeycomb traces with other telemetry platforms.
+- `deviceId`: Identifies the user's device across sessions. This value is extracted from the shared wl-identity cookie, which is used across Workleap’s marketing sites and web applications.
 
 ## Side effects
 

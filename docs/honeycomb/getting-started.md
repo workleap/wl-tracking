@@ -4,7 +4,7 @@ order: 100
 
 # Getting started
 
-To monitor application performance, Workleap has adopted [Honeycomb](https://www.honeycomb.io/), a tool that helps teams manage and analyze end to end telemetry data from distributed systems. Built on [OpenTelemetry](https://opentelemetry.io/), Honeycomb provides a robust API for frontend telemetry.
+To monitor **application performance**, Workleap has adopted [Honeycomb](https://www.honeycomb.io/), a tool that helps teams manage and analyze **end to end telemetry** data from **distributed systems**. Built on [OpenTelemetry](https://opentelemetry.io/), Honeycomb provides a robust API for frontend telemetry.
 
 While Honeycomb's in-house [HoneycombWebSDK](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution/) includes great default instrumentation, this package provides a slightly altered default instrumentation which is adapted for Workleap's web application requirements. 
 
@@ -18,7 +18,7 @@ pnpm add @workleap/telemetry @workleap/honeycomb @opentelemetry/api
 
 ## Register instrumentation
 
-Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](../reference/registerHoneycombInstrumentation.md) function:
+Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](./reference/registerHoneycombInstrumentation.md) function:
 
 ```tsx !#6-8 index.tsx
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
@@ -87,9 +87,29 @@ The default instrumentation will automatically track the appropriate metrics to 
 ![Interaction to Next Paint](../static/honeycomb/honeycomb-inp.png){width=532 height=358}
 :::
 
+### LogRocket session URL
+
+If [LogRocket instrumentation](../logrocket/getting-started.md) is registered, Honeycomb traces are enriched with the LogRocket session URL as soon as it becomes available:
+
+:::align-image-left
+![LogRocket session URL](../static/honeycomb/honeycomb-logrocket-session-url.png){width=328}
+:::
+
+### Correlation ids
+
+The `registerLogRocketInstrumentation` function automatically adds two attributes to every trace:
+
+- `app.telemetry_id`: Identifies a single application load. It's primarily used to correlate Honeycomb traces with the other telemetry platforms.
+- `app.device_id`: Identifies the user's device across sessions. This value is extracted from the shared `wl-identity` cookie, which is used across Workleap's marketing sites and web applications.
+
+:::getting-started-correlation-ids
+![app.telemetry_id attribute](../static/honeycomb/honeycomb-telemetry-id.png){width=308}
+![app_device_id attribute](../static/honeycomb/honeycomb-device-id.png){width=310}
+:::
+
 ## Set custom user attributes
 
-Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](../reference/setGlobalSpanAttributes.md) function.
+Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](./reference/setGlobalSpanAttributes.md) function.
 
 Update your application bootstrapping code to include the `setGlobalSpanAttribute` function:
 
@@ -132,7 +152,16 @@ Start the application in a development environment using the `dev` script. Rende
 
 If you are experiencing issues with this guide:
 
-- Set the [verbose](../reference/registerHoneycombInstrumentation.md#verbose) predefined option to `true`.
+- Set the [verbose](./reference/registerHoneycombInstrumentation.md#verbose) predefined option to `true`.
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. You'll see a log entry for every Honeycomb traces.
     - `honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
 - Refer to the sample on [GitHub](https://github.com/workleap/wl-honeycomb-web/tree/main/sample).
+
+## Filter by correlation ids
+
+The `registerLogRocketInstrumentation` function automatically adds two user traits to every session replay to **unify** LogRocket with the **other telemetry platforms**:
+
+- `app.telemetry_id`: Identifies a single application load. It's primarily used to correlate Honeycomb traces with the other telemetry platforms.
+- `app.device_id`: Identifies the user's device across sessions. This value is extracted from the shared `wl-identity` cookie, which is used across Workleap's marketing sites and web applications.
+
+To correlate a session with other telemetry platforms, filter the query with the `app.telemetry_id` or `app.device_id` fields into the "Where" input.

@@ -138,12 +138,14 @@ To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the 
 - `telemetryId` is a new identifier that represents a single application load.
 - `deviceId` replaces the former `trackingId` and reuses the original name from the `wl-identity` cookie, better reflecting its purpose as a persistent device identifier.
 
-### Automatically add session replay url to other telemetry platforms
+### Session URL enrichment
 
-A built-in integration now automatically allow other telemetry libraries to add the LogRocket session replay URL to their traces/events.
+A built-in integration now automatically allows other telemetry libraries to include the LogRocket session replay URL in their traces or events.
+
+For example, with the Honeycomb integration: once the LogRocket session URL is retrieved, each trace is enriched with an `app.logrocket_session_url` attribute.
 
 :::align-image-left
-![Honeycomb integration example](../../static/logrocket/honeycomb_session_url.png)
+![Honeycomb enrichment example](../../static/logrocket/honeycomb-logrocket-session-url.png){width=328}
 :::
 
 

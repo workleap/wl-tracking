@@ -9,9 +9,9 @@ toc:
 
 # Getting started
 
-To gain full visibility into frontend behavior in production, Workleap has adopted [LogRocket](https://logrocket.com/), a tool that combines session replay, performance tracking, and error logging to help understand and resolve issues in production.
+To gain full visibility into **frontend behavior** in **production**, Workleap has adopted [LogRocket](https://logrocket.com/), a tool that combines session replay, performance tracking, and error logging to help **understand** and resolve **issues** in **production**.
 
-This package provides default LogRocket instrumentation tailored to Workleap's web applications needs, including the removal of sensitive information from HTML documents, HTTP requests/responses and URLs.
+This package provides default LogRocket instrumentation tailored to Workleap's web applications needs, including the **removal** of **sensitive information** from HTML documents, HTTP requests/responses and URLs.
 
 ## Install the packages
 
@@ -147,8 +147,24 @@ Start the application in a development environment using the dev script. Render 
 You can try filtering the session list using different user traits, such as:
 
 - `User Id`
-- `Telemetry Id`
-- `Device Id`
+- `Organization Id`
+- `Is Admin`
+
+### Troubleshoot issues
+
+If you are experiencing issues with this guide:
+
+- Set the [verbose](./reference/registerLogRocketInstrumentation.md#verbose) predefined option to `true`.
+- Refer to the sample on [GitHub](TBD).
+
+## Filter by correlation ids
+
+The `registerLogRocketInstrumentation` function automatically adds two user traits to every session replay to **unify** LogRocket with the **other telemetry platforms**:
+
+- `Telemetry Id`: Identifies a single application load. It's primarily used to correlate with Honeycomb traces.
+- `Device Id`: Identifies the user's device across sessions. This value is extracted from the shared `wl-identity` cookie, which is used across Workleap's marketing sites and web applications.
+
+To correlate a session with other telemetry platforms, filter the session list using these user traits.
 
 ## Migrate to v1.0
 
