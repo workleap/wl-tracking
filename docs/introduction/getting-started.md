@@ -13,7 +13,9 @@ Welcome to `workleap/telemetry`, a collection of telemetry libraries for buildin
 
 ## An integrated experience
 
+Without a unified telemetry setup, debugging issues or analyzing product behavior often requires **jumping between** tools with **disconnected data**. Session replays in [LogRocket](https://logrocket.com/), traces in [Honeycomb](https://www.honeycomb.io/), and user events in [Mixpanel](https://mixpanel.com/) each offer valuable insights, but without shared identifiers or cross-platform context, it becomes difficult to correlate events, reconstruct user journeys, or measure the full impact of a technical issue in production.
 
+This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. By linking session data, performance traces, and user interactions through consistent identifiers, it becomes possible to **trace** a **single** application **event across systems**, from backend performance to frontend behavior to product impact. This integration streamlines will hopefully enables faster, more informed decision-making.
 
 ## Supported platforms
 
