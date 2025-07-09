@@ -36,7 +36,7 @@ pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/m
 
 Then, update the application bootstrapping code to initialize the libraries:
 
-```tsx index.tsx
+```tsx !#8-10,12-14,16 index.tsx
 import { registerLogrocketInstrumentation } from "@workleap/logrocket";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { createTrackingFunction } from "@workleap/mixpanel";
