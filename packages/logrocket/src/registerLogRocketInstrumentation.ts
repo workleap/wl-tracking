@@ -52,7 +52,7 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
     const mergedPrivateFieldNames = DefaultPrivateFieldNames.concat(privateFieldNames);
     const mergedPrivateQueryParameterNames = DefaultPrivateQueryParameterNames.concat(privateQueryParameterNames);
 
-    // The "LogrocketFuzzySearch.setup" code is akward. For now, we prefer to play it safe and call it once here, then forward the sanitize functions
+    // The "LogrocketFuzzySearch.setup" code is awkward. For now, we prefer to play it safe and call it once here, then forward the sanitize functions
     // to the appropriate factories.
     // No clue why the "setup" method is not available. This package is shady.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -74,7 +74,8 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
         },
         browser: {
             urlSanitizer: createUrlSanitizer(mergedPrivateQueryParameterNames)
-        }
+        },
+        shouldDebugLog: verbose
     } satisfies LogRocketSdkOptions;
 
     return applyTransformers(sdkOptions, transformers, {
@@ -103,6 +104,12 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
         [DeviceIdTrait]: telemetryContext.deviceId,
         [TelemetryIdTrait]: telemetryContext.telemetryId
     });
+
+    if (verbose) {
+        LogRocket.getSessionURL(url => {
+            console.log("[logrocket] Session replay URL is now available:", url);
+        });
+    }
 
     // Indicates to the host applications that logrocket has been initialized.
     // It's useful in cases where an "add-on", like the platform widgets needs

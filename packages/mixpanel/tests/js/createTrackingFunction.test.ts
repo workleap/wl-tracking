@@ -1,5 +1,5 @@
 import { beforeEach, test, vi } from "vitest";
-import { createTrackingFunction } from "../src/createTrackingFunction.ts";
+import { createTrackingFunction } from "../../src/js/createTrackingFunction.ts";
 
 const fetchMock = vi.fn();
 globalThis.fetch = fetchMock;

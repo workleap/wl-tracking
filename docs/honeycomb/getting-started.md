@@ -153,7 +153,8 @@ Start the application in a development environment using the `dev` script. Rende
 If you are experiencing issues with this guide:
 
 - Set the [verbose](./reference/registerHoneycombInstrumentation.md#verbose) predefined option to `true`.
-- Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. You'll see a log entry for every Honeycomb traces.
+- Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. Look for logs starting with `[honeycomb]`.
+- You should also see a log entry for every Honeycomb traces.
     - `honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
 - Refer to the sample on [GitHub](https://github.com/workleap/wl-honeycomb-web/tree/main/sample).
 

@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useTrack } from "@workleap/mixpanel/react";
 import { fetchJson } from "./api.ts";
 
 interface Movie {
@@ -11,6 +12,12 @@ export function MoviesPage() {
     const { data: movies } = useSuspenseQuery({ queryKey: ["api/movies"], queryFn: () => {
         return fetchJson("http://localhost:1234/api/movies");
     } });
+
+    const track = useTrack();
+
+    track("Page View", {
+        "Page": "Movies Page"
+    });
 
     return (
         <>

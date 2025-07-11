@@ -1,10 +1,9 @@
 export interface BootstrappingState {
     isLogRocketReady: boolean;
     isHoneycombReady: boolean;
-    isMixpanelReady: boolean;
 }
 
-export type BootstrappingActionType = "logrocket-ready" | "honeycomb-ready" | "mixpanel-ready";
+export type BootstrappingActionType = "logrocket-ready" | "honeycomb-ready";
 
 export interface BootstrappingAction {
     type: BootstrappingActionType;
@@ -60,10 +59,6 @@ export class BootstrappingStore {
                 newState.isHoneycombReady = true;
                 break;
             }
-            case "mixpanel-ready": {
-                newState.isMixpanelReady = true;
-                break;
-            }
             default: {
                 throw new Error(`[telemetry] The bootstrapping store reducer doesn't support action type "${action.type}".`);
             }
@@ -83,8 +78,7 @@ export class BootstrappingStore {
 
 const bootstrappingStore = new BootstrappingStore({
     isLogRocketReady: false,
-    isHoneycombReady: false,
-    isMixpanelReady: false
+    isHoneycombReady: false
 });
 
 export function getBootstrappingStore() {

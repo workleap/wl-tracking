@@ -145,6 +145,10 @@ function registerLogRocketSessionUrlListener(verbose = false) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__((sessionUrl: string) => {
+            if (verbose) {
+                console.log("[honeycomb] Received LogRocket session replay URL:", sessionUrl);
+            }
+
             setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
         });
     } else if (verbose) {

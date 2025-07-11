@@ -9,15 +9,13 @@ import { type BootstrappingAction, type BootstrappingActionType, type Bootstrapp
 function createInitialBootstrappingState() {
     return {
         isLogRocketReady: false,
-        isHoneycombReady: false,
-        isMixpanelReady: false
+        isHoneycombReady: false
     } satisfies BootstrappingState;
 }
 
 test.concurrent.for([
     ["logrocket-ready", "isLogRocketReady"],
-    ["honeycomb-ready", "isHoneycombReady"],
-    ["mixpanel-ready", "isMixpanelReady"]
+    ["honeycomb-ready", "isHoneycombReady"]
 ] satisfies [BootstrappingActionType, keyof BootstrappingState][]
 )("when \"%s\" is dispatched, \"%s\" is true", ([actionType, stateKey], { expect }) => {
     const state = createInitialBootstrappingState();

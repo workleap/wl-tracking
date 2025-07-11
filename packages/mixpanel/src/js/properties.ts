@@ -1,4 +1,5 @@
 
+import type { TelemetryContext } from "@workleap/telemetry";
 import { browserName, browserVersion, deviceType, osName, referringDomain } from "./utils.ts";
 
 export type TrackEventProperties = Record<string, unknown>;
@@ -17,6 +18,12 @@ const BaseTrackingProperties = {
     ScreenWidth: "$screen_width"
 } as const;
 
+export const TelemetryTrackingProperties = {
+    DeviceId: "DeviceId",
+    LogRocketSessionUrl: "LogRocketSessionUrl",
+    TelemetryId: "TelemetryId"
+} as const;
+
 export function getBaseProperties() {
     const userAgent = navigator.userAgent;
     const device = deviceType(userAgent);
@@ -33,4 +40,11 @@ export function getBaseProperties() {
         [BaseTrackingProperties.ScreenWidth]: window.screen.width,
         [BaseTrackingProperties.IsMobile]: device.length > 0
     } satisfies TrackEventProperties;
+}
+
+export function getTelemetryProperties(context: TelemetryContext) {
+    return {
+        [TelemetryTrackingProperties.TelemetryId]: context.telemetryId,
+        [TelemetryTrackingProperties.DeviceId]: context.deviceId
+    };
 }

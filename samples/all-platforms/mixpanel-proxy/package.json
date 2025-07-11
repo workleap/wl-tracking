@@ -1,8 +1,8 @@
 {
-    "name": "@all-platforms/express-server",
+    "name": "@all-platforms/mixpanel-proxy",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Express server for the all platforms sample appication endpoints.",
+    "description": "Mixpanel proxy for the all platforms sample appication.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
@@ -14,7 +14,9 @@
     },
     "dependencies": {
         "cors": "2.8.5",
-        "express": "5.1.0"
+        "dotenv": "17.2.0",
+        "express": "5.1.0",
+        "mixpanel": "0.18.1"
     },
     "devDependencies": {
         "@types/cors": "2.8.19",

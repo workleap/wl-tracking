@@ -1,5 +1,7 @@
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
+import { createTrackingFunction } from "@workleap/mixpanel";
+import { TrackProvider } from "@workleap/mixpanel/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
@@ -15,10 +17,16 @@ registerLogRocketInstrumentation(process.env.LOGROCKET_APP_ID as string, {
     verbose: true
 });
 
+const track = createTrackingFunction("wlp", "http://localhost:5678/api/shell/navigation/", {
+    verbose: true
+});
+
 const root = createRoot(document.getElementById("root")!);
 
 root.render(
     <StrictMode>
-        <App />
+        <TrackProvider value={track}>
+            <App />
+        </TrackProvider>
     </StrictMode>
 );

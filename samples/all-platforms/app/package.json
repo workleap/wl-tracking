@@ -19,6 +19,7 @@
         "@tanstack/react-query": "5.81.5",
         "@workleap/honeycomb": "workspace:*",
         "@workleap/logrocket": "workspace:*",
+        "@workleap/mixpanel": "workspace:*",
         "@workleap/telemetry": "workspace:*",
         "logrocket": "10.1.0",
         "react": "19.1.0",

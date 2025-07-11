@@ -155,6 +155,7 @@ You can try filtering the session list using different user traits, such as:
 If you are experiencing issues with this guide:
 
 - Set the [verbose](./reference/registerLogRocketInstrumentation.md#verbose) predefined option to `true`.
+- Open the [DevTools](https://developer.chrome.com/docs/devtools/) console and look for logs starting with `[logrocket]`.
 - Refer to the sample on [GitHub](TBD).
 
 ## Filter by correlation ids

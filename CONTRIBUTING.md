@@ -97,6 +97,10 @@ Depending on the sample application, traces are sent to the corresponding projec
 - `honeycomb-api-key`: `honeycomb-api-key-sample`
 - `honeycomb-proxy`: `honeycomb-proxy-sample`
 
+### Mixpanel
+
+The sample applications' telemetry data is sent to the `Frontend-Platform-Team-Dev` project in Mixpanel.
+
 ## Release the packages
 
 When you are ready to release the packages, you must follow the following steps:

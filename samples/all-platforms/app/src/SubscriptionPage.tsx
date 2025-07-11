@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useTrack } from "@workleap/mixpanel/react";
 import { fetchJson } from "./api.ts";
 
 interface Subscription {
@@ -11,6 +12,12 @@ export function SubscriptionPage() {
     const { data: subscription } = useSuspenseQuery({ queryKey: ["api/subscription"], queryFn: async () => {
         return (await fetchJson("http://localhost:1234/api/subscription")) as Subscription;
     } });
+
+    const track = useTrack();
+
+    track("Page View", {
+        "Page": "Subscription Page"
+    });
 
     return (
         <>

@@ -1,4 +1,12 @@
+import { useTrack } from "@workleap/mixpanel/react";
+
 export function HomePage() {
+    const track = useTrack();
+
+    track("Page View", {
+        "Page": "Home Page"
+    });
+
     return (
         <>
             <h1>Home</h1>
