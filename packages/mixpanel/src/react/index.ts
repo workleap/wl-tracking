@@ -1,2 +1,2 @@
-export { TrackProvider, useTrack } from "./TrackProvider.ts";
+export { useMixpanelTracking } from "./useMixpanelTracking.ts";
 

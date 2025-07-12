@@ -46,7 +46,7 @@
         "eslint": "8.57.1",
         "pkg-pr-new": "0.0.54",
         "prettier": "3.6.2",
-        "retypeapp": "3.10.1",
+        "retypeapp": "3.12.0-preview2",
         "syncpack": "13.0.4",
         "turbo": "2.5.4",
         "typescript": "5.8.3"

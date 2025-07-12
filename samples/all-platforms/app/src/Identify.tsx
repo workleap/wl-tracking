@@ -1,6 +1,6 @@
 import { setGlobalSpanAttribute } from "@workleap/honeycomb";
 import { createDefaultUserTraits, type LogRocketIdentification } from "@workleap/logrocket";
-import { useTrack } from "@workleap/mixpanel/react";
+import { useMixpanelTracking } from "@workleap/mixpanel/react";
 import LogRocket from "logrocket";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 
@@ -40,7 +40,7 @@ export function IdentifyPage() {
         }
     });
 
-    const track = useTrack();
+    const track = useMixpanelTracking();
 
     track("Page View", {
         "Page": "Identify Page"

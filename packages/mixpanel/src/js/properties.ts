@@ -1,11 +1,9 @@
 
-import type { TelemetryContext } from "@workleap/telemetry";
 import { browserName, browserVersion, deviceType, osName, referringDomain } from "./utils.ts";
 
-export type TrackEventProperties = Record<string, unknown>;
+export type MixpanelTrackEventProperties = Record<string, unknown>;
 
-const BaseTrackingProperties = {
-    AppVersion: "AppVersion",
+export const BaseProperties = {
     Browser: "$browser",
     BrowserVersion: "$browser_version",
     CurrentUrl: "$current_url",
@@ -18,10 +16,10 @@ const BaseTrackingProperties = {
     ScreenWidth: "$screen_width"
 } as const;
 
-export const TelemetryTrackingProperties = {
-    DeviceId: "DeviceId",
-    LogRocketSessionUrl: "LogRocketSessionUrl",
-    TelemetryId: "TelemetryId"
+export const TelemetryProperties = {
+    DeviceId: "Device Id",
+    LogRocketSessionUrl: "LogRocket Session Url",
+    TelemetryId: "Telemetry Id"
 } as const;
 
 export function getBaseProperties() {
@@ -29,22 +27,15 @@ export function getBaseProperties() {
     const device = deviceType(userAgent);
 
     return {
-        [BaseTrackingProperties.Os]: osName(userAgent),
-        [BaseTrackingProperties.Browser]: browserName(userAgent, navigator.vendor),
-        [BaseTrackingProperties.Referrer]: document.referrer,
-        [BaseTrackingProperties.ReferringDomain]: referringDomain(document.referrer),
-        [BaseTrackingProperties.Device]: device,
-        [BaseTrackingProperties.CurrentUrl]: window.location.href,
-        [BaseTrackingProperties.BrowserVersion]: browserVersion(userAgent, navigator.vendor),
-        [BaseTrackingProperties.ScreenHeight]: window.screen.height,
-        [BaseTrackingProperties.ScreenWidth]: window.screen.width,
-        [BaseTrackingProperties.IsMobile]: device.length > 0
-    } satisfies TrackEventProperties;
-}
-
-export function getTelemetryProperties(context: TelemetryContext) {
-    return {
-        [TelemetryTrackingProperties.TelemetryId]: context.telemetryId,
-        [TelemetryTrackingProperties.DeviceId]: context.deviceId
-    };
+        [BaseProperties.Os]: osName(userAgent),
+        [BaseProperties.Browser]: browserName(userAgent, navigator.vendor),
+        [BaseProperties.Referrer]: document.referrer,
+        [BaseProperties.ReferringDomain]: referringDomain(document.referrer),
+        [BaseProperties.Device]: device,
+        [BaseProperties.CurrentUrl]: window.location.href,
+        [BaseProperties.BrowserVersion]: browserVersion(userAgent, navigator.vendor),
+        [BaseProperties.ScreenHeight]: window.screen.height,
+        [BaseProperties.ScreenWidth]: window.screen.width,
+        [BaseProperties.IsMobile]: device.length > 0
+    } satisfies MixpanelTrackEventProperties;
 }

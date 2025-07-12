@@ -25,8 +25,6 @@ pnpm add @workleap/mixpanel
 
 First, retrieve a `track` function by executing the `createTrackingFunction` factory function.
 
-
-
 ```ts
 import { createTrackingFunction } from "@workleap/mixpanel";
 
@@ -52,7 +50,7 @@ import { createTrackingFunction } from "@workleap/mixpanel";
 const track = createTrackingFunction("wlp", "staging");
 ```
 
-This is useful if your application doesn’t manage environment variables for the API base URL and instead relies on environment naming conventions.
+This is useful if your application doesn't manage environment variables for the API base URL and instead relies on environment naming conventions.
 
 ## Track events
 
@@ -73,7 +71,7 @@ To track an action targeting another product, use the `targetProductId` option:
 ```ts !#4
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-const track = createTrackingFunction("wlp", "staging";, {
+const track = createTrackingFunction("wlp", "staging", {
     targetProductId: "wov"
 });
 

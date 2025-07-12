@@ -1,11 +1,16 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { getTrackingEndpoint, type Environment } from "./env.ts";
-import { getBaseProperties, TelemetryTrackingProperties, type TrackEventProperties } from "./properties.ts";
+import { GlobalFunctionName } from "./getMixpanelTrackingFunction.ts";
+import { getBaseProperties, TelemetryProperties, type MixpanelTrackEventProperties } from "./properties.ts";
 
 /**
  * @see https://workleap.github.io/wl-tracking
  */
-export interface TrackingOptions {
+export interface MixpanelTrackingOptions {
+    /**
+     * The product identifier of the target product.
+     */
+    targetProductId?: string;
     /**
    * Whether to keep the connection alive for the tracking request.
    * It is mostly used for tracking links where the user might navigate away before the request is completed.
@@ -26,17 +31,12 @@ export interface TrackingOptions {
  * @param options Options for tracking the event.
  * @see https://workleap.github.io/wl-tracking
  */
-export type TrackingFunction = (eventName: string, properties: TrackEventProperties, options?: TrackingOptions) => Promise<void>;
+export type MixpanelTrackingFunction = (eventName: string, properties: MixpanelTrackEventProperties, options?: MixpanelTrackingOptions) => Promise<void>;
 
 /**
  * @see https://workleap.github.io/wl-tracking
  */
-export interface CreateTrackingFunctionOptions {
-    /**
-     * The product identifier of the target product.
-     * @default null
-     */
-    targetProductId?: string | null;
+export interface InitializeMixpanelOptions {
     verbose?: boolean;
 }
 
@@ -52,7 +52,7 @@ function registerLogRocketSessionUrlListener(superProperties: Map<string, string
                 console.log("[mixpanel] Received LogRocket session replay URL:", sessionUrl);
             }
 
-            superProperties.set(TelemetryTrackingProperties.LogRocketSessionUrl, sessionUrl);
+            superProperties.set(TelemetryProperties.LogRocketSessionUrl, sessionUrl);
         });
     } else if (verbose) {
         console.log("[mixpanel] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
@@ -67,9 +67,8 @@ function registerLogRocketSessionUrlListener(superProperties: Map<string, string
  * @returns A function that sends tracking events to the tracking API.
  * @see https://workleap.github.io/wl-tracking
  */
-export function createTrackingFunction(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: CreateTrackingFunctionOptions = {}) : TrackingFunction {
+export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) : MixpanelTrackingFunction {
     const {
-        targetProductId,
         verbose
     } = options;
 
@@ -79,8 +78,8 @@ export function createTrackingFunction(productId: string, envOrTrackingApiBaseUr
     const fullUrl = getTrackingEndpoint(envOrTrackingApiBaseUrl);
     const telemetryContext = getTelemetryContext({ verbose });
 
-    superProperties.set(TelemetryTrackingProperties.TelemetryId, telemetryContext.telemetryId);
-    superProperties.set(TelemetryTrackingProperties.DeviceId, telemetryContext.deviceId);
+    superProperties.set(TelemetryProperties.TelemetryId, telemetryContext.telemetryId);
+    superProperties.set(TelemetryProperties.DeviceId, telemetryContext.deviceId);
 
     const bootstrappingStore = getBootstrappingStore();
 
@@ -97,8 +96,13 @@ export function createTrackingFunction(productId: string, envOrTrackingApiBaseUr
         });
     }
 
-    return async (eventName, properties, _options) => {
+    const trackFunction: MixpanelTrackingFunction = async (eventName, properties, _options = {}) => {
         try {
+            const {
+                targetProductId = null,
+                keepAlive = false
+            } = _options;
+
             const baseProperties = getBaseProperties();
 
             const allProperties = {
@@ -110,7 +114,7 @@ export function createTrackingFunction(productId: string, envOrTrackingApiBaseUr
             await fetch(fullUrl, {
                 method: "POST",
                 credentials: "include",
-                keepalive: _options?.keepAlive,
+                keepalive: keepAlive,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     eventName,
@@ -124,4 +128,10 @@ export function createTrackingFunction(productId: string, envOrTrackingApiBaseUr
             // Do nothing...
         }
     };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[GlobalFunctionName] = trackFunction;
+
+    return trackFunction;
 }

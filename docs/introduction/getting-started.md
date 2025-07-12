@@ -80,8 +80,16 @@ Each library sends the same two correlation id values to its respective platform
 For example:
 
 - **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
-- **LogRocket**: Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id value`, and press "Enter" to view the matching sessions.
-- **Mixpanel**: TBD
+- **LogRocket**: Navigate to the "Session Replay" page. Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id` value, and press "Enter" to view the matching sessions.
+- **Mixpanel**: Navigate to the "Events" page. Add a "filter", select the `Telemetry Id` propertt, paste the `app.telemetry_id` value, and press on the "Add" button to view the matching events.
+
+!!!warning
+This feature is available only when using the following package versions or higher:
+
+- `@workleap/logrocket` ≥ `1.0.0`
+- `@workleap/honeycomb` ≥ `6.0.0`
+- `@workleap/mixpanel` ≥ `2.0.0`
+!!!
 
 ## LogRocket session URL
 
@@ -90,6 +98,14 @@ In additional to the correlation ids, if LogRocket instrumentation is initialize
 | Honeycomb | Mixpanel |
 | --- | --- |
 | `app.logrocket_session_url` | `LogRocket Session URL` |
+
+!!!warning
+This feature is available only when using the following package versions or higher:
+
+- `@workleap/logrocket` ≥ `1.0.0`
+- `@workleap/honeycomb` ≥ `6.0.0`
+- `@workleap/mixpanel` ≥ `2.0.0`
+!!!
 
 
 

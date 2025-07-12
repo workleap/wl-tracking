@@ -1,4 +1,5 @@
-export { createTrackingFunction, type CreateTrackingFunctionOptions, type TrackingFunction, type TrackingOptions } from "./createTrackingFunction.ts";
 export type { Environment } from "./env.ts";
-export type { TrackEventProperties } from "./properties.ts";
+export { getMixpanelTrackingFunction } from "./getMixpanelTrackingFunction.ts";
+export { initializeMixpanel, type InitializeMixpanelOptions, type MixpanelTrackingFunction, type MixpanelTrackingOptions } from "./initializeMixpanel.ts";
+export type { MixpanelTrackEventProperties } from "./properties.ts";
 
