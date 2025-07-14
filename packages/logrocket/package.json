@@ -32,7 +32,7 @@
         "build": "rslib build --config ./rslib.build.ts",
         "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",
-        "test": "vitest --config vitest.config.ts --no-watch"
+        "test": "vitest --config vitest.config.ts --no-watch -u"
     },
     "peerDependencies": {
         "@workleap/telemetry": "workspace:*",
