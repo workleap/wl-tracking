@@ -1,6 +1,10 @@
-import { test, vi } from "vitest";
+import { afterEach, test, vi } from "vitest";
 import { FetchRequestPipeline, type FetchRequestPipelineHookFunction } from "../src/FetchRequestPipeline.ts";
 import { DummySpan } from "./utils.ts";
+
+afterEach(() => {
+    vi.clearAllMocks();
+});
 
 test.concurrent("when a request is dispatched, all the hooks are executed", ({ expect }) => {
     const pipeline = new FetchRequestPipeline();

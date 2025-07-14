@@ -1,12 +1,13 @@
 import type { Attributes, AttributeValue, Span } from "@opentelemetry/api";
 import type { SpanProcessor } from "@opentelemetry/sdk-trace-web";
 
-class GlobalAttributeSpanProcessor implements SpanProcessor {
-    #attributes: Attributes = {};
+export class GlobalAttributeSpanProcessor implements SpanProcessor {
+    // Not private to be available if the class is extended.
+    _attributes: Attributes = {};
 
     onStart(span: Span) {
-        if (Object.keys(this.#attributes).length > 0) {
-            span.setAttributes(this.#attributes);
+        if (Object.keys(this._attributes).length > 0) {
+            span.setAttributes(this._attributes);
         }
     }
 
@@ -21,23 +22,39 @@ class GlobalAttributeSpanProcessor implements SpanProcessor {
     }
 
     setAttribute(key: string, value: AttributeValue) {
-        this.#attributes[key] = value;
+        this._attributes[key] = value;
     }
 
     setAttributes(attributes: Attributes) {
-        this.#attributes = {
-            ...this.#attributes,
+        this._attributes = {
+            ...this._attributes,
             ...attributes
         };
     }
 }
 
-export const globalAttributeSpanProcessor = new GlobalAttributeSpanProcessor();
+let globalAttributeSpanProcessor: GlobalAttributeSpanProcessor | undefined;
+
+export function __setGlobalAttributeSpanProcessor(spanProcessor: GlobalAttributeSpanProcessor) {
+    globalAttributeSpanProcessor = spanProcessor;
+}
+
+export function __clearGlobalAttributeSpanProcessor() {
+    globalAttributeSpanProcessor = undefined;
+}
+
+export function getGlobalAttributeSpanProcessor() {
+    if (!globalAttributeSpanProcessor) {
+        globalAttributeSpanProcessor = new GlobalAttributeSpanProcessor();
+    }
+
+    return globalAttributeSpanProcessor;
+}
 
 export function setGlobalSpanAttribute(key: string, value: AttributeValue) {
-    globalAttributeSpanProcessor.setAttribute(key, value);
+    getGlobalAttributeSpanProcessor().setAttribute(key, value);
 }
 
 export function setGlobalSpanAttributes(attributes: Attributes) {
-    globalAttributeSpanProcessor.setAttributes(attributes);
+    getGlobalAttributeSpanProcessor().setAttributes(attributes);
 }

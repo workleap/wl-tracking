@@ -11,18 +11,6 @@ import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 export const IsRegisteredFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__";
 export const RegisterGetSessionUrlFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__";
 
-/**
- * @see https://workleap.github.io/wl-tracking
- */
-export interface RegisterLogRocketInstrumentationOptions {
-    // Set to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
-    rootHostname?: LogRocketSdkOptions["rootHostname"];
-    privateFieldNames?: string[];
-    privateQueryParameterNames?: string[];
-    verbose?: boolean;
-    transformers?: LogRocketSdkOptionsTransformer[];
-}
-
 const DefaultPrivateFieldNames = [
     "email",
     "personalEmail",
@@ -42,6 +30,18 @@ const DefaultPrivateQueryParameterNames = [
     "email",
     "password"
 ];
+
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
+export interface RegisterLogRocketInstrumentationOptions {
+    // Set to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
+    rootHostname?: LogRocketSdkOptions["rootHostname"];
+    privateFieldNames?: string[];
+    privateQueryParameterNames?: string[];
+    verbose?: boolean;
+    transformers?: LogRocketSdkOptionsTransformer[];
+}
 
 export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentationOptions) {
     const {

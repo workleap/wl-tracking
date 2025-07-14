@@ -1,4 +1,4 @@
-import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
+import { type HoneycombOptions, HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
 import { getWebAutoInstrumentations, type InstrumentationConfigMap } from "@opentelemetry/auto-instrumentations-web";
 import type { DocumentLoadInstrumentationConfig } from "@opentelemetry/instrumentation-document-load";
 import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-fetch";
@@ -8,10 +8,18 @@ import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
-import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
+import { getGlobalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
 import { normalizeAttributesSpanProcessor } from "./NormalizeAttributesSpanProcessor.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
+
+export const IsRegisteredFunctionName = "__WLP_HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__";
+export const RegisterDynamicFetchRequestHookFunctionName = "__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK__";
+export const RegisterDynamicFetchRequestHookAtStartFunctionName = "__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK_AT_START__";
+
+export const ServiceNamespaceAttributeName = "service.namespace";
+export const TelemetryIdAttributeName = "app.telemetry_id";
+export const DeviceIdAttributeName = "app.device_id";
 
 /**
  * @see https://workleap.github.io/wl-tracking
@@ -40,6 +48,26 @@ const defaultDefineFetchInstrumentationOptions: DefineFetchInstrumentationOption
 const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrumentationOptionsFunction = defaultOptions => {
     return defaultOptions;
 };
+
+export type HoneycombSdkFactory = (options: HoneycombOptions) => HoneycombWebSDK;
+
+let honeycombSdkFactory: HoneycombSdkFactory | undefined;
+
+export function __setHoneycombSdkFactory(factory: HoneycombSdkFactory) {
+    honeycombSdkFactory = factory;
+}
+
+export function __clearHoneycombSdkFactory() {
+    honeycombSdkFactory = undefined;
+}
+
+function createHoneycombSdk(options: HoneycombOptions) {
+    if (!honeycombSdkFactory) {
+        honeycombSdkFactory = x => new HoneycombWebSDK(x);
+    }
+
+    return honeycombSdkFactory(options);
+}
 
 /**
  * @see https://workleap.github.io/wl-tracking
@@ -129,7 +157,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
             ...getWebAutoInstrumentations(autoInstrumentations),
             ...instrumentations
         ],
-        spanProcessors: [globalAttributeSpanProcessor, normalizeAttributesSpanProcessor, ...spanProcessors]
+        spanProcessors: [getGlobalAttributeSpanProcessor(), normalizeAttributesSpanProcessor, ...spanProcessors]
     } satisfies HoneycombSdkOptions;
 
     return applyTransformers(sdkOptions, transformers, {
@@ -170,18 +198,18 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     }
 
     const sdkOptions = getHoneycombSdkOptions(serviceName, apiServiceUrls, options);
-    const instance = new HoneycombWebSDK(sdkOptions);
+    const instance = createHoneycombSdk(sdkOptions);
 
     instance.start();
 
     // This is a custom field recommended by Honeycomb to organize the data.
-    setGlobalSpanAttribute("service.namespace", namespace);
+    setGlobalSpanAttribute(ServiceNamespaceAttributeName, namespace);
 
     const telemetryContext = getTelemetryContext({ verbose });
 
     // Add correlation ids to traces as attributes.
-    setGlobalSpanAttribute("app.telemetry_id", telemetryContext.telemetryId);
-    setGlobalSpanAttribute("app.device_id", telemetryContext.deviceId);
+    setGlobalSpanAttribute(TelemetryIdAttributeName, telemetryContext.telemetryId);
+    setGlobalSpanAttribute(DeviceIdAttributeName, telemetryContext.deviceId);
 
     const bootstrappingStore = getBootstrappingStore();
 
@@ -207,12 +235,22 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // which is great for DX.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis.__WLP_HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__ = true;
+    globalThis[IsRegisteredFunctionName] = true;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[RegisterDynamicFetchRequestHookFunctionName] = registerFetchRequestHook;
+
+    // Temporary naming due to a previous error.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK = registerFetchRequestHook;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[RegisterDynamicFetchRequestHookAtStartFunctionName] = registerFetchRequestHookAtStart;
+
+    // Temporary naming due to a previous error.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK_AT_START = registerFetchRequestHookAtStart;

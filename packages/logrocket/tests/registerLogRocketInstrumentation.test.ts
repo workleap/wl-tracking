@@ -1,7 +1,7 @@
 import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import LogRocket from "logrocket";
-import { afterAll, test, vi } from "vitest";
+import { afterEach, test, vi } from "vitest";
 import { DeviceIdTrait, TelemetryIdTrait } from "../src/createDefaultUserTraits.ts";
 import { IsRegisteredFunctionName, RegisterGetSessionUrlFunctionName, registerLogRocketInstrumentation } from "../src/registerLogRocketInstrumentation.ts";
 
@@ -15,7 +15,7 @@ vi.mock("logrocket", () => ({
     }
 }));
 
-afterAll(() => {
+afterEach(() => {
     vi.clearAllMocks();
 
     __clearTelemetryContext();
