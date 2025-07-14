@@ -39,7 +39,7 @@ Then, update the application bootstrapping code to initialize the libraries:
 ```tsx !#8-10,12-14,16 index.tsx
 import { registerLogrocketInstrumentation } from "@workleap/logrocket";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
-import { createTrackingFunction } from "@workleap/mixpanel";
+import { initializeMixpanel } from "@workleap/mixpanel";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
@@ -52,7 +52,7 @@ registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy"
 });
 
-const track = createTrackingFunction("wlp", "development");
+const track = initializeMixpanel("wlp", "development");
 
 const root = createRoot(document.getElementById("root")!);
 

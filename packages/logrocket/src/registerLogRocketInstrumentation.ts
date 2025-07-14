@@ -8,6 +8,9 @@ import { createResponseSanitizer } from "./createResponseSanitizer.ts";
 import { createUrlSanitizer } from "./createUrlSanitizer.ts";
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
+export const IsRegisteredFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__";
+export const RegisterGetSessionUrlFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__";
+
 /**
  * @see https://workleap.github.io/wl-tracking
  */
@@ -119,13 +122,13 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
     // which is great for DX.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis.__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__ = true;
+    globalThis[IsRegisteredFunctionName] = true;
 
     // While consumers could directly call LogRocket.getSessionURL, by doing it this way,
     // it allow consumers to not take a direct dependency on the "logrocket" package.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__ = listener => {
+    globalThis[RegisterGetSessionUrlFunctionName] = listener => {
         LogRocket.getSessionURL(listener);
     };
 

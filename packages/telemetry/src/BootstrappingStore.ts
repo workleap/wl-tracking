@@ -76,12 +76,26 @@ export class BootstrappingStore {
     }
 }
 
-const bootstrappingStore = new BootstrappingStore({
-    isLogRocketReady: false,
-    isHoneycombReady: false
-});
+let bootstrappingStore: BootstrappingStore | undefined;
+
+// This function should only be used by tests.
+export function __setBootstrappingStore(store: BootstrappingStore) {
+    bootstrappingStore = store;
+}
+
+// This function should only be used by tests.
+export function __clearBootstrappingStore() {
+    bootstrappingStore = undefined;
+}
 
 export function getBootstrappingStore() {
+    if (!bootstrappingStore) {
+        bootstrappingStore = new BootstrappingStore({
+            isLogRocketReady: false,
+            isHoneycombReady: false
+        });
+    }
+
     return bootstrappingStore;
 }
 

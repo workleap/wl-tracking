@@ -1,7 +1,6 @@
 import { test } from "vitest";
 import { createUrlSanitizer } from "../src/createUrlSanitizer.ts";
 
-
 test.concurrent("sensitive token query parameter from url is sanitized properly", ({ expect }) => {
     const urlSanitizer = createUrlSanitizer(["token"]);
     const result = urlSanitizer("https://activities.officevibe.workleap.com/onboarding?token=ABCDEF");
