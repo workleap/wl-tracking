@@ -188,7 +188,7 @@ test("when logrocket is not ready, register a listener for logrocket get session
     expect(registerGetSessionUrlListenerMock).toHaveBeenCalledOnce();
 });
 
-test("honeycomb is marked as bootstrapped", ({ expect }) => {
+test("honeycomb is marked as ready", ({ expect }) => {
     __setHoneycombSdkFactory(options => {
         return new DummyHoneycombWebSdk({
             endpoint: options.endpoint,

@@ -1,6 +1,6 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { getTrackingEndpoint, type Environment } from "./env.ts";
-import { GlobalFunctionName } from "./getMixpanelTrackingFunction.ts";
+import { TrackingFunctionName } from "./getMixpanelTrackingFunction.ts";
 import { getBaseProperties, TelemetryProperties, type MixpanelTrackEventProperties } from "./properties.ts";
 
 /**
@@ -131,7 +131,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis[GlobalFunctionName] = trackFunction;
+    globalThis[TrackingFunctionName] = trackFunction;
 
     return trackFunction;
 }

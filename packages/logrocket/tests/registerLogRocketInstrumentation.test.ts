@@ -51,7 +51,7 @@ test("register get session url global function is defined", ({ expect }) => {
     expect(typeof globalThis[RegisterGetSessionUrlFunctionName]).toBe("function");
 });
 
-test("logrocket is marked as bootstrapped", ({ expect }) => {
+test("logrocket is marked as ready", ({ expect }) => {
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: false,
         isHoneycombReady: false
