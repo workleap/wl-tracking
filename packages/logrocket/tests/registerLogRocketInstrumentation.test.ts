@@ -3,7 +3,7 @@ import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingS
 import LogRocket from "logrocket";
 import { afterEach, test, vi } from "vitest";
 import { DeviceIdTrait, TelemetryIdTrait } from "../src/createDefaultUserTraits.ts";
-import { IsRegisteredFunctionName, RegisterGetSessionUrlFunctionName, registerLogRocketInstrumentation } from "../src/registerLogRocketInstrumentation.ts";
+import { __resetRegistrationGuard, IsRegisteredFunctionName, RegisterGetSessionUrlFunctionName, registerLogRocketInstrumentation } from "../src/registerLogRocketInstrumentation.ts";
 
 vi.mock("logrocket", () => ({
     default: {
@@ -18,8 +18,15 @@ vi.mock("logrocket", () => ({
 afterEach(() => {
     vi.clearAllMocks();
 
+    __resetRegistrationGuard();
     __clearTelemetryContext();
     __clearBootstrappingStore();
+});
+
+test("when honeycomb instrumentation has already been registered, throw an error", ({ expect }) => {
+    registerLogRocketInstrumentation("my-app-id");
+
+    expect(() => registerLogRocketInstrumentation("my-app-id")).toThrow("[logrocket] The LogRocket instrumentation has already been registered. Did you call the \"registerLogRocketInstrumentation\" function twice?");
 });
 
 test("the session is identified with the telemetry context", ({ expect }) => {

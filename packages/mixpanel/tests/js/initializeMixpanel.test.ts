@@ -2,7 +2,7 @@ import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
 import { TrackingFunctionName } from "../../src/js/getMixpanelTrackingFunction.ts";
-import { initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
+import { __resetInitializationGuard, initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
 import { TelemetryProperties } from "../../src/js/properties.ts";
 
 const fetchMock = vi.fn();
@@ -11,8 +11,15 @@ globalThis.fetch = fetchMock;
 afterEach(() => {
     vi.clearAllMocks();
 
+    __resetInitializationGuard();
     __clearBootstrappingStore();
     __clearTelemetryContext();
+});
+
+test("when honeycomb instrumentation has already been registered, throw an error", ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    expect(() => initializeMixpanel("wlp", "http://api/navigation")).toThrow("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 });
 
 test("telemetry properties are set", async ({ expect }) => {

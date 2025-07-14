@@ -1,6 +1,7 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { getTrackingEndpoint, type Environment } from "./env.ts";
 import { TrackingFunctionName } from "./getMixpanelTrackingFunction.ts";
+import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getBaseProperties, TelemetryProperties, type MixpanelTrackEventProperties } from "./properties.ts";
 
 /**
@@ -59,6 +60,15 @@ function registerLogRocketSessionUrlListener(superProperties: Map<string, string
     }
 }
 
+const initializationGuard = new HasExecutedGuard();
+
+/**
+ * Only use for testing purpose.
+ */
+export function __resetInitializationGuard() {
+    initializationGuard.reset();
+}
+
 /**
  * Creates a function that sends tracking events to the tracking API.
  * @param productId Your product identifier.
@@ -71,6 +81,8 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
     const {
         verbose
     } = options;
+
+    initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
     // Equivalent to: https://docs.mixpanel.com/docs/tracking-methods/sdks/javascript#setting-super-properties.
     const superProperties = new Map<string, string>();

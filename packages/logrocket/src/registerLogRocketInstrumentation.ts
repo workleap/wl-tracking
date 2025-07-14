@@ -6,6 +6,7 @@ import { DeviceIdTrait, TelemetryIdTrait } from "./createDefaultUserTraits.ts";
 import { createRequestSanitizer } from "./createRequestSanitizer.ts";
 import { createResponseSanitizer } from "./createResponseSanitizer.ts";
 import { createUrlSanitizer } from "./createUrlSanitizer.ts";
+import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
 export const IsRegisteredFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__";
@@ -86,6 +87,15 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
     });
 }
 
+const registrationGuard = new HasExecutedGuard();
+
+/**
+ * Only use for testing purpose.
+ */
+export function __resetRegistrationGuard() {
+    registrationGuard.reset();
+}
+
 /**
  * @see https://workleap.github.io/wl-tracking
  */
@@ -93,6 +103,8 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
     const {
         verbose = false
     } = options;
+
+    registrationGuard.throw("[logrocket] The LogRocket instrumentation has already been registered. Did you call the \"registerLogRocketInstrumentation\" function twice?");
 
     const sdkOptions = getLogRocketSdkOptions(options);
 

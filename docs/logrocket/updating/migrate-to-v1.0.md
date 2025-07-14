@@ -7,9 +7,9 @@ meta:
 
 # Migrate to v1.0
 
-This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away. It also introduces two correlation is, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/). Finally a new built-in integration allow other telemetry libraries to automatically add the LogRocket session replay URL to their traces/events.
+This rewrite of Workleap's [LogRocket](https://logrocket.com/) instrumentation focuses on leveraging the native [LogRocket library](https://www.npmjs.com/package/logrocket) directly, rather than abstracting it away and on adding two correlation ids, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/). 
 
-This guide will help you migrate from `@workleap-tracking/logrocket` to `@workleap/logrocket` version `1.0`.
+Finally a new built-in integration allow other telemetry libraries to automatically add the LogRocket session replay URL to their traces/events.
 
 ## Breaking changes
 
@@ -133,7 +133,7 @@ registerLogRocketInstrumentation(appId);
 
 ### Correlation ids
 
-To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) now automatically add two correlation ids as user traits to every session replay:
+To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) function now automatically add two correlation ids as user traits to every session replay:
 
 - `telemetryId` is a new identifier that represents a single application load.
 - `deviceId` replaces the former `trackingId` and reuses the original name from the `wl-identity` cookie, better reflecting its purpose as a persistent device identifier.
@@ -142,10 +142,16 @@ To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the 
 
 A built-in integration now automatically allows other telemetry libraries to include the LogRocket session replay URL in their traces or events.
 
-For example, with the Honeycomb integration: once the LogRocket session URL is retrieved, each trace is enriched with an `app.logrocket_session_url` attribute.
+For example, with the Honeycomb integration: once the LogRocket session URL is retrieved, each trace is enriched with an `app.logrocket_session_url` attribute:
 
 :::align-image-left
 ![Honeycomb enrichment example](../../static/logrocket/honeycomb-logrocket-session-url.png){width=328}
 :::
+
+## Migrate from `@workleap-tracking/logrocket`
+
+This guide will help you migrate from `@workleap-tracking/logrocket` to `@workleap/logrocket` version `1.0`.
+
+TBD
 
 

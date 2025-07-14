@@ -9,6 +9,7 @@ import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry"
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { getGlobalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
+import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
 import { normalizeAttributesSpanProcessor } from "./NormalizeAttributesSpanProcessor.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
@@ -184,6 +185,15 @@ function registerLogRocketSessionUrlListener(verbose = false) {
     }
 }
 
+const registrationGuard = new HasExecutedGuard();
+
+/**
+ * Only use for testing purpose.
+ */
+export function __resetRegistrationGuard() {
+    registrationGuard.reset();
+}
+
 /**
  * @see https://workleap.github.io/wl-tracking
  */
@@ -192,6 +202,8 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
         proxy,
         verbose
     } = options;
+
+    registrationGuard.throw("[honeycomb] The Honeycomb instrumentation has already been registered. Did you call the \"registerHoneycombInstrumentation\" function twice?");
 
     if (proxy) {
         patchXmlHttpRequest(proxy);

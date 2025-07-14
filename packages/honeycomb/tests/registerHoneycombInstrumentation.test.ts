@@ -5,6 +5,7 @@ import { afterEach, test, vi } from "vitest";
 import { __clearGlobalAttributeSpanProcessor, __setGlobalAttributeSpanProcessor, GlobalAttributeSpanProcessor } from "../src/globalAttributes.ts";
 import {
     __clearHoneycombSdkFactory,
+    __resetRegistrationGuard,
     __setHoneycombSdkFactory,
     DeviceIdAttributeName,
     IsRegisteredFunctionName,
@@ -28,10 +29,28 @@ class DummyGlobalAttributeSpanProcessor extends GlobalAttributeSpanProcessor {
 afterEach(() => {
     vi.clearAllMocks();
 
+    __resetRegistrationGuard();
     __clearHoneycombSdkFactory();
     __clearGlobalAttributeSpanProcessor();
     __clearTelemetryContext();
     __clearBootstrappingStore();
+});
+
+test("when honeycomb instrumentation has already been registered, throw an error", ({ expect }) => {
+    __setHoneycombSdkFactory(options => {
+        return new DummyHoneycombWebSdk({
+            endpoint: options.endpoint,
+            serviceName: options.serviceName
+        });
+    });
+
+    registerHoneycombInstrumentation("foo", "bar", ["/bar"], {
+        proxy: "https://my-proxy.com"
+    });
+
+    expect(() => registerHoneycombInstrumentation("foo", "bar", ["/bar"], {
+        proxy: "https://my-proxy.com"
+    })).toThrow("[honeycomb] The Honeycomb instrumentation has already been registered. Did you call the \"registerHoneycombInstrumentation\" function twice?");
 });
 
 test("set the namespace global attribute", ({ expect }) => {

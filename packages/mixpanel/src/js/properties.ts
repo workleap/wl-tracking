@@ -8,7 +8,7 @@ export const BaseProperties = {
     BrowserVersion: "$browser_version",
     CurrentUrl: "$current_url",
     Device: "$device",
-    IsMobile: "IsMobile",
+    IsMobile: "Is Mobile",
     Os: "$os",
     Referrer: "$referrer",
     ReferringDomain: "$referring_domain",

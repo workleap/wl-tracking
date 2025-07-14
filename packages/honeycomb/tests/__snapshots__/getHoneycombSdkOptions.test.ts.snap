@@ -99,7 +99,9 @@ exports[`when document load instrumentation is a custom function 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -161,7 +163,9 @@ exports[`when document load instrumentation is false 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -265,7 +269,9 @@ exports[`when fetch instrumentation is a custom function 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -323,7 +329,9 @@ exports[`when fetch instrumentation is false 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -474,7 +482,9 @@ exports[`when user interaction instrumentation is a custom function 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -579,7 +589,9 @@ exports[`when user interaction instrumentation is false 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -684,7 +696,9 @@ exports[`when verbose is false 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -789,7 +803,9 @@ exports[`when verbose is true 1`] = `
   "localVisualizations": true,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -941,7 +957,9 @@ exports[`when xml http instrumentation is a custom function 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -1046,7 +1064,9 @@ exports[`when xml http instrumentation is false 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -1151,7 +1171,9 @@ exports[`with a single transformer 1`] = `
   "localVisualizations": false,
   "serviceName": "toto",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -1259,7 +1281,9 @@ exports[`with custom instrumentations 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
@@ -1364,7 +1388,9 @@ exports[`with custom span processors 1`] = `
   "localVisualizations": false,
   "serviceName": "foo",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
     DummySpanProcessor {},
   ],
@@ -1470,7 +1496,9 @@ exports[`with multiple transformers 1`] = `
   "localVisualizations": false,
   "serviceName": "toto",
   "spanProcessors": [
-    GlobalAttributeSpanProcessor {},
+    GlobalAttributeSpanProcessor {
+      "_attributes": {},
+    },
     NormalizeAttributesSpanProcessor {},
   ],
 }
