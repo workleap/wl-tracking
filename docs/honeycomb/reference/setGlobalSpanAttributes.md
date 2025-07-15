@@ -9,7 +9,7 @@ toc:
 
 # setGlobalSpanAttributes
 
-Set global attributes to be included in all Honeycomb web traces.
+Set global attributes to be included in all traces.
 
 ## Reference
 
