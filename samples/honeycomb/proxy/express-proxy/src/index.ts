@@ -23,7 +23,7 @@ app.listen(port, () => {
 });
 
 app.post("/v1/traces", async (req: Request, res: Response) => {
-    const payload = await req.body;
+    const payload = req.body;
 
     const options = {
         method: "POST",

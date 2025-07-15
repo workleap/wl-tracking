@@ -19,7 +19,7 @@ test("when an event is tracked, sends a request to the endpoint", async ({ expec
     expect(url).toBe("http://api/navigation/tracking/track");
 });
 
-test.only("when called, sends a request to the endpoint with merged properties", async ({ expect }) => {
+test("when called, sends a request to the endpoint with merged properties", async ({ expect }) => {
     const track = initializeMixpanel("wlp", "http://api/navigation");
 
     await track("event", { customProp: 123 });
