@@ -3,8 +3,6 @@ order: 100
 label: Getting started
 meta:
     title: Getting started - Introduction
-toc:
-    depth: 2-3
 ---
 
 # Getting started
@@ -81,7 +79,9 @@ Each library sends the same two correlation id values to its respective platform
 | Telemetry id | Identifies a single application load. It's primarily used to correlate all telemetry platforms with Honeycomb traces. | `Telemetry Id` | `app.telemetry_id` | `Telemetry Id` |
 | Device id | Identifies the user's device across sessions. | `Device Id` | `app.device_id` | `Device Id` |
 
-Here's an example of a debugging flow with the new telemetry correlation id:
+### Troubleshooting example
+
+The following is an example of a troubleshooting workflow using the new telemetry correlation:
 
 - **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
 - **LogRocket**: Navigate to the "Session Replay" page. Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id` value, and press "Enter" to view the matching sessions.
@@ -110,6 +110,10 @@ This feature is available only when using the following package versions or high
 - `@workleap/honeycomb` ≥ `6.0.0`
 - `@workleap/mixpanel` ≥ `2.0.0`
 !!!
+
+## Migrate
+
+To benefit from the new unified and cohesive telemetry setup, follow the [migration guide](./migrate.md).
 
 
 
