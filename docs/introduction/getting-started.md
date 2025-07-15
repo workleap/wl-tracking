@@ -81,7 +81,7 @@ Each library sends the same two correlation id values to its respective platform
 
 ### Troubleshooting example
 
-The following is an example of a troubleshooting workflow using the new telemetry correlation:
+The following is an example of a troubleshooting workflow using the new telemetry correlation id:
 
 - **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
 - **LogRocket**: Navigate to the "Session Replay" page. Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id` value, and press "Enter" to view the matching sessions.
