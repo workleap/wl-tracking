@@ -13,9 +13,9 @@ Welcome to `workleap/telemetry`, a collection of telemetry libraries for buildin
 
 ## An integrated experience
 
-Without a unified telemetry setup, debugging issues or analyzing product behavior often requires **jumping between** tools with **disconnected data**. Session replays in [LogRocket](https://logrocket.com/), traces in [Honeycomb](https://www.honeycomb.io/), and user events in [Mixpanel](https://mixpanel.com/) each offer valuable insights, but without shared identifiers or cross-platform context, it becomes difficult to correlate events, reconstruct user journeys, or measure the full impact of a technical issue in production.
+Without a unified and cohesive telemetry setup, debugging issues or analyzing product behavior often requires **jumping between** tools with **disconnected data**. Session replays in [LogRocket](https://logrocket.com/), traces in [Honeycomb](https://www.honeycomb.io/), and user events in [Mixpanel](https://mixpanel.com/) each offer valuable insights, but without shared identifiers or cross-platform context, it becomes difficult to correlate events, reconstruct user journeys, or measure the full impact of a technical issue in production.
 
-This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. By linking session data, performance traces, and user interactions through consistent identifiers, it becomes possible to **trace** a **single** application **event across systems**, from backend performance to frontend behavior to product impact. This integration streamlines will hopefully enables faster, more informed decision-making.
+This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. By linking session data, performance traces, and user interactions through consistent identifiers. It becomes possible to **trace** a **single** application **event across systems**, from backend performance to frontend behavior to product impact. This integration streamlines will hopefully enables faster, and more informed decision-making.
 
 ## Supported platforms
 
@@ -74,10 +74,10 @@ Each library sends the same two correlation id values to its respective platform
 {.correlation-ids-table}
 | Correlation id | Description | LogRocket | Honeycomb | Mixpanel |
 | --- | --- | --- | --- | --- |
-| Telemetry id | Identifies a single application load. It's primarily used to correlate with Honeycomb traces. | `Telemetry Id` | `app.telemetry_id` | `Telemetry Id` |
+| Telemetry id | Identifies a single application load. It's primarily used to correlate all telemetry platforms with Honeycomb traces. | `Telemetry Id` | `app.telemetry_id` | `Telemetry Id` |
 | Device id | Identifies the user's device across sessions. | `Device Id` | `app.device_id` | `Device Id` |
 
-For example:
+Here's an example of a debugging flow with the new telemetry correlation id:
 
 - **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
 - **LogRocket**: Navigate to the "Session Replay" page. Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id` value, and press "Enter" to view the matching sessions.

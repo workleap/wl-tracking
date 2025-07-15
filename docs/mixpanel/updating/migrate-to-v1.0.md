@@ -7,6 +7,8 @@ meta:
 
 # Migrate to v1.0
 
+Follow this guide to migrate from `@workleap-tracking/mixpanel` :point_down:
+
 ## Breaking changes
 
 - The `buildTrackingFunction` function has been renamed to `createTrackingFunction`.
