@@ -1,0 +1,42 @@
+{
+    "name": "@honeycomb-api-key/app",
+    "author": "Workleap",
+    "version": "0.0.0",
+    "description": "Sample application to tests the Honeycomb library with a setup using an api-key.",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "scripts": {
+        "dev": "rsbuild dev --config rsbuild.dev.ts",
+        "build": "pnpm build:rsbuild && pnpm build:copy-public-files",
+        "build:rsbuild": "rsbuild build --config rsbuild.build.ts",
+        "build:copy-public-files": "copyfiles -u 1 public/favicon.png dist",
+        "serve-build": "pnpm http-server dist -p 8080 -P http://localhost:8080? -c-1",
+        "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@opentelemetry/api": "^1.9.0",
+        "@tanstack/react-query": "5.83.0",
+        "@workleap/honeycomb": "workspace:*",
+        "@workleap/telemetry": "workspace:*",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "react-router-dom": "7.6.3"
+    },
+    "devDependencies": {
+        "@rsbuild/core": "1.4.6",
+        "@rspack/core": "1.4.6",
+        "@types/react": "19.1.8",
+        "@types/react-dom": "19.1.6",
+        "@workleap/browserslist-config": "2.0.4",
+        "@workleap/eslint-plugin": "3.4.2",
+        "@workleap/rsbuild-configs": "3.0.2",
+        "@workleap/typescript-configs": "3.0.4",
+        "browserslist": "4.25.1",
+        "copyfiles": "2.4.1",
+        "eslint": "8.57.1",
+        "http-server": "14.1.1",
+        "typescript": "5.8.3"
+    }
+}

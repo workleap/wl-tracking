@@ -54,6 +54,15 @@ jobs:
       - name: Build packages
         run: pnpm build-pkg
 
+      - name: Build all platforms sample
+        run: pnpm build-all-platforms
+
+      - name: Build honeycomb api-key sample
+        run: pnpm build-honeycomb-api-key
+
+      - name: Build honeycomb proxy sample
+        run: pnpm build-honeycomb-proxy
+
       - name: Test packages
         run: pnpm test
 

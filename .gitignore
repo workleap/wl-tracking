@@ -6,6 +6,7 @@ storybook-static
 .turbo
 .rslib
 .retype
+*.env.local
 
 # Mac
 .DS_Store

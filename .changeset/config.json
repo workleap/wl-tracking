@@ -1,13 +1,17 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": [
+    "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
+    "changelog": [
     "@changesets/changelog-github",
-    { "repo": "workleap/wl-tracking" }
-  ],
-  "commit": false,
-  "fixed": [],
-  "linked": [],
-  "access": "restricted",
-  "baseBranch": "main",
-  "updateInternalDependencies": "patch"
+        { "repo": "workleap/wl-tracking" }
+    ],
+    "commit": false,
+    "fixed": [],
+    "linked": [],
+    "access": "restricted",
+    "baseBranch": "main",
+    "updateInternalDependencies": "patch",
+    "ignore": ["@all-platforms/*", "@honeycomb-api-key/*", "@honeycomb-proxy/*"],
+    "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+        "onlyUpdatePeerDependentsWhenOutOfRange": true
+    }
 }

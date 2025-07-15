@@ -1,108 +1,119 @@
 ---
 order: 100
+label: Getting started
+meta:
+    title: Getting started - Introduction
 ---
 
 # Getting started
 
-Welcome to the Workleap platform utility packages for tracking. On this page, you'll discover which packages are available and how to use them.
+Welcome to `workleap/telemetry`, a collection of telemetry libraries for building web applications at Workleap. On this getting started page, you'll find an overview of the project and a list of [supported platforms](#supported-platforms).
 
-## Mixpanel
+## An integrated experience
 
-This package add basic Mixpanel tracking capabilities to an application. It provides a single `track` function that sends `POST` requests to a dedicated tracking endpoint fully compliant with the Workleap Platform Tracking API.
+Without a unified and cohesive telemetry setup, debugging issues or analyzing product behavior often requires **jumping between** tools with **disconnected data**. Session replays in [LogRocket](https://logrocket.com/), traces in [Honeycomb](https://www.honeycomb.io/), and user events in [Mixpanel](https://mixpanel.com/) each offer valuable insights, but without shared identifiers or cross-platform context, it becomes difficult to correlate events, reconstruct user journeys, or measure the full impact of a technical issue in production.
 
-### Install the package
+This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. By linking session data, performance traces, and user interactions through consistent identifiers. It becomes possible to **trace** a **single** application **event across systems**, from backend performance to frontend behavior to product impact. This integration streamlines will hopefully enables faster, and more informed decision-making.
 
-First, open a terminal at the root of the application and install the following package:
+## Supported platforms
+
+{.supported-platforms-table}
+| Name | Description | NPM | Documentation |
+| --- | --- | --- |
+| ![](../static/logos/logrocket.svg){ class="h-5 w-5 mr-2 -mt-1" }[LogRocket](https://logrocket.com/) | Records frontend sessions and logs to help debug and resolve issues in production and surface critical issues. | [![npm version](https://img.shields.io/npm/v/@workleap/logrocket)](https://www.npmjs.com/package/@workleap/logrocket) | [Getting started](../logrocket/getting-started.md) |
+| ![](../static/logos/honeycomb.svg){ class="h-5 w-5 mr-2 -mt-1" }[Honeycomb](https://www.honeycomb.io/) | Captures and analyzes distributed traces and metrics to understand and monitor complex systems, application behaviors, and performance. | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) | [Getting started](../honeycomb/getting-started.md) |
+| ![](../static/logos/mixpanel.svg){ class="h-5 w-5 mr-2 -mt-1" }[Mixpanel](https://mixpanel.com/) | Tracks user interactions to analyze behavior and measure product impact. | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpanel) | [Getting started](../mixpanel/getting-started.md) |
+
+## Setup a project
+
+First, open a terminal at the root of the application and install the telemetry libraries packages:
 
 ```bash
-pnpm add @workleap/mixpanel
+pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemetry/api logrocket
 ```
 
-### Usage
+Then, update the application bootstrapping code to initialize the libraries:
 
-#### Create the tracking function
+```tsx !#8-10,12-14,16 index.tsx
+import { registerLogrocketInstrumentation } from "@workleap/logrocket";
+import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { initializeMixpanel } from "@workleap/mixpanel";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
 
-First, retrieve a `track` function by executing the `createTrackingFunction` factory function.
-
-```ts !#5
-import { createTrackingFunction } from "@workleap/mixpanel";
-
-const environmentVariables = getEnvironmentVariables();
-const productId = "wlp";
-const track = createTrackingFunction(productId, environmentVariables.navigationApiBaseUrl);
-```
-
-#### Specify an environment
-
-The second parameter of `createTrackingFunction` can be either a full URL (typically from `environmentVariables.navigationApiBaseUrl`) or a predefined environment string.
-
-Accepted environment strings are:
-- `development`
-- `staging`
-- `production`
-- `msw`
-- `local`
-
-For example:
-
-```ts !#5
-import { createTrackingFunction } from "@workleap/mixpanel";
-
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
-```
-
-This is useful if your application doesn’t manage environment variables for the API base URL and instead relies on environment naming conventions.
-
-#### Tracking events
-
-Now that you have your `track` function, use it in the application code to send telemetry:
-
-```ts !#7
-import { createTrackingFunction } from "@workleap/mixpanel";
-
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
-
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
-```
-
-#### Specify a target product
-
-To track an action targeting another product, use the `targetProductId` option:
-
-```ts !#7
-import { createTrackingFunction } from "@workleap/mixpanel";
-
-const environment = "staging";
-const productId = "wlp";
-const targetProductId = "wov";
-const track = createTrackingFunction(productId, environment, {
-    targetProductId
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: true
 });
 
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
-```
-
-#### Track a link
-
-To track a link click, use the `keepAlive` option to keep the page alive while the tracking request is being processed:
-
-```ts !#6
-const environment = "staging";
-const productId = "wlp";
-const track = createTrackingFunction(productId, environment);
-
-track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
-    keepAlive: true
+registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
+    proxy: "https://sample-proxy"
 });
+
+const track = initializeMixpanel("wlp", "development");
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
 ```
 
-### Migrate from @workleap/tracking
+!!!tip
+For more information about a specific library, refer to its [getting started](#supported-platforms) guide.
+!!!
 
-To migrate from the `@workleap/tracking` package, follow the [migration guide](../upgrading/migrate-to-v1.0.md).
+!!!warning
+For Honeycomb, avoid using `/.+/g`, in production, as it could expose customer data to third parties. Instead, ensure you specify values that accurately matches your application's backend URLs.
+!!!
+
+## Correlation ids
+
+Each library sends the same two correlation id values to its respective platform, using platform-specific naming conventions for the names:
+
+{.correlation-ids-table}
+| Correlation id | Description | LogRocket | Honeycomb | Mixpanel |
+| --- | --- | --- | --- | --- |
+| Telemetry id | Identifies a single application load. It's primarily used to correlate all telemetry platforms with Honeycomb traces. | `Telemetry Id` | `app.telemetry_id` | `Telemetry Id` |
+| Device id | Identifies the user's device across sessions. | `Device Id` | `app.device_id` | `Device Id` |
+
+### Troubleshooting example
+
+The following is an example of a troubleshooting workflow using the new telemetry correlation:
+
+- **Honeycomb**: Locate the `app.telemetry_id` attribute in a trace to retrieve its value.
+- **LogRocket**: Navigate to the "Session Replay" page. Open the "User Traits" filter, select the `Telemetry Id` trait, paste the `app.telemetry_id` value, and press "Enter" to view the matching sessions.
+- **Mixpanel**: Navigate to the "Events" page. Add a "filter", select the `Telemetry Id` propertt, paste the `app.telemetry_id` value, and press on the "Add" button to view the matching events.
+
+!!!warning
+This feature is available only when using the following package versions or higher:
+
+- `@workleap/logrocket` ≥ `1.0.0`
+- `@workleap/honeycomb` ≥ `6.0.0`
+- `@workleap/mixpanel` ≥ `2.0.0`
+!!!
+
+## LogRocket session URL
+
+In additional to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it's available:
+
+| Honeycomb | Mixpanel |
+| --- | --- |
+| `app.logrocket_session_url` | `LogRocket Session URL` |
+
+!!!warning
+This feature is available only when using the following package versions or higher:
+
+- `@workleap/logrocket` ≥ `1.0.0`
+- `@workleap/honeycomb` ≥ `6.0.0`
+- `@workleap/mixpanel` ≥ `2.0.0`
+!!!
+
+## Migrate
+
+To benefit from the new unified and cohesive telemetry setup, follow the [migration guide](./migrate.md).
 
 
 

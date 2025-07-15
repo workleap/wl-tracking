@@ -1,0 +1,37 @@
+{
+    "name": "@honeycomb-proxy/express-proxy",
+    "author": "Workleap",
+    "version": "0.0.0",
+    "description": "Express server to proxy requests to Honeycomb.",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon",
+        "serve-build": "tsx src/index.ts",
+        "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@opentelemetry/api": "^1.9.0",
+        "@opentelemetry/auto-instrumentations-node": "0.62.0",
+        "@opentelemetry/exporter-trace-otlp-http": "0.203.0",
+        "@opentelemetry/instrumentation-express": "0.52.0",
+        "@opentelemetry/instrumentation-http": "0.203.0",
+        "@opentelemetry/sdk-node": "0.203.0",
+        "cors": "2.8.5",
+        "dotenv": "17.2.0",
+        "express": "5.1.0"
+    },
+    "devDependencies": {
+        "@types/cors": "2.8.19",
+        "@types/express": "5.0.3",
+        "@types/node": "24.0.13",
+        "@workleap/eslint-plugin": "3.4.2",
+        "@workleap/typescript-configs": "3.0.4",
+        "eslint": "8.57.1",
+        "nodemon": "3.1.10",
+        "tsx": "4.20.3",
+        "typescript": "5.8.3"
+    }
+}

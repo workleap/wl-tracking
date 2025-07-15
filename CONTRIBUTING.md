@@ -5,6 +5,7 @@ The following documentation is only for the maintainers of this repository.
 - [Monorepo setup](#monorepo-setup)
 - [Project overview](#project-overview)
 - [Installation](#installation)
+- [Develop the packages](#develop-the-packages)
 - [Release the packages](#release-the-packages)
 - [Available commands](#commands)
 - [CI](#ci)
@@ -26,7 +27,21 @@ To be understand the relationships between the commands, have a look at this rep
 
 ## Project overview
 
-This project is composed of many packages. Each package is located in the [packages](packages/) directory. These packages represent shared configuration for tools that are used across the Workleap projects.
+This project is split into two major sections, [packages/](./packages) and [sample/](./sample).
+
+### Packages
+
+Under [packages/](./packages/) are the actual telemetry libraries.
+
+### Samples
+
+Under [samples/](samples/) are applications to test the Squide functionalities while developing.
+
+You'll find 3 samples:
+
+- `all-platforms`: A sample application showcasing the integrations of all Workleap's telemetry platforms.
+- `honeycomb-api-key`: A sample application authenticating traces with an Honeycomb [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/).
+- `honeycomb-proxy`: A sample application using a proxy to forward traces to Honeycomb
 
 ## Installation
 
@@ -51,6 +66,40 @@ Then, open a terminal at the root of the workspace and execute the following com
 ```bash
 npx retype wallet --add <your-license-key-here>
 ```
+
+## Develop the packages
+
+Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start one of the sample applications with either of the following scripts:
+
+```bash
+pnpm dev-all-platforms
+```
+
+```bash
+pnpm dev-honeycomb-api-key
+```
+
+```bash
+pnpm dev-honeycomb-proxy
+```
+
+You can then open your favorite browser and navigate to `http://localhost:8080/` to get a live preview of your code.
+
+### LogRocket
+
+The sample applications' telemetry data is sent to the `frontend-platform-team-dev` project in LogRocket.
+
+### Honeycomb
+
+Depending on the sample application, traces are sent to the corresponding project within the `frontend-platform-team-dev` environment in Honeycomb:
+
+- `all-platforms`: `all-platforms-sample`
+- `honeycomb-api-key`: `honeycomb-api-key-sample`
+- `honeycomb-proxy`: `honeycomb-proxy-sample`
+
+### Mixpanel
+
+The sample applications' telemetry data is sent to the `Frontend-Platform-Team-Dev` project in Mixpanel.
 
 ## Release the packages
 
@@ -84,12 +133,28 @@ By default, packages compilation output will be in their respective *dist* direc
 
 From the project root, you have access to many commands the main ones are:
 
-### build
+### dev-all-platforms
 
-Build the packages for release.
+Build the all-platforms sample application for development and start the dev servers.
 
 ```bash
-pnpm build
+pnpm dev-all-platforms
+```
+
+### dev-honeycomb-api-key
+
+Build the honeycomb-api-key sample application for development and start the dev servers.
+
+```bash
+pnpm dev-honeycomb-api-key
+```
+
+### dev-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for development and start the dev servers.
+
+```bash
+pnpm dev-honeycomb-proxy
 ```
 
 ### dev-docs
@@ -98,6 +163,62 @@ Start the [Retype](https://retype.com/) dev server. If you are experiencing issu
 
 ```bash
 pnpm dev-docs
+```
+
+### build-pkg
+
+Build the packages for release.
+
+```bash
+pnpm build-pkg
+```
+
+### build-all-platforms
+
+Build the all-platforms sample application for release.
+
+```bash
+pnpm build-all-platforms
+```
+
+### build-honeycomb-api-key
+
+Build the honeycomb-api-key sample application for release.
+
+```bash
+pnpm build-honeycomb-api-key
+```
+
+### build-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for release.
+
+```bash
+pnpm build-honeycomb-proxy
+```
+
+### serve-all-platforms
+
+Build the all-platforms sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-all-platforms
+```
+
+### serve-honeycomb-api-key
+
+Build the honeycomb-api-key sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-honeycomb-api-key
+```
+
+### serve-honeycomb-proxy
+
+Build the honeycomb-proxy sample application for deployment and start a local web server to serve the application.
+
+```bash
+pnpm serve-honeycomb-proxy
 ```
 
 ### lint
@@ -180,7 +301,7 @@ This action will trigger when a commit is done in a PR to `main` or after a push
 
 There are a few steps to add new packages to the monorepo.
 
-Before you add a new package, please read the [GSoft GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name).
+Before you add a new package, please read the [Workleap GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name).
 
 ### Create the package
 
@@ -194,7 +315,7 @@ pnpm init
 
 Answer the CLI questions.
 
-Once the *package.json* is generated, please read again the [GSoft GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name) and make sure the package name, author and license are valid.
+Once the *package.json* is generated, please read again the [Workleap GitHub guidelines](https://github.com/workleap/github-guidelines#npm-package-name) and make sure the package name, author and license are valid.
 
 Don't forget to add the [npm scope](https://docs.npmjs.com/about-scopes) *"@workleap"* before the package name. For example, if the project name is "foo", your package name should be "@workleap/foo".
 

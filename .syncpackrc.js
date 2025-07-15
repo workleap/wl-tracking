@@ -5,6 +5,12 @@ export default {
     "lintFormatting": false,
     "semverGroups": [
         {
+            // Only the version "0.0.2" of the dependency seems to work.
+            "packages": ["@workleap/*"],
+            "dependencies": ["logrocket-fuzzy-search-sanitizer"],
+            "isIgnored": true
+        },
+        {
             "packages": ["@workleap/*"],
             "dependencyTypes": ["prod", "peer"],
             "range": "^",
@@ -17,6 +23,12 @@ export default {
             "label": "Packages should pin devDependencies."
         },
         {
+            "packages": ["@sample/*"],
+            "dependencyTypes": ["prod", "dev"],
+            "range": "",
+            "label": "Samples should pin dependencies and devDependencies."
+        },
+        {
             "packages": ["workspace-root"],
             "dependencyTypes": ["dev"],
             "range": "",
@@ -24,6 +36,14 @@ export default {
         }
     ],
     "versionGroups": [
+        {
+            // "react" and "react-dom" declares ranges to support React 18 and 19.
+            // It's messing up with syncpack.
+            "packages": ["@workleap/mixpanel"],
+            "dependencies": ["react", "react-dom"],
+            "dependencyTypes": ["peer"],
+            "isIgnored": true
+        },
         {
             "packages": ["**"],
             "dependencyTypes": ["prod", "dev", "peer"],

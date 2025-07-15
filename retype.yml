@@ -24,6 +24,10 @@ nav:
     icons:
         mode: none
 
+theme:
+    base:
+        nav-badge-margin-left: 0.75rem
+
 start:
     pro: true
 
@@ -37,7 +41,7 @@ output: .retype
 url: https://workleap.github.io/wl-tracking/
 
 branding:
-    title: "Mixpanel"
+    title: "Telemetry"
     logo: ./static/logo.png
 
 favicon: ./static/favicon.png

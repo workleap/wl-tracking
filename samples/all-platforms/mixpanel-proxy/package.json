@@ -1,0 +1,32 @@
+{
+    "name": "@all-platforms/mixpanel-proxy",
+    "author": "Workleap",
+    "version": "0.0.0",
+    "description": "Mixpanel proxy for the all platforms sample appication.",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon",
+        "serve-build": "tsx src/index.ts",
+        "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "cors": "2.8.5",
+        "dotenv": "17.2.0",
+        "express": "5.1.0",
+        "mixpanel": "0.18.1"
+    },
+    "devDependencies": {
+        "@types/cors": "2.8.19",
+        "@types/express": "5.0.3",
+        "@types/node": "24.0.13",
+        "@workleap/eslint-plugin": "3.4.2",
+        "@workleap/typescript-configs": "3.0.4",
+        "eslint": "8.57.1",
+        "nodemon": "3.1.10",
+        "tsx": "4.20.3",
+        "typescript": "5.8.3"
+    }
+}
