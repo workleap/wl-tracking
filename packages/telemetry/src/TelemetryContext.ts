@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 
 // The identity cookie is a concept created by Workleap's marketing teams. With this cookie, telemetry data can be
-// correlated with a device id accross multiple sites / apps.
+// correlated with a device id across multiple sites / apps.
 export const IdentityCookieName = "wl-identity";
 
 interface IdentityCookie {

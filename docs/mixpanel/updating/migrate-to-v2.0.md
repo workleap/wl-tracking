@@ -61,10 +61,10 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 
 ### Correlation ids
 
-To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [initializeMixpanel](../reference/initializeMixpanel.md) function now automatically add two correlation ids as attributes to every event:
+To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [initializeMixpanel](../reference/initializeMixpanel.md) function now automatically adds two correlation ids as attributes to every event:
 
 - `telemetryId` is a new identifier that represents a single application load.
-- `deviceId` is an identifier that represents a single device accross multiple loads.
+- `deviceId` is an identifier that represents a single device across multiple loads.
 
 ### Session URL enrichment
 
