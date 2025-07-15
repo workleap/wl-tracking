@@ -17,10 +17,10 @@ This new version introduces two correlation ids, `telemetryId` and `deviceId`, t
 
 ### Correlation ids
 
-To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerHoneycombInstrumentation](../reference/registerHoneycombInstrumentation.md) function now automatically add two correlation ids as attributes to every trace:
+To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerHoneycombInstrumentation](../reference/registerHoneycombInstrumentation.md) function now automatically adds two correlation ids as attributes to every trace:
 
 - `telemetryId` is an identifier that represents a single application load.
-- `deviceId` is an identifier that represents a single device accross multiple loads.
+- `deviceId` is an identifier that represents a single device across multiple loads.
 
 ### Session URL enrichment
 

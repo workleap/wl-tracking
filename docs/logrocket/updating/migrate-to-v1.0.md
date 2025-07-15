@@ -131,7 +131,7 @@ registerLogRocketInstrumentation(appId);
 
 ### Correlation ids
 
-To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) function now automatically add two correlation ids as user traits to every session replay:
+To help unify and correlate data across LogRocket, Honeycomb, and Mixpanel, the [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) function now automatically adds two correlation ids as user traits to every session replay:
 
 - `telemetryId` is a new identifier that represents a single application load.
 - `deviceId` replaces the former `trackingId` and reuses the original name from the `wl-identity` cookie, better reflecting its purpose as a persistent device identifier.
