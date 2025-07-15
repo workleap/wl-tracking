@@ -1,5 +1,5 @@
 import { afterEach, test, vi } from "vitest";
-import { initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
+import { __resetInitializationGuard, initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
 import { BaseProperties } from "../../src/js/properties.ts";
 
 const fetchMock = vi.fn();
@@ -7,6 +7,8 @@ globalThis.fetch = fetchMock;
 
 afterEach(() => {
     vi.clearAllMocks();
+
+    __resetInitializationGuard();
 });
 
 test("when an event is tracked, sends a request to the endpoint", async ({ expect }) => {
