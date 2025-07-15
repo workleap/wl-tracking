@@ -187,9 +187,7 @@ function registerLogRocketSessionUrlListener(verbose = false) {
 
 const registrationGuard = new HasExecutedGuard();
 
-/**
- * Only use for testing purpose.
- */
+// This function should only be used by tests.
 export function __resetRegistrationGuard() {
     registrationGuard.reset();
 }

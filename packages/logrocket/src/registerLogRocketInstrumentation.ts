@@ -44,7 +44,8 @@ export interface RegisterLogRocketInstrumentationOptions {
     transformers?: LogRocketSdkOptionsTransformer[];
 }
 
-export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentationOptions) {
+// The function return type is mandatory, otherwise we got an error TS4058.
+export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentationOptions): LogRocketSdkOptions {
     const {
         rootHostname = "workleap.com",
         privateFieldNames = [],
@@ -89,9 +90,7 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
 
 const registrationGuard = new HasExecutedGuard();
 
-/**
- * Only use for testing purpose.
- */
+// This function should only be used by tests.
 export function __resetRegistrationGuard() {
     registrationGuard.reset();
 }

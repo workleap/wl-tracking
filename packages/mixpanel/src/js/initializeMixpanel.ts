@@ -62,9 +62,7 @@ function registerLogRocketSessionUrlListener(superProperties: Map<string, string
 
 const initializationGuard = new HasExecutedGuard();
 
-/**
- * Only use for testing purpose.
- */
+// This function should only be used by tests.
 export function __resetInitializationGuard() {
     initializationGuard.reset();
 }
