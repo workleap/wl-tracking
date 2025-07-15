@@ -11,7 +11,7 @@ toc:
 
 To gain full visibility into **frontend behavior** in **production**, Workleap has adopted [LogRocket](https://logrocket.com/), a tool that combines session replay, performance tracking, and error logging to help **understand** and resolve **issues** in **production**.
 
-This package provides default LogRocket instrumentation tailored to Workleap's web applications needs, including the **removal** of **sensitive information** from HTML documents, HTTP requests/responses and URLs.
+This package provides default LogRocket instrumentation tailored to Workleap's applications needs, including the **removal** of **sensitive information** from HTML documents, HTTP requests/responses and URLs.
 
 ## Install the packages
 

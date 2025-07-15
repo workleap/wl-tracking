@@ -9,7 +9,7 @@ toc:
 
 # registerLogRocketInstrumentation
 
-Initializes [LogRocket](https://logrocket.com/) instrumentation with Workleap's default settings for web applications.
+Initializes [LogRocket](https://logrocket.com/) instrumentation with Workleap's default settings.
 
 ## Reference
 

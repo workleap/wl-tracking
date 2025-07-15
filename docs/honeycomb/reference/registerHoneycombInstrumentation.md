@@ -9,7 +9,7 @@ toc:
 
 # registerHoneycombInstrumentation
 
-Initializes an instance of [Honeycomb Web SDK](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution) with Workleap's default settings for web applications.
+Initializes an instance of [Honeycomb Web SDK](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution) with Workleap's default settings.
 
 ## Reference
 
