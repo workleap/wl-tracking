@@ -1,6 +1,6 @@
 # wl-telemetry
 
-A set of packages to track telemetry for the Workleap platform.
+A set of telemetry packages for the Workleap platform.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![CI](https://github.com/workleap/wl-telemetry/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-telemetry/actions/workflows/ci.yml)
@@ -9,7 +9,9 @@ A set of packages to track telemetry for the Workleap platform.
 
 | Name | NPM |
 | --- | --- |
-| [@workleap/mixpanel](packages/mixpanel/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpabel) |
+| [@workleap/logrocket](packages/logrocket/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/logrocket)](https://www.npmjs.com/package/@workleap/logrocket) |
+| [@workleap/honeycomb](packages/honeycomb/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) |
+| [@workleap/mixpanel](packages/mixpanel/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpanel) |
 
 ## Have a question or found an issue?
 

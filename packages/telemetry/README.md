@@ -1,5 +1,4 @@
-# @workleap/tracking-id
-
+# @workleap/telemetry
 ## Usage
 
 View the [user's documentation](https://workleap.github.io/wl-telemetry/).
