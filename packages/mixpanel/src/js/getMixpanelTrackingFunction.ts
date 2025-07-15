@@ -2,10 +2,18 @@ import type { MixpanelTrackingFunction } from "./initializeMixpanel.ts";
 
 export const TrackingFunctionName = "__WLP_MIXPANEL_TRACKING_FUNCTION__";
 
+/**
+ * @see https://workleap.github.io/wl-tracking
+ */
 export interface GetMixpanelTrackingFunctionOptions {
     throwOnUndefined?: boolean;
 }
 
+/**
+ * Retrieve the track function.
+ * @returns A function that sends tracking events to the tracking API.
+ * @see https://workleap.github.io/wl-tracking
+ */
 export function getMixpanelTrackingFunction(options: GetMixpanelTrackingFunctionOptions = {}) {
     const {
         throwOnUndefined = true
