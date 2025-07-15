@@ -8,7 +8,7 @@ import {
     __resetRegistrationGuard,
     __setHoneycombSdkFactory,
     DeviceIdAttributeName,
-    IsRegisteredFunctionName,
+    IsRegisteredVariableName,
     RegisterDynamicFetchRequestHookAtStartFunctionName,
     RegisterDynamicFetchRequestHookFunctionName,
     registerHoneycombInstrumentation,
@@ -110,7 +110,7 @@ test("is registered global variable is true", ({ expect }) => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    expect(globalThis[IsRegisteredFunctionName]).toBeTruthy();
+    expect(globalThis[IsRegisteredVariableName]).toBeTruthy();
 });
 
 test("register dynamic fetch request hook function is defined", ({ expect }) => {

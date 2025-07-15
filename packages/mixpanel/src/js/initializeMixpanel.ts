@@ -1,38 +1,8 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
+import { setMixpanelContext } from "./context.ts";
 import { getTrackingEndpoint, type Environment } from "./env.ts";
-import { TrackingFunctionName } from "./getMixpanelTrackingFunction.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
-import { getBaseProperties, TelemetryProperties, type MixpanelTrackEventProperties } from "./properties.ts";
-
-/**
- * @see https://workleap.github.io/wl-telemetry
- */
-export interface MixpanelTrackingOptions {
-    /**
-     * The product identifier of the target product.
-     */
-    targetProductId?: string;
-    /**
-   * Whether to keep the connection alive for the tracking request.
-   * It is mostly used for tracking links where the user might navigate away before the request is completed.
-   *
-   * Caution! The body size for keepalive requests is limited to 64 kibibytes.
-   *
-   * https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#keepalive
-   *
-   * @default false
-   */
-    keepAlive?: boolean;
-}
-
-/**
- * A function that sends tracking events to the tracking API.
- * @param eventName The name of the event to track.
- * @param properties The properties to send with the event.
- * @param options Options for tracking the event.
- * @see https://workleap.github.io/wl-telemetry
- */
-export type MixpanelTrackingFunction = (eventName: string, properties: MixpanelTrackEventProperties, options?: MixpanelTrackingOptions) => Promise<void>;
+import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperProperties, setSuperProperty } from "./properties.ts";
 
 /**
  * @see https://workleap.github.io/wl-telemetry
@@ -40,8 +10,7 @@ export type MixpanelTrackingFunction = (eventName: string, properties: MixpanelT
 export interface InitializeMixpanelOptions {
     verbose?: boolean;
 }
-
-function registerLogRocketSessionUrlListener(superProperties: Map<string, string>, verbose = false) {
+function registerLogRocketSessionUrlListener(verbose = false) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__) {
@@ -53,7 +22,7 @@ function registerLogRocketSessionUrlListener(superProperties: Map<string, string
                 console.log("[mixpanel] Received LogRocket session replay URL:", sessionUrl);
             }
 
-            superProperties.set(TelemetryProperties.LogRocketSessionUrl, sessionUrl);
+            setSuperProperty(OtherProperties.LogRocketSessionUrl, sessionUrl);
         });
     } else if (verbose) {
         console.log("[mixpanel] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
@@ -75,73 +44,41 @@ export function __resetInitializationGuard() {
  * @returns A function that sends tracking events to the tracking API.
  * @see https://workleap.github.io/wl-telemetry
  */
-export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) : MixpanelTrackingFunction {
+export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {
-        verbose
+        verbose = false
     } = options;
 
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
-    // Equivalent to: https://docs.mixpanel.com/docs/tracking-methods/sdks/javascript#setting-super-properties.
-    const superProperties = new Map<string, string>();
-
-    const fullUrl = getTrackingEndpoint(envOrTrackingApiBaseUrl);
+    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl);
     const telemetryContext = getTelemetryContext({ verbose });
 
-    superProperties.set(TelemetryProperties.TelemetryId, telemetryContext.telemetryId);
-    superProperties.set(TelemetryProperties.DeviceId, telemetryContext.deviceId);
+    setSuperProperties(getTelemetryProperties(telemetryContext));
 
     const bootstrappingStore = getBootstrappingStore();
 
     // If LogRocket is already available, register the listener. Otherwise, subscribe to the bootstrapping store
     // and register the listener once a notification is received that LogRocket is registered.
     if (bootstrappingStore.state.isLogRocketReady) {
-        registerLogRocketSessionUrlListener(superProperties, verbose);
+        registerLogRocketSessionUrlListener(verbose);
     } else {
         bootstrappingStore.subscribe((action, store, unsubscribe) => {
             if (store.state.isLogRocketReady) {
                 unsubscribe();
-                registerLogRocketSessionUrlListener(superProperties, verbose);
+                registerLogRocketSessionUrlListener(verbose);
             }
         });
     }
 
-    const trackFunction: MixpanelTrackingFunction = async (eventName, properties, _options = {}) => {
-        try {
-            const {
-                targetProductId = null,
-                keepAlive = false
-            } = _options;
+    setMixpanelContext({
+        productId,
+        endpoint,
+        superProperties: getSuperProperties(),
+        verbose
+    });
 
-            const baseProperties = getBaseProperties();
-
-            const allProperties = {
-                ...baseProperties,
-                ...Object.fromEntries(superProperties),
-                ...properties
-            };
-
-            await fetch(fullUrl, {
-                method: "POST",
-                credentials: "include",
-                keepalive: keepAlive,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    eventName,
-                    productIdentifier: productId,
-                    targetProductIdentifier : targetProductId,
-                    properties: allProperties
-                })
-            });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error: unknown) {
-            // Do nothing...
-        }
-    };
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    globalThis[TrackingFunctionName] = trackFunction;
-
-    return trackFunction;
+    if (verbose) {
+        console.log("[mixpanel] Mixpanel is initialized.");
+    }
 }

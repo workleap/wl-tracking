@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useMixpanelTracking } from "@workleap/mixpanel/react";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 import { fetchJson } from "./api.ts";
 
 interface Subscription {
@@ -13,7 +13,7 @@ export function SubscriptionPage() {
         return (await fetchJson("http://localhost:1234/api/subscription")) as Subscription;
     } });
 
-    const track = useMixpanelTracking();
+    const track = useTrackingFunction();
 
     track("Page View", {
         "Page": "Subscription Page"
