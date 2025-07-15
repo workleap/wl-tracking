@@ -125,19 +125,32 @@ root.render(
 );
 ```
 
-```ts !#5-12
+```ts !#4-11
 import { createDefaultUserTraits } from "@workleap/logrocket";
 import LogRocket from "logrocket";
 
-// Once a user is authenticated.
-LogRocket.identify("6a5e6b06-0cac-44ee-8d2b-00b9419e7da9", createDefaultUserTraits({
+const traits = createDefaultUserTraits({
     userId: "6a5e6b06-0cac-44ee-8d2b-00b9419e7da9",
     organizationId: "e6bb30f8-0a00-4928-8943-1630895a3f14",
     organizationName: "Acme",
     isMigratedToWorkleap: true,
     isOrganizationCreator: false,
     isAdmin: false
-}));
+});
+
+LogRocket.identify(traits.userId, traits);
+```
+
+## Get the session URL
+
+Every session replay is associated with a unique URL. To register a callback receiving the session replay once it's available, use the [LogRocket.getSessionURL](https://docs.logrocket.com/reference/get-session-url) function: 
+
+```ts
+import LogRocket from "logrocket";
+
+LogRocket.getSessionUrl(url => {
+    console.log(url);
+});
 ```
 
 ## Try it :rocket:

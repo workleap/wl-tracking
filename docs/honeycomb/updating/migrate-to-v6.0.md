@@ -31,3 +31,9 @@ Once the LogRocket session URL is retrieved, each trace is enriched with an `app
 :::align-image-left
 ![Enrichment example](../../static/honeycomb/honeycomb-logrocket-session-url.png){width=328}
 :::
+
+## Migrate from `v5.0`
+
+Follow these steps to migrate an existing application `v5.0` to `v6.0`:
+
+- Add a dependency to `@workleap/telemetry`.

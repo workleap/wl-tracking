@@ -9,7 +9,7 @@ meta:
 
 This new version introduces two correlation ids, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/) and a new automatic enrichment of the events with the LogRocket session url if the [LogRocket instrumentation](../../logrocket/getting-started.md) is registered.
 
-This release also introduces a [shift of philosophy](#a-new-philosophy) for the `createTrackingFunction` function. Previously, `createTrackingFunction` was designed as a **low-cost** utility that could be called whenever telemetry was needed. That approach has now been replaced by the [initializeMixpanel](../reference/initializeMixpanel.md) function, a setup function intended to be called only once per application load.
+This release also introduces a [shift of philosophy](#a-new-philosophy) for the `createTrackingFunction` function. Previously, `createTrackingFunction` was designed as a **low-cost** utility function that could be called whenever telemetry was needed. That approach has now been replaced by the [initializeMixpanel](../reference/initializeMixpanel.md) function, a setup function intended to be called only once per application load.
 
 ## Breaking changes
 
@@ -27,7 +27,7 @@ This release also introduces a [shift of philosophy](#a-new-philosophy) for the 
 
 ### A new philosophy
 
-Prior to this release, `createTrackingFunction` was designed as a **low-cost** utility that could be called whenever telemetry was needed. With the addition of correlation ids, and the automatic enrichment of the events with the LogRocket session url, a need emerge for an initialization function that would be execute once per application load.
+Prior to this release, `createTrackingFunction` was designed as a **low-cost** utility function that could be called whenever telemetry was needed. With the addition of correlation ids, and the automatic enrichment of the events with the LogRocket session url, a need emerge for an initialization function that would be execute once per application load.
 
 To reflect this shift in philosophy, the `createTrackingFunction` has been renamed to [initializeMixpanel](../reference/initializeMixpanel.md) and the `targetProductId` has been moved to the returned [TrackingFunction](../reference/initializeMixpanel.md#returns).
 
@@ -77,3 +77,10 @@ Once the LogRocket session URL is retrieved, each event is enriched with an `Log
 :::
 
 ## Migrate from `v1.0`
+
+Follow these steps to migrate an existing application `v1.0` to `v2.0`:
+
+- Add a dependency to `@workleap/telemetry`.
+- Remove all occurences of `createTrackingFunction` to keep a single one at the bootstrapping of the application. If the returned `track` function is not reachable, either use the [useMixpanelTracking](../reference/useMixpanelTracking.md) hook or the [getMixpanelTrackingFunction](../reference/getMixpanelTrackingFunction.md) function.
+- Rename `createTrackingFunction` to [initializeMixpanel](../reference/initializeMixpanel.md).
+- Move the `targetProductId` option from `initializeMixpanel` to the `track` function. [View example](../reference/initializeMixpanel.md#specify-a-target-product)

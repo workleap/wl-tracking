@@ -31,7 +31,7 @@ A [TrackingFunction](../reference/initializeMixpanel.md#returns).
 ### Retrieve the track function
 
 ```ts
-import { useMixpanelTracking } from "@workleap/mixpanel";
+import { useMixpanelTracking } from "@workleap/mixpanel/react";
 
 const track = useMixpanelTracking();
 ```
@@ -39,7 +39,7 @@ const track = useMixpanelTracking();
 ### Do not throw when not available
 
 ```ts !#4
-import { useMixpanelTracking } from "@workleap/mixpanel";
+import { useMixpanelTracking } from "@workleap/mixpanel/react";
 
 const track = useMixpanelTracking({
     throwOnUndefined: false

@@ -75,8 +75,9 @@ Plan Code - Officevibe<br/>Plan Code - LMS<br/>Plan Code - Onboarding<br/>Plan C
 
 ### Get default traits
 
-```ts
+```ts !#4-11
 import { createDefaultUserTraits } from "@workleap/logrocket";
+import LogRocket from "logrocket";
 
 const traits = createDefaultUserTraits({
     userId: "6a5e6b06-0cac-44ee-8d2b-00b9419e7da9",
@@ -86,14 +87,17 @@ const traits = createDefaultUserTraits({
     isOrganizationCreator: false,
     isAdmin: false
 });
+
+Logrocket.identify(allTraits.userId, allTraits);
 ```
 
 ### Send additional traits
 
 You can send custom user traits to improve filtering in [LogRocket](https://app.logrocket.com). To do so, merge the default user traits with your additional traits before sending them:
 
-```ts !#12
+```ts !#13
 import { createDefaultUserTraits } from "@workleap/logrocket";
+import LogRocket from "logrocket";
 
 const allTraits = {
     ...createDefaultUserTraits({
@@ -106,6 +110,8 @@ const allTraits = {
     }),
     "Additional Trait": "Trait Value"
 };
+
+Logrocket.identify(allTraits.userId, allTraits);
 ```
 
 !!!info
