@@ -6,5 +6,6 @@ meta:
 
 # Reference
 
-- [createTrackingFunction](./createTrackingFunction.md)
-- [TrackProvider](./TrackProvider.md)
+- [initializeMixpanel](./initializeMixpanel.md)
+- [getMixpanelTrackingFunction](./getMixpanelTrackingFunction.md)
+- [useMixpanelTracking](./useMixpanelTracking.md)

@@ -112,5 +112,17 @@ track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 });
 ```
 
+### Verbose mode
+
+To log to the console debugging information, set the `verbose` option to `true`:
+
+```ts !#4
+import { initializeMixpanel } from "@workleap/mixpanel";
+
+const track = initializeMixpanel("wlp", "development", {
+    verbose: true
+});
+```
+
 
 
