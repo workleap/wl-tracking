@@ -1,9 +1,9 @@
-# wl-tracking
+# wl-telemetry
 
 A set of packages to track telemetry for the Workleap platform.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-[![CI](https://github.com/workleap/wl-tracking/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-tracking/actions/workflows/ci.yml)
+[![CI](https://github.com/workleap/wl-telemetry/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-telemetry/actions/workflows/ci.yml)
 
 ### Packages
 
@@ -13,11 +13,11 @@ A set of packages to track telemetry for the Workleap platform.
 
 ## Have a question or found an issue?
 
-To ask a question or propose an idea, feel free to start a new [discussion](https://github.com/workleap/wl-tracking/discussions). If you found a bug, please open an [issue](https://github.com/workleap/wl-tracking/issues).
+To ask a question or propose an idea, feel free to start a new [discussion](https://github.com/workleap/wl-telemetry/discussions). If you found a bug, please open an [issue](https://github.com/workleap/wl-telemetry/issues).
 
 ## Documentation
 
-View the [user's documentation](https://workleap.github.io/wl-tracking/).
+View the [user's documentation](https://workleap.github.io/wl-telemetry/).
 
 ## 🤝 Contributing
 

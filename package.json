@@ -7,7 +7,7 @@
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/workleap/wl-tracking.git"
+        "url": "git+https://github.com/workleap/wl-telemetry.git"
     },
     "scripts": {
         "dev-all-platforms": "turbo run dev --filter=./samples/all-platforms/**",

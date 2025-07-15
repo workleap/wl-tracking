@@ -295,7 +295,7 @@ This action will trigger when a commit is done in a PR to `main` or after a push
 
 ### Retype
 
-This action will trigger when a commit is done in a PR to `main` or after a push to `main`. The action will generate the documentation website into the `retype` branch. This repository [Github Pages](https://github.com/workleap/wl-tracking/settings/pages) is configured to automatically deploy the website from the `retype` branch.
+This action will trigger when a commit is done in a PR to `main` or after a push to `main`. The action will generate the documentation website into the `retype` branch. This repository [Github Pages](https://github.com/workleap/wl-telemetry/settings/pages) is configured to automatically deploy the website from the `retype` branch.
 
 ## Add a new package to the monorepo
 

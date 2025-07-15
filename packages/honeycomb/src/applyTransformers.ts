@@ -1,14 +1,14 @@
 import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface HoneycombSdkOptionsTransformerContext {
     verbose: boolean;
 }
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type HoneycombSdkOptionsTransformer = (options: HoneycombSdkOptions, context: HoneycombSdkOptionsTransformerContext) => HoneycombSdkOptions;
 

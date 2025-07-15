@@ -93,7 +93,7 @@ If you are experiencing issues with this guide:
 
 - Set the [verbose](./reference/initializeMixpanel.md.md#verbose) predefined option to `true`.
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console and look for logs starting with `[mixpanel]`.
-- Refer to the sample on [GitHub](TBD).
+- Refer to the sample on [GitHub](https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms).
 
 ## Filter by correlation ids
 

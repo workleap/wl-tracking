@@ -60,7 +60,7 @@ registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
 });
 ```
 
-To view the default private fields, have a look at the [registerLogRocketInstrumentation.ts](TBD) file on GitHub.
+To view the default private fields, have a look at the [registerLogRocketInstrumentation.ts](https://github.com/workleap/wl-telemetry/blob/main/packages/logrocket/src/registerLogRocketInstrumentation.ts) file on GitHub.
 
 ### `privateQueryParameterNames`
 
@@ -77,7 +77,7 @@ registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
 });
 ```
 
-To view the default private query parameters, have a look at the [registerLogRocketInstrumentation.ts](TBD) file on GitHub.
+To view the default private query parameters, have a look at the [registerLogRocketInstrumentation.ts](https://github.com/workleap/wl-telemetry/blob/main/packages/logrocket/src/registerLogRocketInstrumentation.ts) file on GitHub.
 
 ### `verbose`
 
@@ -102,7 +102,7 @@ We do not guarantee that your configuration transformers won't break after an up
 
 The [predefined options](#predefined-options) are useful to quickly customize the default configuration of the [LogRocket SDK](https://docs.logrocket.com/reference/init), but only covers a subset of the options. If you need full control over the configuration, you can provide configuration transformer functions through the `transformers` option of the `registerLogRocketInstrumentation` function. Remember, **no locked in** :heart::v:.
 
-To view the default configuration of `registerLogRocketInstrumentation`, have a look at the [registerLogRocketInstrumentation.ts](TBD) file on GitHub.
+To view the default configuration of `registerLogRocketInstrumentation`, have a look at the [registerLogRocketInstrumentation.ts](https://github.com/workleap/wl-telemetry/blob/main/packages/logrocket/src/registerLogRocketInstrumentation.ts) file on GitHub.
 
 ### `transformers`
 

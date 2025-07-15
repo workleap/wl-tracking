@@ -1,12 +1,12 @@
 {
     "name": "@workleap/telemetry",
     "author": "Workleap",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "A package including telemetry utilities for Workleap web applications.",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/workleap/wl-tracking.git",
+        "url": "git+https://github.com/workleap/wl-telemetry.git",
         "directory": "packages/telemetry"
     },
     "type": "module",

@@ -1,7 +1,7 @@
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface LogRocketSdkOptionsTransformerContext {
     verbose: boolean;
