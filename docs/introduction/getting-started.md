@@ -93,6 +93,8 @@ This feature is available only when using the following package versions or high
 - `@workleap/logrocket` ≥ `1.0.0`
 - `@workleap/honeycomb` ≥ `6.0.0`
 - `@workleap/mixpanel` ≥ `2.0.0`
+
+If your application is using older versions, refer to the [migration guide](./migrate.md) to update.
 !!!
 
 ## LogRocket session URL
@@ -109,6 +111,8 @@ This feature is available only when using the following package versions or high
 - `@workleap/logrocket` ≥ `1.0.0`
 - `@workleap/honeycomb` ≥ `6.0.0`
 - `@workleap/mixpanel` ≥ `2.0.0`
+
+If your application is using older versions, refer to the [migration guide](./migrate.md) to update.
 !!!
 
 ## Migrate
