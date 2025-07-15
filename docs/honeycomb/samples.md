@@ -7,6 +7,6 @@ meta:
 
 # Samples
 
-- :icon-mark-github: [All platforms sample](TBD)
-- :icon-mark-github: [Honeycomb api key sample](TBD)
-- :icon-mark-github: [Honeycomb proxy sample](TBD)
+- :icon-mark-github: [All platforms sample](https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms)
+- :icon-mark-github: [Honeycomb api key sample](https://github.com/workleap/wl-telemetry/tree/main/samples/honeycomb/api-key)
+- :icon-mark-github: [Honeycomb proxy sample](https://github.com/workleap/wl-telemetry/tree/main/samples/honeycomb/proxy)

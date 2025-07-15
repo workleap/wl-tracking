@@ -23,22 +23,22 @@ export const TelemetryIdAttributeName = "app.telemetry_id";
 export const DeviceIdAttributeName = "app.device_id";
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type DefineXmlHttpRequestInstrumentationOptionsFunction = (defaultOptions: XMLHttpRequestInstrumentationConfig) => XMLHttpRequestInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type DefineDocumentLoadInstrumentationOptionsFunction = (defaultOptions: DocumentLoadInstrumentationConfig) => DocumentLoadInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type DefineUserInteractionInstrumentationOptionsFunction = (defaultOptions: UserInteractionInstrumentationConfig) => UserInteractionInstrumentationConfig;
 
@@ -71,7 +71,7 @@ function createHoneycombSdk(options: HoneycombOptions) {
 }
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface RegisterHoneycombInstrumentationOptions {
     proxy?: string;
@@ -193,7 +193,7 @@ export function __resetRegistrationGuard() {
 }
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
     const {

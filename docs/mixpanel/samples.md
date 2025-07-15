@@ -7,4 +7,4 @@ meta:
 
 # Samples
 
-- :icon-mark-github: [All platforms sample](TBD)
+- :icon-mark-github: [All platforms sample](https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms)

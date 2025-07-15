@@ -5,7 +5,7 @@ import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getBaseProperties, TelemetryProperties, type MixpanelTrackEventProperties } from "./properties.ts";
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface MixpanelTrackingOptions {
     /**
@@ -30,12 +30,12 @@ export interface MixpanelTrackingOptions {
  * @param eventName The name of the event to track.
  * @param properties The properties to send with the event.
  * @param options Options for tracking the event.
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export type MixpanelTrackingFunction = (eventName: string, properties: MixpanelTrackEventProperties, options?: MixpanelTrackingOptions) => Promise<void>;
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface InitializeMixpanelOptions {
     verbose?: boolean;
@@ -73,7 +73,7 @@ export function __resetInitializationGuard() {
  * @param envOrTrackingApiBaseUrl The environment to get the navigation url from or a base URL.
  * @param options Options for creating the tracking function.
  * @returns A function that sends tracking events to the tracking API.
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) : MixpanelTrackingFunction {
     const {

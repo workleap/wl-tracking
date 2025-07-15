@@ -156,7 +156,7 @@ If you are experiencing issues with this guide:
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. Look for logs starting with `[honeycomb]`.
 - You should also see a log entry for every Honeycomb traces.
     - `honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
-- Refer to the sample on [GitHub](https://github.com/workleap/wl-honeycomb-web/tree/main/sample).
+- Refer to the sample on [GitHub](https://github.com/workleap/wl-telemetry/tree/main/samples/honeycomb).
 
 ## Filter by correlation ids
 

@@ -33,7 +33,7 @@ const DefaultPrivateQueryParameterNames = [
 ];
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export interface RegisterLogRocketInstrumentationOptions {
     // Set to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
@@ -96,7 +96,7 @@ export function __resetRegistrationGuard() {
 }
 
 /**
- * @see https://workleap.github.io/wl-tracking
+ * @see https://workleap.github.io/wl-telemetry
  */
 export function registerLogRocketInstrumentation(appId: string, options: RegisterLogRocketInstrumentationOptions = {}) {
     const {
