@@ -67,6 +67,10 @@ root.render(
 For more information about a specific library, refer to its [getting started](#supported-platforms) guide.
 !!!
 
+!!!warning
+For Honeycomb, avoid using `/.+/g`, in production, as it could expose customer data to third parties. Instead, ensure you specify values that accurately matches your application's backend URLs.
+!!!
+
 ## Correlation ids
 
 Each library sends the same two correlation id values to its respective platform, using platform-specific naming conventions for the names:
