@@ -40,7 +40,7 @@
     "devDependencies": {
         "@changesets/changelog-github": "0.5.1",
         "@changesets/cli": "2.29.5",
-        "@typescript-eslint/parser": "8.35.0",
+        "@typescript-eslint/parser": "8.37.0",
         "@workleap/eslint-plugin": "3.4.2",
         "@workleap/typescript-configs": "3.0.4",
         "eslint": "8.57.1",

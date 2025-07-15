@@ -37,6 +37,14 @@ export default {
     ],
     "versionGroups": [
         {
+            // "react" and "react-dom" declares ranges to support React 18 and 19.
+            // It's messing up with syncpack.
+            "packages": ["@workleap/mixpanel"],
+            "dependencies": ["react", "react-dom"],
+            "dependencyTypes": ["peer"],
+            "isIgnored": true
+        },
+        {
             "packages": ["**"],
             "dependencyTypes": ["prod", "dev", "peer"],
             "preferVersion": "highestSemver",

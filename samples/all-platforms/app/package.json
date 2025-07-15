@@ -16,19 +16,19 @@
         "typecheck": "tsc"
     },
     "dependencies": {
-        "@tanstack/react-query": "5.81.5",
+        "@tanstack/react-query": "5.83.0",
         "@workleap/honeycomb": "workspace:*",
         "@workleap/logrocket": "workspace:*",
         "@workleap/mixpanel": "workspace:*",
         "@workleap/telemetry": "workspace:*",
-        "logrocket": "10.1.0",
-        "react": "19.1.0",
-        "react-dom": "19.1.0",
+        "logrocket": "^10.1.0",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "react-router-dom": "7.6.3"
     },
     "devDependencies": {
-        "@rsbuild/core": "1.4.2",
-        "@rspack/core": "1.4.1",
+        "@rsbuild/core": "1.4.6",
+        "@rspack/core": "1.4.6",
         "@types/react": "19.1.8",
         "@types/react-dom": "19.1.6",
         "@workleap/browserslist-config": "2.0.4",
