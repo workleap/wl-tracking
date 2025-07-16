@@ -81,7 +81,7 @@ track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 
 ## Set custom user events
 
-Most application needs to set custom properties on events about the current user environment. To help with that, `@workleap/mixpanel` expose the [setSuperProperties](./reference/setSuperProperties.md) function.
+Most applications need to set custom properties on events about the current user environment. To help with that, `@workleap/mixpanel` expose the [setSuperProperties](./reference/setSuperProperties.md) function.
 
 Update your application code to include the `setSuperProperties` function:
 
@@ -93,7 +93,7 @@ setSuperProperties({
 })
 ```
 
-Now, every events recorded after the execution of `setSuperProperties` will include the custom property `User Id`.
+Now, every event recorded after the execution of `setSuperProperties` will include the custom property `User Id`.
 
 ## Try it :rocket:
 

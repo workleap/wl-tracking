@@ -109,7 +109,7 @@ The `registerLogRocketInstrumentation` function automatically adds two attribute
 
 ## Set custom user attributes
 
-Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](./reference/setGlobalSpanAttributes.md) function.
+Most applications need to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](./reference/setGlobalSpanAttributes.md) function.
 
 Update your application code to include the `setGlobalSpanAttribute` function:
 
