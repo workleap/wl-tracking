@@ -36,7 +36,7 @@ initializeMixpanel("wlp", "development", {
 !!!tip
 It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
 
-This applies not only to Mixpanel, but also to **any frontend code or libraries in use**. However, make sure not to log any Personally Identifiable Information (PII).
+This applies not only to Mixpanel, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
 !!!
 
 ## Create a track function
@@ -66,9 +66,9 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 Finally, using the retrieved `track` function, send a telemetry event:
 
 ```ts !#5
-import { createTrackingFunction } from "@workleap/mixpanel";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 
-const track = createTrackingFunction();
+const track = useTrackingFunction();
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
@@ -78,9 +78,9 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 Link clicks requires to keep the page alive while the tracking request is being processed. To do so, set the `keepAlive` option of the `track` function:
 
 ```ts !#6
-import { createTrackingFunction } from "@workleap/mixpanel";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 
-const track = createTrackingFunction();
+const track = useTrackingFunction();
 
 track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
     keepAlive: true
