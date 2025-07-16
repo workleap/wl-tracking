@@ -9,3 +9,4 @@ meta:
 - [initializeMixpanel](./initializeMixpanel.md)
 - [createTrackingFunction](./createTrackingFunction.md)
 - [useTrackingFunction](./useTrackingFunction.md)
+- [setSuperProperties](./setSuperProperties.md)
