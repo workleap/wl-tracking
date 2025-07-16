@@ -1,5 +1,11 @@
 # @workleap/logrocket
 
+## 1.0.1
+
+### Patch Changes
+
+- [#36](https://github.com/workleap/wl-telemetry/pull/36) [`85f432b`](https://github.com/workleap/wl-telemetry/commit/85f432bb1c45433d24a765da7249fef4abb949d4) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Minor fixes to the API.
+
 ## 1.0.0
 
 ### Major Changes
