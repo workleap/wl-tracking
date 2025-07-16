@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.805901626327">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.805954512514">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,12 +34,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../../static/favicon.png" rel="icon">
-    <link href="../../../resources/css/retype.css?v=3.11.0.805901626327" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.11.0.805954512514" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.805901626327" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.805954512514" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.805901626327" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.805901626327" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.805954512514" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.805954512514" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -341,53 +341,22 @@
     </h1>
 </doc-anchor-target>
 <p>This new version introduces two correlation ids, <code v-pre>telemetryId</code> and <code v-pre>deviceId</code>, to help unify and correlate data across <a href="https://logrocket.com/" class="outbound" target="_blank">LogRocket</a>, <a href="https://www.honeycomb.io/" class="outbound" target="_blank">Honeycomb</a> and <a href="https://mixpanel.com/" class="outbound" target="_blank">Mixpanel</a> and a new automatic enrichment of the events with the LogRocket session url if the <a href="../../../logrocket/getting-started/">LogRocket instrumentation</a> is registered.</p>
-<p>This release also introduces a <doc-anchor-trigger to="#a-new-philosophy">shift of philosophy</doc-anchor-trigger> for the <code v-pre>createTrackingFunction</code> function. Previously, <code v-pre>createTrackingFunction</code> was designed as a <strong>low-cost</strong> utility function that could be called whenever telemetry was needed. That approach has now been replaced by the <a href="../../reference/initializemixpanel/">initializeMixpanel</a> function, a setup function intended to be called only once per application load.</p>
+<p>To support these new automations, a new <a href="../../reference/initializemixpanel/">initializeMixpanel</a> function has been introduced. This setup function should be called only once per load, during the application&#x27;s bootstrap phase.</p>
 <doc-anchor-target id="breaking-changes">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#breaking-changes">#</doc-anchor-trigger>
         <span>Breaking changes</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="removed">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#removed">#</doc-anchor-trigger>
-        <span>Removed</span>
-    </h3>
-</doc-anchor-target>
-<ul>
-<li>The <code v-pre>targetProductId</code> option of the <code v-pre>createTrackingFunction</code> function has been moved to the returned <a href="../../reference/initializemixpanel/#specify-a-target-product">track</a> function.</li>
-</ul>
-<doc-anchor-target id="renamed">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#renamed">#</doc-anchor-trigger>
-        <span>Renamed</span>
-    </h3>
-</doc-anchor-target>
-<ul>
-<li>The <code v-pre>createTrackingFunction</code> function has been renamed to <a href="../../reference/initializemixpanel/">initializeMixpanel</a>.</li>
-</ul>
-<doc-anchor-target id="others">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#others">#</doc-anchor-trigger>
-        <span>Others</span>
-    </h3>
-</doc-anchor-target>
 <ul>
 <li>The <code v-pre>@workleap/telemetry</code> package is a new peer dependency of the <code v-pre>@workleap/mixpanel</code> package.</li>
+<li>The <a href="../../reference/initializemixpanel/">initializeMixpanel</a> function must be executed during the bootstrapping of the application and must be called prior to the <a href="../../reference/usetrackingfunction/">useTrackingFunction</a> hook or <a href="../../reference/createtrackingfunction/">createTrackingFunction</a>.</li>
+<li>The <a href="../../reference/createtrackingfunction/">createTrackingFunction</a> signature do not include the <code v-pre>productId</code> and <code v-pre>env</code> arguments anymore.</li>
 </ul>
-<doc-anchor-target id="a-new-philosophy">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#a-new-philosophy">#</doc-anchor-trigger>
-        <span>A new philosophy</span>
-    </h3>
-</doc-anchor-target>
-<p>Prior to this release, <code v-pre>createTrackingFunction</code> was designed as a <strong>low-cost</strong> utility function that could be called whenever telemetry was needed. With the addition of correlation ids, and the automatic enrichment of the events with the LogRocket session url, a need emerge for an initialization function that would be execute once per application load.</p>
-<p>To reflect this shift in philosophy, the <code v-pre>createTrackingFunction</code> has been renamed to <a href="../../reference/initializemixpanel/">initializeMixpanel</a> and the <code v-pre>targetProductId</code> has been moved to the returned <a href="../../reference/initializemixpanel/#returns">TrackingFunction</a>.</p>
 <p>Before:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { createTrackingFunction } from &quot;@workleap/mixpanel&quot;;
 
-// Can be executed multiple times.
 const track = createTrackingFunction(&quot;wlp&quot;, &quot;development&quot;, {
     targetProductId: &quot;ov&quot;
 });
@@ -396,26 +365,30 @@ track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, 
 </doc-codeblock></div>
 <p>After:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { initializeMixpanel, createTrackingFunction } from &quot;@workleap/mixpanel&quot;;
 
 // Must be executed once.
-const track = initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);
+initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);
 
-track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; }, {
-    targetProductId: &quot;ov&quot;
-});</code></pre>
+...
+
+const track = createTrackingFunction();
+
+track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
 </doc-codeblock></div>
-<p>If <code v-pre>createTrackingFunction</code> was previously used in multiple places as a low-cost utility function, you can now replace those instances with either the <a href="../../reference/usemixpaneltracking/">useMixpanelTracking</a> hook or the <a href="../../reference/getmixpaneltrackingfunction/">getMixpanelTrackingFunction</a>:</p>
+<p>Or for a React application:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { useMixpanelTracking } from &quot;@workleap/logrocket/react&quot;;
+<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+import { useTrackingFunction } from &quot;@workleap/mixpanel/react&quot;;
 
-const track = useMixpanelTracking();</code></pre>
-</doc-codeblock></div>
-<p>Or:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { getMixpanelTrackingFunction } from &quot;@workleap/logrocket&quot;;
+// Must be executed once.
+initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);
 
-const track = getMixpanelTrackingFunction();</code></pre>
+...
+
+const track = useTrackingFunction();
+
+track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="improvements">
     <h2>
@@ -448,6 +421,20 @@ const track = getMixpanelTrackingFunction();</code></pre>
 </figure>
 </p>
 </div>
+<doc-anchor-target id="super-properties">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#super-properties">#</doc-anchor-trigger>
+        <span>Super properties</span>
+    </h3>
+</doc-anchor-target>
+<p>You can now use a new function to add <a href="../../reference/setsuperproperties/">super properties</a>, global event properties that are defined once and automatically included with all events:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { setSuperProperties } from &quot;@workleap/mixpanel&quot;;
+
+setSuperProperties({
+    &quot;User Id&quot;: &quot;123&quot;
+});</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="migrate-from-v10">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#migrate-from-v10">#</doc-anchor-trigger>
@@ -457,9 +444,9 @@ const track = getMixpanelTrackingFunction();</code></pre>
 <p>Follow these steps to migrate an existing application <code v-pre>v1.0</code> to <code v-pre>v2.0</code>:</p>
 <ul>
 <li>Add a dependency to <code v-pre>@workleap/telemetry</code>.</li>
-<li>Remove all instances of <code v-pre>createTrackingFunction</code> to keep a single one at the bootstrapping of the application. If the returned <code v-pre>track</code> function is not reachable, either use the <a href="../../reference/usemixpaneltracking/">useMixpanelTracking</a> hook or the <a href="../../reference/getmixpaneltrackingfunction/">getMixpanelTrackingFunction</a> function.</li>
-<li>Rename <code v-pre>createTrackingFunction</code> to <a href="../../reference/initializemixpanel/">initializeMixpanel</a>.</li>
-<li>Move the <code v-pre>targetProductId</code> option from <code v-pre>initializeMixpanel</code> to the <code v-pre>track</code> function. <a href="../../reference/initializemixpanel/#specify-a-target-product">View example</a></li>
+<li>Add the <a href="../../reference/initializemixpanel/">initializeMixpanel</a> function to the bootstrapping code of the application.</li>
+<li>Remove the <code v-pre>productId</code> and <code v-pre>env</code> arguments from <a href="../../reference/createtrackingfunction/">createTrackingFunction</a>.</li>
+<li>If the host application is in React, consider replacing <a href="../../reference/createtrackingfunction/">createTrackingFunction</a> by the <a href="../../reference/usetrackingfunction/">useTrackingFunction</a> hook.</li>
 </ul>
 
                                 

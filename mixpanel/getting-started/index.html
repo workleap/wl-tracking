@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.805901626327">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.805954512514">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -32,12 +32,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.805901626327" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.805954512514" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.805901626327" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.805954512514" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.805901626327" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.805901626327" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.805954512514" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.805954512514" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -331,7 +331,7 @@
     </h1>
 </doc-anchor-target>
 <p>To make data-informed decisions, understand user behavior, and measure product impact, Workleap has adopted <a href="https://mixpanel.com/" class="outbound" target="_blank">Mixpanel</a>, an analytics platform that helps <strong>understand how users interact with</strong> a <strong>product</strong>.</p>
-<p>This package add basic Mixpanel tracking capabilities to an application. It provides a single <code v-pre>track</code> function that sends <code v-pre>POST</code> requests to a dedicated tracking endpoint fully compliant with the Workleap Platform Tracking API.</p>
+<p>This package add basic Mixpanel tracking capabilities to an application. It provides a single <code v-pre>track</code> function that sends <code v-pre>POST</code> requests to a dedicated tracking endpoint compliant with the Workleap platform tracking API.</p>
 <doc-anchor-target id="install-the-packages">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#install-the-packages">#</doc-anchor-trigger>
@@ -348,11 +348,33 @@
         <span>Initialize Mixpanel</span>
     </h2>
 </doc-anchor-target>
-<p>Then, initialize Mixpanel and retrieve a <code v-pre>track</code> function by executing <a href="../reference/initializemixpanel/">initializeMixpanel</a>:</p>
+<p>Then, initialize Mixpanel using the <a href="../reference/initializemixpanel/">initializeMixpanel</a> function:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
 
-const track = initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);</code></pre>
+initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="create-a-track-function">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-track-function">#</doc-anchor-trigger>
+        <span>Create a track function</span>
+    </h2>
+</doc-anchor-target>
+<p>Then create a <code v-pre>track</code> function using the <a href="../reference/">useTrackingFunction</a> hook if the host application is in React:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { useTrackingFunction } from &quot;@workleap/mixpanel/react&quot;;
+
+const track = useTrackingFunction();
+
+track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
+</doc-codeblock></div>
+<p>Otherwise use the <code v-pre>createTrackingFunction</code> directly:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { createTrackingFunction } from &quot;@workleap/mixpanel&quot;;
+
+const track = createTrackingFunction();
+
+track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="track-an-event">
     <h2>
@@ -374,7 +396,7 @@ track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, 
         <span>Track a link</span>
     </h2>
 </doc-anchor-target>
-<p>Link clicks requires to keep the page alive while the tracking request is being processed. To do so, specify the <code v-pre>keepAlive</code> option:</p>
+<p>Link clicks requires to keep the page alive while the tracking request is being processed. To do so, set the <code v-pre>keepAlive</code> option of the <code v-pre>track</code> function:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre translate="no" class="language-typescript" data-line="6"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
 
@@ -383,28 +405,6 @@ const track = initializeMixpanel(&quot;wlp&quot;, &quot;staging&quot;);
 track(&quot;LinkClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; }, {
     keepAlive: true
 });</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="retrieve-the-track-function">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#retrieve-the-track-function">#</doc-anchor-trigger>
-        <span>Retrieve the track function</span>
-    </h2>
-</doc-anchor-target>
-<p>If the code sending telemetry events doesn&#x27;t have a reference on the <code v-pre>track</code> function, the <code v-pre>track</code> function can be retrieve by either using the <a href="../reference/usemixpaneltracking/">useMixpanelTracking</a> hook:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="3"><code v-pre class="language-typescript">import { useMixpanelTracking } from &quot;@workleap/mixpanel&quot;;
-
-const track = useMixpanelTracking();
-
-track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
-</doc-codeblock></div>
-<p>Or the <a href="../reference/getmixpaneltrackingfunction/">getMixpanelTrackingFunction</a> function:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="3"><code v-pre class="language-typescript">import { getMixpanelTrackingFunction } from &quot;@workleap/mixpanel&quot;;
-
-const track = getMixpanelTrackingFunction();
-
-track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &quot;Location&quot;: &quot;Header&quot; });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="try-it-rocket">
     <h2>
