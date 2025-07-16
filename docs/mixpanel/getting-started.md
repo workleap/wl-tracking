@@ -79,6 +79,22 @@ track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
 });
 ```
 
+## Set custom user events
+
+Most applications need to set custom properties on events about the current user environment. To help with that, `@workleap/mixpanel` expose the [setSuperProperties](./reference/setSuperProperties.md) function.
+
+Update your application code to include the `setSuperProperties` function:
+
+```ts
+import { setSuperProperties } from "@workleap/mixpanel";
+
+setSuperProperties({
+    "User Id": "123" 
+})
+```
+
+Now, every event recorded after the execution of `setSuperProperties` will include the custom property `User Id`.
+
 ## Try it :rocket:
 
 Start the application in a development environment using the dev script. Render a page, then navigate to your [Mixpanel](https://mixpanel.com/) instance. Go to "Events" page. If you are tracking events, you should see a new event appear.
