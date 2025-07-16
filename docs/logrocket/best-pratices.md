@@ -13,7 +13,7 @@ toc:
 
 It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
 
-This applies not only to instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any Personally Identifiable Information (PII).
+This applies not only to instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
 
 Here are some examples :point_down:
 
