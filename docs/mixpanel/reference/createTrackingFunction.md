@@ -1,48 +1,81 @@
 ---
 order: 90
-label: getMixpanelTrackingFunction
+label: createTrackingFunction
 meta:
-    title: getMixpanelTrackingFunction - Mixpanel
+    title: createTrackingFunction - Mixpanel
 toc:
     depth: 2-3
 ---
 
-# getMixpanelTrackingFunction
+# createTrackingFunction
 
-Returns the `track` function created during Mixpanel initialization. This is useful in cases where the code doesn't have direct access to the `track` function returned by [initializeMixpanel](./initializeMixpanel.md), but still needs to send tracking events.
+Returns a function sending `POST` requests to a dedicated tracking endpoint fully compliant with the Workleap platform tracking API.
 
 ## Reference
 
 ```ts
-const track = getMixpanelTrackingFunction(options?: { throwOnUndefined })
+const track = createTrackingFunction(options?: { targetProductId })
 ```
 
 ### Parameters
 
 - `options`: An optional object literal of options:
-    - `throwOnUndefined`: An optional `boolean` value indicating whether or not the function should throw if the `track` function is not available. Default is `true`.
+    - `targetProductId`: The product id of the target product. Useful to track an event for another product.
 
 ### Returns
 
-A [TrackingFunction](../reference/initializeMixpanel.md#returns).
+A `TrackingFunction` with the following signature: `(eventName, properties: {}, options?: { keepAlive }) => Promise<void>`.
+
+- `eventName`: The event name.
+- `properties`: The event properties.
+- `options`: An optional object literal of options:
+    - `keepAlive`: Whether or not to keep the connection alive for the tracking request. It is mostly used for tracking links where the user might navigate away before the request is completed.
+
+!!!tip
+The body size for keepalive requests is [limited to 64 kibibytes](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#keepalive).
+!!!
+
+### Throws
+
+If the [initializeMixpanel](./initializeMixpanel.md) function hasn't been executed yet and the Mixpanel context is not available, an `Error` is thrown.
 
 ## Usage
 
-### Retrieve the track function
+### Track events
 
-```ts
-import { getMixpanelTrackingFunction } from "@workleap/mixpanel";
+```ts !#5
+import { createTrackingFunction } from "@workleap/mixpanel";
 
-const track = getMixpanelTrackingFunction();
+const track = createTrackingFunction();
+
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
-### Do not throw when not available
+### Specify a target product
+
+To track an action targeting another product, use the `targetProductId` option:
 
 ```ts !#4
-import { getMixpanelTrackingFunction } from "@workleap/mixpanel";
+import { createTrackingFunction } from "@workleap/mixpanel";
 
-const track = getMixpanelTrackingFunction({
-    throwOnUndefined: false
+const track = createTrackingFunction({
+    targetProductId: "wov"
+});
+
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
+```
+
+### Track a link
+
+To track a link click, use the `keepAlive` option to keep the page alive while the tracking request is being processed:
+
+```ts !#6
+import { createTrackingFunction } from "@workleap/mixpanel";
+
+const track = createTrackingFunction();
+
+track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
+    keepAlive: true
 });
 ```
 
