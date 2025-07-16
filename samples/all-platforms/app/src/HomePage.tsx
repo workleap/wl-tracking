@@ -1,7 +1,7 @@
-import { useMixpanelTracking } from "@workleap/mixpanel/react";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 
 export function HomePage() {
-    const track = useMixpanelTracking();
+    const track = useTrackingFunction();
 
     track("Page View", {
         "Page": "Home Page"

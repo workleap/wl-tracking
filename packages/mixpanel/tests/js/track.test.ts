@@ -1,28 +1,27 @@
+import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
+import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
+import { createTrackingFunction } from "../../src/js/createTrackingFunction.ts";
 import { __resetInitializationGuard, initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
-import { BaseProperties } from "../../src/js/properties.ts";
+import { __clearSuperProperties, BaseProperties, OtherProperties, TelemetryProperties } from "../../src/js/properties.ts";
 
 const fetchMock = vi.fn();
+
 globalThis.fetch = fetchMock;
 
 afterEach(() => {
     vi.clearAllMocks();
 
     __resetInitializationGuard();
+    __clearSuperProperties();
+    __clearBootstrappingStore();
+    __clearTelemetryContext();
 });
 
-test("when an event is tracked, sends a request to the endpoint", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+test("the custom properties are sent", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
 
-    await track("customEvent", {});
-
-    const [url] = fetchMock.mock.calls[0];
-
-    expect(url).toBe("http://api/navigation/tracking/track");
-});
-
-test("when called, sends a request to the endpoint with merged properties", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+    const track = createTrackingFunction();
 
     await track("event", { customProp: 123 });
 
@@ -36,8 +35,58 @@ test("when called, sends a request to the endpoint with merged properties", asyn
     expect(body.targetProductIdentifier).toBeNull();
 });
 
-test("when an event is tracked, includes the event name in the request body", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+test("the telemetry properties are sent", async ({ expect }) => {
+    const telemetryContext = new TelemetryContext("123", "456");
+
+    __setTelemetryContext(telemetryContext);
+
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
+
+    await track("event", {});
+
+    const [url, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body);
+
+    expect(url).toBe("http://api/navigation/tracking/track");
+    expect(body.properties[TelemetryProperties.DeviceId]).toBe(telemetryContext.deviceId);
+    expect(body.properties[TelemetryProperties.TelemetryId]).toBe(telemetryContext.telemetryId);
+});
+
+test("the LogRocket session url is sent", async ({ expect }) => {
+    const bootstrappingStore = new BootstrappingStore({
+        isLogRocketReady: true,
+        isHoneycombReady: false
+    });
+
+    __setBootstrappingStore(bootstrappingStore);
+
+    const sessionUrl = "session-123";
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__ = (listener: (url: string) => void) => {
+        listener(sessionUrl);
+    };
+
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
+
+    await track("event", {});
+
+    const [url, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body);
+
+    expect(url).toBe("http://api/navigation/tracking/track");
+    expect(body.properties[OtherProperties.LogRocketSessionUrl]).toBe(sessionUrl);
+});
+
+test("the request body include the event name", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
 
     await track("customEvent", {});
 
@@ -47,8 +96,10 @@ test("when an event is tracked, includes the event name in the request body", as
     expect(body.eventName).toBe("customEvent");
 });
 
-test("when keepAlive is true, includes keepalive in the fetch options", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+test("when the keep alive option is provided, the fetch options include the \"keepAlive\" option", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
 
     await track("keepaliveEvent", {}, { keepAlive: true });
 
@@ -56,20 +107,24 @@ test("when keepAlive is true, includes keepalive in the fetch options", async ({
     expect(init.keepalive).toBe(true);
 });
 
-test("when a targetProductId is provided, includes it in the request body", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+test("when a target product id is provided, the request body include the provided id", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
 
-    await track("event", {}, {
+    const track = createTrackingFunction({
         targetProductId: "target-app"
     });
+
+    await track("event", {});
 
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
     expect(body.targetProductIdentifier).toBe("target-app");
 });
 
-test("when targetProductId is not provided, add it from the request body with null", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation");
+test("when a target product id is not provided, the request body include the property with a null value", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 
@@ -79,8 +134,22 @@ test("when targetProductId is not provided, add it from the request body with nu
     expect(body).toHaveProperty("targetProductIdentifier", null);
 });
 
-test("when base URL ends with a slash, builds correct final URL", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "http://api/navigation/");
+test("when a base URL is provided, the endpoint include the provided base URL", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    const track = createTrackingFunction();
+
+    await track("customEvent", {});
+
+    const [url] = fetchMock.mock.calls[0];
+
+    expect(url).toBe("http://api/navigation/tracking/track");
+});
+
+test("when a base URL is provided ending with a slash is provided, the ending slash is escaped", async ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation/");
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 
@@ -88,8 +157,10 @@ test("when base URL ends with a slash, builds correct final URL", async ({ expec
     expect(url).toBe("http://api/navigation/tracking/track");
 });
 
-test("when env is passed, builds correct final URL", async ({ expect }) => {
-    const track = initializeMixpanel("wlp", "development");
+test("when an env is provided, the env is transformed to the matching endpoint URL", async ({ expect }) => {
+    initializeMixpanel("wlp", "development");
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 

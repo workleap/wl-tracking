@@ -1,2 +1,2 @@
-export { useMixpanelTracking } from "./useMixpanelTracking.ts";
+export { useTrackingFunction, type UseTrackingFunctionOptions } from "./useTrackingFunction.ts";
 

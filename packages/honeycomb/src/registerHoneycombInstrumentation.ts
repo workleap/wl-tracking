@@ -14,7 +14,7 @@ import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeyc
 import { normalizeAttributesSpanProcessor } from "./NormalizeAttributesSpanProcessor.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
-export const IsRegisteredFunctionName = "__WLP_HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__";
+export const IsRegisteredVariableName = "__WLP_HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__";
 export const RegisterDynamicFetchRequestHookFunctionName = "__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK__";
 export const RegisterDynamicFetchRequestHookAtStartFunctionName = "__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK_AT_START__";
 
@@ -245,7 +245,7 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // which is great for DX.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis[IsRegisteredFunctionName] = true;
+    globalThis[IsRegisteredVariableName] = true;
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

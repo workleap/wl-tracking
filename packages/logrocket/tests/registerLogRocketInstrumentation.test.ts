@@ -3,7 +3,7 @@ import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingS
 import LogRocket from "logrocket";
 import { afterEach, test, vi } from "vitest";
 import { DeviceIdTrait, TelemetryIdTrait } from "../src/createDefaultUserTraits.ts";
-import { __resetRegistrationGuard, IsRegisteredFunctionName, RegisterGetSessionUrlFunctionName, registerLogRocketInstrumentation } from "../src/registerLogRocketInstrumentation.ts";
+import { __resetRegistrationGuard, IsRegisteredVariableName, RegisterGetSessionUrlFunctionName, registerLogRocketInstrumentation } from "../src/registerLogRocketInstrumentation.ts";
 
 vi.mock("logrocket", () => ({
     default: {
@@ -47,7 +47,7 @@ test("is registered global variable is true", ({ expect }) => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    expect(globalThis[IsRegisteredFunctionName]).toBeTruthy();
+    expect(globalThis[IsRegisteredVariableName]).toBeTruthy();
 });
 
 test("register get session url global function is defined", ({ expect }) => {

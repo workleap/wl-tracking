@@ -1,6 +1,7 @@
 import { setGlobalSpanAttribute } from "@workleap/honeycomb";
 import { createDefaultUserTraits, type LogRocketIdentification } from "@workleap/logrocket";
-import { useMixpanelTracking } from "@workleap/mixpanel/react";
+import { setSuperProperty } from "@workleap/mixpanel";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 import LogRocket from "logrocket";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 
@@ -40,7 +41,7 @@ export function IdentifyPage() {
         }
     });
 
-    const track = useMixpanelTracking();
+    const track = useTrackingFunction();
 
     track("Page View", {
         "Page": "Identify Page"
@@ -66,6 +67,7 @@ export function IdentifyPage() {
         });
 
         setGlobalSpanAttribute("app.user", JSON.stringify(form));
+        setSuperProperty("User", JSON.stringify(form));
     };
 
     return (

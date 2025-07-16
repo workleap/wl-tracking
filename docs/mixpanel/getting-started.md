@@ -11,7 +11,7 @@ toc:
 
 To make data-informed decisions, understand user behavior, and measure product impact, Workleap has adopted [Mixpanel](https://mixpanel.com/), an analytics platform that helps **understand how users interact with** a **product**.
 
-This package add basic Mixpanel tracking capabilities to an application. It provides a single `track` function that sends `POST` requests to a dedicated tracking endpoint fully compliant with the Workleap Platform Tracking API.
+This package add basic Mixpanel tracking capabilities to an application. It provides a single `track` function that sends `POST` requests to a dedicated tracking endpoint compliant with the Workleap platform tracking API.
 
 ## Install the packages
 
@@ -23,12 +23,34 @@ pnpm add @workleap/telemetry @workleap/mixpanel
 
 ## Initialize Mixpanel
 
-Then, initialize Mixpanel and retrieve a `track` function by executing [initializeMixpanel](./reference/initializeMixpanel.md):
+Then, initialize Mixpanel using the [initializeMixpanel](./reference/initializeMixpanel.md) function:
 
 ```ts
 import { initializeMixpanel } from "@workleap/mixpanel";
 
-const track = initializeMixpanel("wlp", "development");
+initializeMixpanel("wlp", "development");
+```
+
+## Create a track function
+
+Then create a `track` function using the [useTrackingFunction](./reference//) hook if the host application is in React:
+
+```ts
+import { useTrackingFunction } from "@workleap/mixpanel/react";
+
+const track = useTrackingFunction();
+
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
+```
+
+Otherwise use the `createTrackingFunction` directly:
+
+```ts
+import { createTrackingFunction } from "@workleap/mixpanel";
+
+const track = createTrackingFunction();
+
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
 ## Track an event
@@ -45,7 +67,7 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 
 ## Track a link
 
-Link clicks requires to keep the page alive while the tracking request is being processed. To do so, specify the `keepAlive` option:
+Link clicks requires to keep the page alive while the tracking request is being processed. To do so, set the `keepAlive` option of the `track` function:
 
 ```ts !#6
 import { initializeMixpanel } from "@workleap/mixpanel";
@@ -55,28 +77,6 @@ const track = initializeMixpanel("wlp", "staging");
 track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
     keepAlive: true
 });
-```
-
-## Retrieve the track function
-
-If the code sending telemetry events doesn't have a reference on the `track` function, the `track` function can be retrieve by either using the [useMixpanelTracking](./reference/useMixpanelTracking.md) hook:
-
-```ts !#3
-import { useMixpanelTracking } from "@workleap/mixpanel";
-
-const track = useMixpanelTracking();
-
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
-```
-
-Or the [getMixpanelTrackingFunction](./reference/getMixpanelTrackingFunction.md) function:
-
-```ts !#3
-import { getMixpanelTrackingFunction } from "@workleap/mixpanel";
-
-const track = getMixpanelTrackingFunction();
-
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
 ## Try it :rocket:

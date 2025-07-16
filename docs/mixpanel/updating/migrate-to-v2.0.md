@@ -9,34 +9,19 @@ meta:
 
 This new version introduces two correlation ids, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/) and a new automatic enrichment of the events with the LogRocket session url if the [LogRocket instrumentation](../../logrocket/getting-started.md) is registered.
 
-This release also introduces a [shift of philosophy](#a-new-philosophy) for the `createTrackingFunction` function. Previously, `createTrackingFunction` was designed as a **low-cost** utility function that could be called whenever telemetry was needed. That approach has now been replaced by the [initializeMixpanel](../reference/initializeMixpanel.md) function, a setup function intended to be called only once per application load.
+To support these new automations, a new [initializeMixpanel](../reference/initializeMixpanel.md) function has been introduced. This setup function should be called only once per load, during the application's bootstrap phase.
 
 ## Breaking changes
 
-### Removed
-
-- The `targetProductId` option of the `createTrackingFunction` function has been moved to the returned [track](../reference/initializeMixpanel.md#specify-a-target-product) function.
-
-### Renamed
-
-- The `createTrackingFunction` function has been renamed to [initializeMixpanel](../reference/initializeMixpanel.md).
-
-### Others
-
 - The `@workleap/telemetry` package is a new peer dependency of the `@workleap/mixpanel` package.
-
-### A new philosophy
-
-Prior to this release, `createTrackingFunction` was designed as a **low-cost** utility function that could be called whenever telemetry was needed. With the addition of correlation ids, and the automatic enrichment of the events with the LogRocket session url, a need emerge for an initialization function that would be execute once per application load.
-
-To reflect this shift in philosophy, the `createTrackingFunction` has been renamed to [initializeMixpanel](../reference/initializeMixpanel.md) and the `targetProductId` has been moved to the returned [TrackingFunction](../reference/initializeMixpanel.md#returns).
+- The [initializeMixpanel](../reference/initializeMixpanel.md) function must be executed during the bootstrapping of the application and must be called prior to the [useTrackingFunction](../reference/useTrackingFunction.md) hook or [createTrackingFunction](../reference/createTrackingFunction.md).
+- The [createTrackingFunction](../reference/createTrackingFunction.md) signature do not include the `productId` and `env` arguments anymore.
 
 Before:
 
 ```ts
 import { createTrackingFunction } from "@workleap/mixpanel";
 
-// Can be executed multiple times.
 const track = createTrackingFunction("wlp", "development", {
     targetProductId: "ov"
 });
@@ -47,30 +32,32 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 After:
 
 ```ts
-import { initializeMixpanel } from "@workleap/mixpanel";
+import { initializeMixpanel, createTrackingFunction } from "@workleap/mixpanel";
 
 // Must be executed once.
-const track = initializeMixpanel("wlp", "development");
+initializeMixpanel("wlp", "development");
 
-track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
-    targetProductId: "ov"
-});
+...
+
+const track = createTrackingFunction();
+
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
-If `createTrackingFunction` was previously used in multiple places as a low-cost utility function, you can now replace those instances with either the [useMixpanelTracking](../reference/useMixpanelTracking.md) hook or the [getMixpanelTrackingFunction](../reference/getMixpanelTrackingFunction.md):
+Or for a React application:
 
 ```ts
-import { useMixpanelTracking } from "@workleap/logrocket/react";
+import { initializeMixpanel } from "@workleap/mixpanel";
+import { useTrackingFunction } from "@workleap/mixpanel/react";
 
-const track = useMixpanelTracking();
-```
+// Must be executed once.
+initializeMixpanel("wlp", "development");
 
-Or:
+...
 
-```ts
-import { getMixpanelTrackingFunction } from "@workleap/logrocket";
+const track = useTrackingFunction();
 
-const track = getMixpanelTrackingFunction();
+track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
 
 ## Improvements
@@ -92,11 +79,23 @@ Once the LogRocket session URL is retrieved, each event is enriched with an `Log
 ![Enrichment example](../../static/mixpanel/mixpanel-logrocket-session-url.png){width=464}
 :::
 
+### Super properties
+
+You can now use a new function to add [super properties](../reference/setSuperProperties.md), global event properties that are defined once and automatically included with all events:
+
+```ts
+import { setSuperProperties } from "@workleap/mixpanel";
+
+setSuperProperties({
+    "User Id": "123"
+});
+```
+
 ## Migrate from `v1.0`
 
 Follow these steps to migrate an existing application `v1.0` to `v2.0`:
 
 - Add a dependency to `@workleap/telemetry`.
-- Remove all instances of `createTrackingFunction` to keep a single one at the bootstrapping of the application. If the returned `track` function is not reachable, either use the [useMixpanelTracking](../reference/useMixpanelTracking.md) hook or the [getMixpanelTrackingFunction](../reference/getMixpanelTrackingFunction.md) function.
-- Rename `createTrackingFunction` to [initializeMixpanel](../reference/initializeMixpanel.md).
-- Move the `targetProductId` option from `initializeMixpanel` to the `track` function. [View example](../reference/initializeMixpanel.md#specify-a-target-product)
+- Add the [initializeMixpanel](../reference/initializeMixpanel.md) function to the bootstrapping code of the application.
+- Remove the `productId` and `env` arguments from [createTrackingFunction](../reference/createTrackingFunction.md).
+- If the host application is in React, consider replacing [createTrackingFunction](../reference/createTrackingFunction.md) by the [useTrackingFunction](../reference/useTrackingFunction.md) hook.

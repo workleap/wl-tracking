@@ -53,6 +53,27 @@ To install the project, open a terminal at the root of the workspace and execute
 pnpm install
 ```
 
+### Setup environment variables
+
+Ids, keys and tokens must set to send data to the different development environment of the telemetry platforms.
+
+First, create a file named `.env.local` at the root of the workspace:
+
+```
+workspace
+├── package.json
+├── .env.local
+```
+
+Then, add the following key/values to the newly created `.env.local` file:
+
+- `LOGROCKET_APP_ID`: The application id of the `frontend-platform-team-dev` LogRocket project.
+- `HONEYCOMB_API_KEY`: The API key of the `frontend-platform-team-dev` Honeycomb environment.
+- `MIXPANEL_PROJECT_TOKEN`: The token of the `Frontend-Platform-Team-Dev` Mixpanel project.
+
+> [!NOTE]
+> The `.env.local` file is configured to be ignored by Git and will not be pushed to the remote repository.
+
 ### Setup Retype
 
 [Retype](https://retype.com/) is the documentation platform that this repository is using for its documentation. As this project is leveraging a few [Pro features](https://retype.com/pro/) of Retype.

@@ -50,7 +50,7 @@ registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy"
 });
 
-const track = initializeMixpanel("wlp", "development");
+initializeMixpanel("wlp", "development");
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -59,6 +59,14 @@ root.render(
         <App />
     </StrictMode>
 );
+```
+
+```ts
+import { useTrackingFunction } from "@workleap/mixpanel/react";
+
+// If the host application is not a React application, use
+// "createTrackingFunction" instead of the following hook.
+const track = useTrackingFunction();
 ```
 
 !!!tip

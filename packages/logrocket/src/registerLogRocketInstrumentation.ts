@@ -9,7 +9,7 @@ import { createUrlSanitizer } from "./createUrlSanitizer.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
-export const IsRegisteredFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__";
+export const IsRegisteredVariableName = "__WLP_LOGROCKET_INSTRUMENTATION_IS_REGISTERED__";
 export const RegisterGetSessionUrlFunctionName = "__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__";
 
 const DefaultPrivateFieldNames = [
@@ -133,7 +133,7 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
     // which is great for DX.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis[IsRegisteredFunctionName] = true;
+    globalThis[IsRegisteredVariableName] = true;
 
     // While consumers could directly call LogRocket.getSessionURL, by doing it this way,
     // it allow consumers to not take a direct dependency on the "logrocket" package.
