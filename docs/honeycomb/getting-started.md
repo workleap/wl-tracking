@@ -151,3 +151,7 @@ The `registerLogRocketInstrumentation` function automatically adds two user trai
 - `app.device_id`: Identifies the user's device across sessions. This value is extracted from the shared `wl-identity` cookie, which is used across Workleap's marketing sites and web applications.
 
 To correlate a session with other telemetry platforms, filter the query with the `app.telemetry_id` or `app.device_id` fields into the "Where" input.
+
+## Migrate
+
+To benefit from the new integrated experience, follow the [migration guide](./updating/migrate-to-v6.0.md) for `v6.0`.

@@ -182,4 +182,4 @@ To correlate a session with other telemetry platforms, filter the session list u
 
 ## Migrate
 
-To migrate from the `@workleap-tracking/logrocket` package, follow the [migration guide](./updating/migrate-to-v1.0.md) for `v.1.0`.
+To migrate from the `@workleap-tracking/logrocket` package and benefit from the new integrated experience, follow the [migration guide](./updating/migrate-to-v1.0.md) for `v1.0`.

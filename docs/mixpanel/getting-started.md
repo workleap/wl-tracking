@@ -120,6 +120,9 @@ The `initializeMixpanel` function automatically adds two properties to every eve
 
 To correlate a session with other telemetry platforms, filter the session list using these user traits.
 
+## Migrate
+
+To benefit from the new integrated experience, follow the [migration guide](./updating/migrate-to-v2.0.md) for `v2.0`.
 
 
 
