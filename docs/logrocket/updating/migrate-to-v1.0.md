@@ -13,6 +13,8 @@ Follow this guide to migrate from `@workleap-tracking/logrocket` :point_down:
 
 ## Breaking changes
 
+:rotating_light: The new package name is `@workleap/logrocket`.
+
 ### Removed
 
 - The `registerAnonymousLogRocketInstrumentation` function doesn't exist anymore, use [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) instead.
