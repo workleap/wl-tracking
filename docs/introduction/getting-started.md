@@ -34,7 +34,7 @@ pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/m
 
 Then, update the application bootstrapping code to initialize the libraries:
 
-```tsx !#8-10,12-14,16 index.tsx
+```tsx !#8,10-12,14 index.tsx
 import { registerLogrocketInstrumentation } from "@workleap/logrocket";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { initializeMixpanel } from "@workleap/mixpanel";
@@ -42,9 +42,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("my-app-id", {
-    verbose: true
-});
+registerLogRocketInstrumentation("my-app-id");
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy"
