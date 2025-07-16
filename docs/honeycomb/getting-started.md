@@ -20,14 +20,15 @@ pnpm add @workleap/telemetry @workleap/honeycomb @opentelemetry/api
 
 Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](./reference/registerHoneycombInstrumentation.md) function:
 
-```tsx !#6-8 index.tsx
+```tsx !#6-9 index.tsx
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
-    proxy: "https://sample-proxy"
+    proxy: "https://sample-proxy",
+    verbose: true
 });
 
 const root = createRoot(document.getElementById("root")!);
@@ -45,6 +46,12 @@ Avoid using `/.+/g,` in production, as it could expose customer data to third pa
 
 !!!warning
 We recommend using an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/opentelemetry/collector/) with an authenticated proxy over an ingestion [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/#create-api-key), as API keys can expose Workleap to potential attacks.
+!!!
+
+!!!tip
+It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
+
+This applies not only to Honeycomb instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any Personally Identifiable Information (PII).
 !!!
 
 With instrumentation in place, a few traces are now available 👇

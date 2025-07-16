@@ -28,8 +28,16 @@ Then, initialize Mixpanel using the [initializeMixpanel](./reference/initializeM
 ```ts
 import { initializeMixpanel } from "@workleap/mixpanel";
 
-initializeMixpanel("wlp", "development");
+initializeMixpanel("wlp", "development", {
+    verbose: true
+});
 ```
+
+!!!tip
+It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
+
+This applies not only to Mixpanel, but also to **any frontend code or libraries in use**. However, make sure not to log any Personally Identifiable Information (PII).
+!!!
 
 ## Create a track function
 
@@ -58,9 +66,9 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 Finally, using the retrieved `track` function, send a telemetry event:
 
 ```ts !#5
-import { initializeMixpanel } from "@workleap/mixpanel";
+import { createTrackingFunction } from "@workleap/mixpanel";
 
-const track = initializeMixpanel("wlp", "staging");
+const track = createTrackingFunction();
 
 track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 ```
@@ -70,9 +78,9 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 Link clicks requires to keep the page alive while the tracking request is being processed. To do so, set the `keepAlive` option of the `track` function:
 
 ```ts !#6
-import { initializeMixpanel } from "@workleap/mixpanel";
+import { createTrackingFunction } from "@workleap/mixpanel";
 
-const track = initializeMixpanel("wlp", "staging");
+const track = createTrackingFunction();
 
 track("LinkClicked", { "Trigger": "ChangePlan", "Location": "Header" }, {
     keepAlive: true
