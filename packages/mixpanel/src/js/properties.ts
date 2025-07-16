@@ -68,8 +68,9 @@ export function setSuperProperties(values: Record<string, unknown>) {
     });
 }
 
-// Must always return the actual reference to the super properties, not a copy
-// because it will breaks the global context.
+// Must always return the actual reference of the super properties, not a copy,
+// because that would break the Mixpanel global context as the properties added after
+// "getSuperProperties" is executed will not be carried over to the context.
 export function getSuperProperties() {
     return superProperties;
 }
