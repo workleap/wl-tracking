@@ -111,30 +111,15 @@ The `registerLogRocketInstrumentation` function automatically adds two attribute
 
 Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](./reference/setGlobalSpanAttributes.md) function.
 
-Update your application bootstrapping code to include the `setGlobalSpanAttribute` function:
+Update your application code to include the `setGlobalSpanAttribute` function:
 
-```tsx !#10 index.tsx
-import { registerHoneycombInstrumentation, setGlobalSpanAttributes } from "@workleap/honeycomb";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { App } from "./App.tsx";
-
-registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
-    proxy: "https://sample-proxy"
-});
+```ts
+import { setGlobalSpanAttributes } from "@workleap/honeycomb";
 
 setGlobalSpanAttribute("app.user_id", "123");
-
-const root = createRoot(document.getElementById("root")!);
-
-root.render(
-    <StrictMode>
-        <App />
-    </StrictMode>
-);
 ```
 
-Now, every trace recorded after the execution of `setGlobalSpanAttribute` will include the custom attributes `app.user_id`:
+Now, every trace recorded after the execution of `setGlobalSpanAttribute` will include the custom attribute `app.user_id`:
 
 :::align-image-left
 ![Custom attributes](../static/honeycomb/honeycomb-custom-attributes.png){width=204 height=161}
