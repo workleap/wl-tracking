@@ -1,6 +1,6 @@
 import { setGlobalSpanAttribute } from "@workleap/honeycomb";
 import { createDefaultUserTraits, type LogRocketIdentification } from "@workleap/logrocket";
-import { setSuperProperties, setSuperProperty } from "@workleap/mixpanel";
+import { setSuperProperty } from "@workleap/mixpanel";
 import { useTrackingFunction } from "@workleap/mixpanel/react";
 import LogRocket from "logrocket";
 import { type ChangeEvent, type FormEvent, useState } from "react";
