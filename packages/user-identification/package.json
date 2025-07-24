@@ -1,0 +1,58 @@
+{
+    "name": "@workleap/user-identification",
+    "author": "Workleap",
+    "version": "1.0.0",
+    "description": "A package containing utilities for cross-domain user identification across Workleap platforms.",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/workleap/wl-telemetry.git",
+        "directory": "packages/user-identification"
+    },
+    "type": "module",
+    "publishConfig": {
+        "access": "public",
+        "provenance": true,
+        "exports": {
+            ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "default": "./dist/index.js"
+            }
+        }
+    },
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "files": [
+        "src",
+        "dist",
+        "CHANGELOG.md",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "rslib build --config ./rslib.build.ts",
+        "eslint": "eslint . --max-warnings=-0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc",
+        "test": "vitest --config vitest.config.ts --no-watch"
+    },
+    "dependencies": {
+        "js-cookie": "^3.0.5"
+    },
+    "peerDependencies": {
+        "@workleap/telemetry": "workspace:*"
+    },
+    "devDependencies": {
+        "@rsbuild/core": "1.4.6",
+        "@rslib/core": "0.10.5",
+        "@types/js-cookie": "3.0.6",
+        "@workleap/eslint-plugin": "3.4.2",
+        "@workleap/rslib-configs": "1.0.6",
+        "@workleap/typescript-configs": "3.0.4",
+        "eslint": "8.57.1",
+        "happy-dom": "18.0.1",
+        "typescript": "5.8.3",
+        "vitest": "3.2.4"
+    },
+    "sideEffects": false
+}

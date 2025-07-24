@@ -12,6 +12,8 @@ A set of telemetry packages for the Workleap platform.
 | [@workleap/logrocket](packages/logrocket/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/logrocket)](https://www.npmjs.com/package/@workleap/logrocket) |
 | [@workleap/honeycomb](packages/honeycomb/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) |
 | [@workleap/mixpanel](packages/mixpanel/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpanel) |
+| [@workleap/user-identification](packages/user-identification/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/user-identification)](https://www.npmjs.com/package/@workleap/user-identification) |
+| [@workleap/telemetry](packages/telemetry/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/telemetry)](https://www.npmjs.com/package/@workleap/telemetry) |
 
 ## Have a question or found an issue?
 

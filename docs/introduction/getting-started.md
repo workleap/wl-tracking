@@ -23,13 +23,14 @@ This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. B
 | ![](../static/logos/logrocket.svg){ class="h-5 w-5 mr-2 -mt-1" }[LogRocket](https://logrocket.com/) | Records frontend sessions and logs to help debug and resolve issues in production and surface critical issues. | [![npm version](https://img.shields.io/npm/v/@workleap/logrocket)](https://www.npmjs.com/package/@workleap/logrocket) | [Getting started](../logrocket/getting-started.md) |
 | ![](../static/logos/honeycomb.svg){ class="h-5 w-5 mr-2 -mt-1" }[Honeycomb](https://www.honeycomb.io/) | Captures and analyzes distributed traces and metrics to understand and monitor complex systems, application behaviors, and performance. | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) | [Getting started](../honeycomb/getting-started.md) |
 | ![](../static/logos/mixpanel.svg){ class="h-5 w-5 mr-2 -mt-1" }[Mixpanel](https://mixpanel.com/) | Tracks user interactions to analyze behavior and measure product impact. | [![npm version](https://img.shields.io/npm/v/@workleap/mixpanel)](https://www.npmjs.com/package/@workleap/mixpanel) | [Getting started](../mixpanel/getting-started.md) |
+| :material-account-circle:{ class="h-5 w-5 mr-2 -mt-1" }**User Identification** | Enables cross-domain user identification and personalized experiences across Workleap platforms for Common Room integration and marketing personalization. | [![npm version](https://img.shields.io/npm/v/@workleap/user-identification)](https://www.npmjs.com/package/@workleap/user-identification) | [Getting started](../user-identification/getting-started.md) |
 
 ## Setup a project
 
 First, open a terminal at the root of the application and install the telemetry libraries packages:
 
 ```bash
-pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemetry/api logrocket
+pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @workleap/user-identification @opentelemetry/api logrocket
 ```
 
 Then, update the application bootstrapping code to initialize the libraries:
@@ -65,6 +66,28 @@ import { useTrackingFunction } from "@workleap/mixpanel/react";
 // If the host application is not a React application, use
 // "createTrackingFunction" instead of the following hook.
 const track = useTrackingFunction();
+```
+
+### User identification integration
+
+Unlike the telemetry libraries above which are initialized at startup, user identification is called during your authentication flows:
+
+```tsx
+import { identify, clearUserIdentification } from "@workleap/user-identification";
+
+// In your authentication context after successful login
+const userContext = identify(user.id, {
+    userId: user.id,
+    organizationId: user.organizationId,
+    organizationName: user.organizationName,
+    isMigratedToWorkleap: user.isMigrated,
+    isAdmin: user.isAdmin,
+    email: user.email,
+    name: user.fullName
+});
+
+// On logout
+clearUserIdentification();
 ```
 
 !!!tip
