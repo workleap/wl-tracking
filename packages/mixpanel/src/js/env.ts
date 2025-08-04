@@ -3,7 +3,7 @@ const EnvironmentList = ["development", "staging", "production", "local", "msw"]
 
 export type Environment = typeof EnvironmentList[number];
 
-const NavigationApiBaseUrl: Record<Environment, string> = {
+export const NavigationApiBaseUrl: Record<Environment, string> = {
     "production": "https://api.platform.workleap.com/shell/navigation/",
     "staging": "https://api.platform.workleap-stg.com/shell/navigation/",
     "development": "https://api.platform.workleap-dev.com/shell/navigation/",
