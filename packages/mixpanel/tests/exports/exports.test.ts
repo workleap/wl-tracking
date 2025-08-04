@@ -24,7 +24,7 @@ test("MSW types are properly exported", async ({ expect }) => {
     const handlers = mswModule.getMixpanelHandlers();
     expect(Array.isArray(handlers)).toBe(true);
     
-    const mockRequest = mswModule.MixpanelApiMocks.TrackingRequest.Default();
+    const mockRequest = mswModule.MixpanelApiMocks.Track.Default();
     expect(mockRequest.eventName).toBe("test_event");
 });
 

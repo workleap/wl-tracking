@@ -14,7 +14,7 @@ export interface MixpanelTrackingRequest {
  * Default mock data for Mixpanel tracking requests
  */
 export const MixpanelApiMocks = {
-    TrackingRequest: {
+    Track: {
         /**
          * Default tracking request with common properties
          */
@@ -42,7 +42,7 @@ export const MixpanelApiMocks = {
          * Tracking request with target product identifier
          */
         WithTargetProduct: (): MixpanelTrackingRequest => ({
-            ...MixpanelApiMocks.TrackingRequest.Default(),
+            ...MixpanelApiMocks.Track.Default(),
             targetProductIdentifier: "target_product"
         }),
 
@@ -50,9 +50,9 @@ export const MixpanelApiMocks = {
          * Tracking request for mobile device
          */
         Mobile: (): MixpanelTrackingRequest => ({
-            ...MixpanelApiMocks.TrackingRequest.Default(),
+            ...MixpanelApiMocks.Track.Default(),
             properties: {
-                ...MixpanelApiMocks.TrackingRequest.Default().properties,
+                ...MixpanelApiMocks.Track.Default().properties,
                 "$device": "iPhone",
                 "Is Mobile": true,
                 "$screen_height": 812,
@@ -64,9 +64,9 @@ export const MixpanelApiMocks = {
          * Tracking request with custom properties
          */
         WithCustomProperties: (customProperties: MixpanelEventProperties = {}): MixpanelTrackingRequest => ({
-            ...MixpanelApiMocks.TrackingRequest.Default(),
+            ...MixpanelApiMocks.Track.Default(),
             properties: {
-                ...MixpanelApiMocks.TrackingRequest.Default().properties,
+                ...MixpanelApiMocks.Track.Default().properties,
                 ...customProperties
             }
         }),
@@ -75,7 +75,7 @@ export const MixpanelApiMocks = {
          * Custom tracking request with full customization
          */
         Custom: (data?: Partial<MixpanelTrackingRequest>): MixpanelTrackingRequest => {
-            const defaultValue = MixpanelApiMocks.TrackingRequest.Default();
+            const defaultValue = MixpanelApiMocks.Track.Default();
             
             return { 
                 ...defaultValue, 

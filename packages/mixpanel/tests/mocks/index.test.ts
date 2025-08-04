@@ -1,8 +1,8 @@
 import { test } from "vitest";
 import { MixpanelApiMocks, MixpanelTrackingResponse } from "../../src/mocks/index.ts";
 
-test("MixpanelApiMocks.TrackingRequest.Default returns valid request", ({ expect }) => {
-    const request = MixpanelApiMocks.TrackingRequest.Default();
+test("MixpanelApiMocks.Track.Default returns valid request", ({ expect }) => {
+    const request = MixpanelApiMocks.Track.Default();
     
     expect(request.eventName).toBe("test_event");
     expect(request.productIdentifier).toBe("test_product");
@@ -12,16 +12,16 @@ test("MixpanelApiMocks.TrackingRequest.Default returns valid request", ({ expect
     expect(request.properties["Is Mobile"]).toBe(false);
 });
 
-test("MixpanelApiMocks.TrackingRequest.WithTargetProduct includes target product", ({ expect }) => {
-    const request = MixpanelApiMocks.TrackingRequest.WithTargetProduct();
+test("MixpanelApiMocks.Track.WithTargetProduct includes target product", ({ expect }) => {
+    const request = MixpanelApiMocks.Track.WithTargetProduct();
     
     expect(request.targetProductIdentifier).toBe("target_product");
     expect(request.eventName).toBe("test_event");
     expect(request.productIdentifier).toBe("test_product");
 });
 
-test("MixpanelApiMocks.TrackingRequest.Mobile has mobile properties", ({ expect }) => {
-    const request = MixpanelApiMocks.TrackingRequest.Mobile();
+test("MixpanelApiMocks.Track.Mobile has mobile properties", ({ expect }) => {
+    const request = MixpanelApiMocks.Track.Mobile();
     
     expect(request.properties["$device"]).toBe("iPhone");
     expect(request.properties["Is Mobile"]).toBe(true);
@@ -29,16 +29,16 @@ test("MixpanelApiMocks.TrackingRequest.Mobile has mobile properties", ({ expect 
     expect(request.properties["$screen_height"]).toBe(812);
 });
 
-test("MixpanelApiMocks.TrackingRequest.WithCustomProperties merges custom properties", ({ expect }) => {
+test("MixpanelApiMocks.Track.WithCustomProperties merges custom properties", ({ expect }) => {
     const customProps = { customProp: "customValue", userRole: "admin" };
-    const request = MixpanelApiMocks.TrackingRequest.WithCustomProperties(customProps);
+    const request = MixpanelApiMocks.Track.WithCustomProperties(customProps);
     
     expect(request.properties.customProp).toBe("customValue");
     expect(request.properties.userRole).toBe("admin");
     expect(request.properties["$browser"]).toBe("Chrome"); // Default properties still present
 });
 
-test("MixpanelApiMocks.TrackingRequest.Custom allows full customization", ({ expect }) => {
+test("MixpanelApiMocks.Track.Custom allows full customization", ({ expect }) => {
     const customData = {
         eventName: "custom_event",
         productIdentifier: "custom_product",
@@ -48,7 +48,7 @@ test("MixpanelApiMocks.TrackingRequest.Custom allows full customization", ({ exp
         }
     };
     
-    const request = MixpanelApiMocks.TrackingRequest.Custom(customData);
+    const request = MixpanelApiMocks.Track.Custom(customData);
     
     expect(request.eventName).toBe("custom_event");
     expect(request.productIdentifier).toBe("custom_product");
@@ -57,7 +57,7 @@ test("MixpanelApiMocks.TrackingRequest.Custom allows full customization", ({ exp
     expect(request.properties["$browser"]).toBe("Chrome"); // Default properties merged
 });
 
-test("MixpanelApiMocks.TrackingRequest.Custom with partial properties", ({ expect }) => {
+test("MixpanelApiMocks.Track.Custom with partial properties", ({ expect }) => {
     const customData = {
         eventName: "custom_event",
         properties: {
@@ -66,7 +66,7 @@ test("MixpanelApiMocks.TrackingRequest.Custom with partial properties", ({ expec
         }
     };
     
-    const request = MixpanelApiMocks.TrackingRequest.Custom(customData);
+    const request = MixpanelApiMocks.Track.Custom(customData);
     
     expect(request.eventName).toBe("custom_event");
     expect(request.productIdentifier).toBe("test_product"); // Default
