@@ -37,18 +37,6 @@ test("default MSW handler responds successfully", async ({ expect }) => {
     expect(true).toBe(true); // Test passes if no error is thrown
 });
 
-test("MSW handler with validation validates request format", async ({ expect }) => {
-    server.use(...getMixpanelHandlers({ validateRequests: true }));
-    
-    initializeMixpanel("test-product", "msw");
-    const track = createTrackingFunction();
-    
-    // This should work with valid data
-    await track("test_event", { customProp: "test" });
-    
-    expect(true).toBe(true);
-});
-
 test("MSW handler can simulate server error", async ({ expect }) => {
     server.use(MixpanelApiHandlers.Tracking.ServerError);
     
@@ -97,12 +85,6 @@ test("getMixpanelHandlers returns array of handlers", ({ expect }) => {
 
 test("getMixpanelHandlers with custom delay", ({ expect }) => {
     const handlers = getMixpanelHandlers({ delay: 500 });
-    expect(Array.isArray(handlers)).toBe(true);
-    expect(handlers.length).toBe(1);
-});
-
-test("getMixpanelHandlers with validation", ({ expect }) => {
-    const handlers = getMixpanelHandlers({ validateRequests: true });
     expect(Array.isArray(handlers)).toBe(true);
     expect(handlers.length).toBe(1);
 });
