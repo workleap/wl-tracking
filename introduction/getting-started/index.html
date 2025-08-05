@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.806004343693">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807747089774">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,12 +34,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.806004343693" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.807747089774" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.806004343693" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807747089774" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.806004343693" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.806004343693" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807747089774" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807747089774" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -49,7 +49,7 @@
         }
 
         .supported-platforms-table th:first-of-type {
-            min-width: 175px !important;
+            min-width: 185px !important;
         }
 
         .supported-platforms-table th:nth-of-type(3) {
@@ -376,6 +376,12 @@
 <td><a href="https://www.npmjs.com/package/@workleap/mixpanel" class="outbound" target="_blank"><img src="https://img.shields.io/npm/v/@workleap/mixpanel" alt="npm version" /></a></td>
 <td><a href="../../mixpanel/getting-started/">Getting started</a></td>
 </tr>
+<tr>
+<td><img src="../../static/logos/common-room.svg" alt="" class="h-5 w-5 mr-2 -mt-1" /><a href="https://www.commonroom.io/" class="outbound" target="_blank">Common Room</a></td>
+<td>Connects user activity across platforms to provide insight into community engagement and behavior.<br/><br/><em>(Common Room is not part of the integrated experience, as it is a standalone tool used by marketers for a completely different purpose.)</em></td>
+<td><a href="https://www.npmjs.com/package/@workleap/common-room" class="outbound" target="_blank"><img src="https://img.shields.io/npm/v/@workleap/common-room" alt="npm version" /></a></td>
+<td><a href="../../common-room/getting-started/">Getting started</a></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -392,9 +398,10 @@
 <p>Then, update the application bootstrapping code to initialize the libraries:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <div class="codeblock-title">index.tsx</div>
-<pre translate="no" class="language-tsx" data-line="8,10-12,14"><code v-pre class="language-tsx">import { registerLogrocketInstrumentation } from &quot;@workleap/logrocket&quot;;
+<pre translate="no" class="language-tsx" data-line="9,11-13,15,17"><code v-pre class="language-tsx">import { registerLogrocketInstrumentation } from &quot;@workleap/logrocket&quot;;
 import { registerHoneycombInstrumentation } from &quot;@workleap/honeycomb&quot;;
 import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+import { registerCommonRoomInstrumentation } from &quot;@workleap/common-room&quot;;
 import { StrictMode } from &quot;react&quot;;
 import { createRoot } from &quot;react-dom/client&quot;;
 import { App } from &quot;./App.tsx&quot;;
@@ -406,6 +413,8 @@ registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,
 });
 
 initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);
+
+registerCommonRoomInstrumentation(&quot;my-site-id&quot;);
 
 const root = createRoot(document.getElementById(&quot;root&quot;)!);
 
