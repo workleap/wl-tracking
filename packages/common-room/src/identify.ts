@@ -1,15 +1,9 @@
 import { getCommonRoomContext } from "./context.ts";
 
-declare global {
-    interface Window {
-        signals?: {
-            identify: (options: { email?: string; name?: string }) => void;
-        };
-    }
-}
-
 export function identify(email: string) {
-    if (!window.signals) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (!globalThis.signals) {
         console.error("[common-room] Cannot identify user because the signals scripts is not loaded. Did you initialize signals with the \"initializeCommonRoom\" function?");
 
         return;
@@ -17,7 +11,9 @@ export function identify(email: string) {
 
     const context = getCommonRoomContext();
 
-    window.signals.identify({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.signals.identify({
         email
     });
 

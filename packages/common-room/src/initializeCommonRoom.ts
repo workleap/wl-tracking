@@ -31,13 +31,11 @@ function loadSignals(siteId: string) {
 export type ReadyFunction = () => void;
 
 export interface InitializeCommonRoomOptions {
-    onReady?: ReadyFunction;
     verbose?: boolean;
 }
 
 export function initializeCommonRoom(siteId: string, options: InitializeCommonRoomOptions = {}) {
     const {
-        onReady,
         verbose = false
     } = options;
 
@@ -51,10 +49,6 @@ export function initializeCommonRoom(siteId: string, options: InitializeCommonRo
 
             if (verbose) {
                 console.log("[common-room] Common Room is initialized.");
-            }
-
-            if (onReady) {
-                onReady();
             }
         })
         .catch(() => {
