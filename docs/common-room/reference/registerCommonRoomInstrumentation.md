@@ -9,7 +9,7 @@ toc:
 
 # registerCommonRoomInstrumentation
 
-Initialize [Common Room](https://mixpanel.com) instrumentation.
+Initialize [Common Room](https://www.commonroom.io/) instrumentation.
 
 ## Reference
 
