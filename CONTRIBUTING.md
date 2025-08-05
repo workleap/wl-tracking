@@ -27,7 +27,7 @@ To be understand the relationships between the commands, have a look at this rep
 
 ## Project overview
 
-This project is split into two major sections, [packages/](./packages) and [sample/](./sample).
+This project is split into two major sections, [packages/](./packages) and [samples/](./samples).
 
 ### Packages
 
@@ -70,9 +70,76 @@ Then, add the following key/values to the newly created `.env.local` file:
 - `LOGROCKET_APP_ID`: The application id of the `frontend-platform-team-dev` LogRocket project.
 - `HONEYCOMB_API_KEY`: The API key of the `frontend-platform-team-dev` Honeycomb environment.
 - `MIXPANEL_PROJECT_TOKEN`: The token of the `Frontend-Platform-Team-Dev` Mixpanel project.
+- `COMMON_ROOM_SITE_ID`: The site id of the `Workleap` room. We don't have any sandbox environment at the moment.
 
 > [!NOTE]
 > The `.env.local` file is configured to be ignored by Git and will not be pushed to the remote repository.
+
+### Setup hostname and SSL certificates
+
+Because [Common Room](https://www.commonroom.io/) filters out traces that are not bound to `*.workleap.com`, the [all-platforms](./samples/all-platforms/) sample app and servers are set up with a custom hostname and are on "https".
+
+#### Windows
+
+##### Hostname
+
+First, set up the custom hostname by adding an entry into the `C:\Windows\System32\drivers\etc\hosts` file for `local.workleap.com`:
+
+```
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+
+127.0.0.1 local.workleap.com
+```
+
+##### Generate a local certificate
+
+Then, install [mkcert](https://github.com/FiloSottile/mkcert) using [Chocolatey](https://chocolatey.org/) if it's not already installed. Open a terminal **as an administrator** and execute the following command:
+
+```bash
+choco install mkcert
+```
+
+Then, using the same terminal, install a local CA in the system trust store using `mkcert`:
+
+```bash
+mkcert -install
+```
+
+Finally, navigate to the [samples/all-platforms](./samples/all-platforms/) folder of this repository and execute the following command to generate the certificate:
+
+```bash
+mkcert local.workleap.com
+```
+
+That's it! You can test your setup by opening a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and starting the [all-platforms](./samples/all-platforms/) sample:
+
+```bash
+pnpm dev-all-platforms
+```
+
+#### Unix
+
+TBD
 
 ### Setup Retype
 
@@ -121,6 +188,15 @@ Depending on the sample application, traces are sent to the corresponding projec
 ### Mixpanel
 
 The sample applications' telemetry data is sent to the `Frontend-Platform-Team-Dev` project in Mixpanel.
+
+### Common Room
+
+The sample applications' data is sent to the `Workleap` room in Common Room.
+
+To view the data, go the `Activity` page, remove all the default filters and look for any entry matching the email address or name you used to identified the session.
+
+> [!WARNING]  
+> It can take up to 10 minutes before the activity data is visible in Common Room.
 
 ## Release the packages
 

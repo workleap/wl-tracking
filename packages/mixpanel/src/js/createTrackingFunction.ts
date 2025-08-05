@@ -78,7 +78,7 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
             });
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error: unknown) {
-        // Do nothing...
+            // Do nothing...
         }
     };
 

@@ -1,3 +1,4 @@
+import { identify as identifyCommonRoom } from "@workleap/common-room";
 import { setGlobalSpanAttribute } from "@workleap/honeycomb";
 import { createDefaultUserTraits, type LogRocketIdentification } from "@workleap/logrocket";
 import { setSuperProperty } from "@workleap/mixpanel";
@@ -68,6 +69,8 @@ export function IdentifyPage() {
 
         setGlobalSpanAttribute("app.user", JSON.stringify(form));
         setSuperProperty("User", JSON.stringify(form));
+
+        identifyCommonRoom("johndoe@outlook.com");
     };
 
     return (

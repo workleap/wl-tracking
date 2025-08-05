@@ -13,9 +13,15 @@ toc:
 
 It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
 
-This applies not only to instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
+This applies not only to instrumentation, but also to **any frontend code or libraries in use**.
 
 Here are some examples :point_down:
+
+!!!warning
+Never log any **Personally Identifiable Information (PII)**.
+
+API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all `console.log` statements that output API response before deploying to production, as these can expose private information in browser console logs that will be included in session replays.
+!!!
 
 ### LogRocket verbose mode
 
