@@ -1,11 +1,11 @@
 import { setCommonRoomContext } from "./context.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 
-const initializeGuard = new HasExecutedGuard();
+const registrationGuard = new HasExecutedGuard();
 
 // This function should only be used by tests.
-export function __resetInitializeGuard() {
-    initializeGuard.reset();
+export function __resetRegistrationGuard() {
+    registrationGuard.reset();
 }
 
 function loadSignals(siteId: string) {
@@ -30,16 +30,16 @@ function loadSignals(siteId: string) {
 
 export type ReadyFunction = () => void;
 
-export interface InitializeCommonRoomOptions {
+export interface RegisterCommonRoomInstrumentationOptions {
     verbose?: boolean;
 }
 
-export function initializeCommonRoom(siteId: string, options: InitializeCommonRoomOptions = {}) {
+export function registerCommonRoomInstrumentation(siteId: string, options: RegisterCommonRoomInstrumentationOptions = {}) {
     const {
         verbose = false
     } = options;
 
-    initializeGuard.throw("[common-room] Common Room has already been initialized. Did you call the \"initializeCommonRoom\" function twice?");
+    registrationGuard.throw("[common-room] The Common Room instrumentation has already been registered. Did you call the \"registerCommonRoomInstrumentation\" function twice?");
 
     loadSignals(siteId)
         .then(() => {
@@ -48,7 +48,7 @@ export function initializeCommonRoom(siteId: string, options: InitializeCommonRo
             });
 
             if (verbose) {
-                console.log("[common-room] Common Room is initialized.");
+                console.log("[common-room] Common Room instrumentation is registered.");
             }
         })
         .catch(() => {

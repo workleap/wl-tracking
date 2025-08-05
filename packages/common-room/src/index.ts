@@ -1,3 +1,3 @@
 export { identify } from "./identify.ts";
-export { initializeCommonRoom } from "./initializeCommonRoom.ts";
+export { registerCommonRoomInstrumentation } from "./registerCommonRoomInstrumentation.ts";
 
