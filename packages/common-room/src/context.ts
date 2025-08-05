@@ -16,7 +16,7 @@ export function getCommonRoomContext() {
     const context = globalThis[ContextVariableName] as CommonRootContext;
 
     if (!context) {
-        throw new Error("[common-room] The Common Room context is not available. Did you initialize signals with the \"initializeCommonRoom\" function?");
+        throw new Error("[common-room] The Common Room context is not available. Did you initialize signals with the \"registerCommonRoomInstrumentation\" function?");
     }
 
     return context;

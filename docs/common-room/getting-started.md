@@ -9,7 +9,7 @@ toc:
 
 # Getting started
 
-To connects user activity across platforms and provide insight into community engagement and behavior, Workleap has adaopted [Common Room](https://www.commonroom.io/), a marketers platform that aggregates data from sources like social media, forums, and product tools to build unified user profiles.
+To connect user activity across platforms and provide insight into community engagement and behavior, Workleap has adopted [Common Room](https://www.commonroom.io/), a marketers platform that aggregates data from sources like social media, forums, and product tools to build unified user profiles.
 
 This package provides default Common Room instrumentation for Workleap applications.
 
