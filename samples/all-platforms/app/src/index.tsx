@@ -1,4 +1,4 @@
-import { initializeCommonRoom } from "@workleap/common-room";
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import { initializeMixpanel } from "@workleap/mixpanel";
@@ -20,7 +20,7 @@ initializeMixpanel("wlp", "https://local.workleap.com:5678/api/shell/navigation/
     verbose: true
 });
 
-initializeCommonRoom(process.env.COMMON_ROOM_SITE_ID as string, {
+registerCommonRoomInstrumentation(process.env.COMMON_ROOM_SITE_ID as string, {
     verbose: true
 });
 
