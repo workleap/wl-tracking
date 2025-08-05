@@ -1,3 +1,4 @@
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import { initializeMixpanel } from "@workleap/mixpanel";
@@ -6,17 +7,20 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation("sample", "all-platforms-sample", [/.+/g], {
-    // Default to a space so it doesn't throw at runtime.
-    apiKey: process.env.HONEYCOMB_API_KEY ?? " ",
+    apiKey: process.env.HONEYCOMB_API_KEY,
     verbose: true
 });
 
 registerLogRocketInstrumentation(process.env.LOGROCKET_APP_ID as string, {
-    rootHostname: "localhost",
+    rootHostname: "workleap.com",
     verbose: true
 });
 
-initializeMixpanel("wlp", "http://localhost:5678/api/shell/navigation/", {
+initializeMixpanel("wlp", "https://local.workleap.com:5678/api/shell/navigation/", {
+    verbose: true
+});
+
+registerCommonRoomInstrumentation(process.env.COMMON_ROOM_SITE_ID as string, {
     verbose: true
 });
 

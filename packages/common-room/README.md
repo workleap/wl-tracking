@@ -1,4 +1,4 @@
-# @workleap/telemetry
+# @workleap/common-room
 
 ## Usage
 
