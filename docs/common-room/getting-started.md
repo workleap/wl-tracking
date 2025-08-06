@@ -58,6 +58,10 @@ identify("johndoe@contoso.com");
 
 Start the application in a development environment using the dev script. Go to the "Identify" page and press the button to identify the current user. Then navigate to your [Common Room](https://app.commonroom.io/) instance and go to the "Activity" page, you should see new data appear in the **next 10 minutes**.
 
+:::align-image-left
+![Common Room activity entry|558](../static/common-room/common-room-activity-entry.png)
+:::
+
 ### Troubleshoot issues
 
 If you are experiencing issues with this guide:
@@ -65,5 +69,17 @@ If you are experiencing issues with this guide:
 - Set the [verbose](./reference/registerCommonRoomInstrumentation.md#verbose-mode) predefined option to `true`.
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console and look for logs starting with `[common-room]`.
 - Refer to the sample on [GitHub](https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms).
+
+#### Delete Common Room cookies
+
+If nothing else works, renewing the Common Room cookies with new userId and sessionId values may help.
+
+To do this, open the browser’s developer tools, navigate to `Application` > `Storage` > `Cookies`, select the relevant site, and delete the `signals-sdk-session-id` and `signals-sdk-user-id` cookies.
+
+Finally, refresh the page.
+
+:::align-image-left
+![Common Room cookies|540](../static/common-room/common-room-cookies.png)
+:::
 
 
