@@ -70,13 +70,13 @@ If you are experiencing issues with this guide:
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console and look for logs starting with `[common-room]`.
 - Refer to the sample on [GitHub](https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms).
 
-#### Delete Common Room cookies
+#### Renew cookies
 
-If nothing else works, renewing the Common Room cookies with new userId and sessionId values may help.
+If nothing else works, renewing the Common Room cookies with new user id and session id values may help.
 
-To do this, open the browser’s developer tools, navigate to `Application` > `Storage` > `Cookies`, select the relevant site, and delete the `signals-sdk-session-id` and `signals-sdk-user-id` cookies.
+To do this, open the browser's developer tools, navigate to `Application` > `Storage` > `Cookies`, select the relevant site, and delete the `signals-sdk-session-id` and `signals-sdk-user-id` cookies.
 
-Finally, refresh the page.
+Finally, refresh the page to generate new cookies.
 
 :::align-image-left
 ![Common Room cookies|540](../static/common-room/common-room-cookies.png)
