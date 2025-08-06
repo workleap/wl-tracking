@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807747257522">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807758341962">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -22,22 +22,24 @@
     <meta property="og:url" content="https://workleap.github.io/wl-telemetry/common-room/getting-started/">
     <meta property="og:title" content="Getting started - Common Room">
     <meta property="og:description" content="To connect user activity across platforms and provide insight into community engagement and behavior, Workleap has adopted ">
+    <meta property="og:image" content="https://workleap.github.io/wl-telemetry/static/common-room/common-room-activity-entry.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://workleap.github.io/wl-telemetry/common-room/getting-started/">
     <meta property="twitter:title" content="Getting started - Common Room">
     <meta property="twitter:description" content="To connect user activity across platforms and provide insight into community engagement and behavior, Workleap has adopted ">
+    <meta property="twitter:image" content="https://workleap.github.io/wl-telemetry/static/common-room/common-room-activity-entry.png">
 
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.807747257522" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.807758341962" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807747257522" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807758341962" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807747257522" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807747257522" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807758341962" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807758341962" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -387,6 +389,12 @@ identify(&quot;johndoe@contoso.com&quot;);</code></pre>
     </h2>
 </doc-anchor-target>
 <p>Start the application in a development environment using the dev script. Go to the &quot;Identify&quot; page and press the button to identify the current user. Then navigate to your <a href="https://app.commonroom.io/" class="outbound" target="_blank">Common Room</a> instance and go to the &quot;Activity&quot; page, you should see new data appear in the <strong>next 10 minutes</strong>.</p>
+<div class="align-image-left"><p><figure class="content-center">
+    <img src="../../static/common-room/common-room-activity-entry.png" alt="Common Room activity entry" class="rounded-image-rounded border-image-border border-image-border-width" width="558" />
+    <figcaption class="caption">Common Room activity entry</figcaption>
+</figure>
+</p>
+</div>
 <doc-anchor-target id="troubleshoot-issues">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#troubleshoot-issues">#</doc-anchor-trigger>
@@ -399,6 +407,21 @@ identify(&quot;johndoe@contoso.com&quot;);</code></pre>
 <li>Open the <a href="https://developer.chrome.com/docs/devtools/" class="outbound" target="_blank">DevTools</a> console and look for logs starting with <code v-pre>[common-room]</code>.</li>
 <li>Refer to the sample on <a href="https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms" class="outbound" target="_blank">GitHub</a>.</li>
 </ul>
+<doc-anchor-target id="delete-common-room-cookies">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#delete-common-room-cookies">#</doc-anchor-trigger>
+        <span>Delete Common Room cookies</span>
+    </h4>
+</doc-anchor-target>
+<p>If nothing else works, renewing the Common Room cookies with new userId and sessionId values may help.</p>
+<p>To do this, open the browser’s developer tools, navigate to <code v-pre>Application</code> &gt; <code v-pre>Storage</code> &gt; <code v-pre>Cookies</code>, select the relevant site, and delete the <code v-pre>signals-sdk-session-id</code> and <code v-pre>signals-sdk-user-id</code> cookies.</p>
+<p>Finally, refresh the page.</p>
+<div class="align-image-left"><p><figure class="content-center">
+    <img src="../../static/common-room/common-room-cookies.png" alt="Common Room cookies" class="rounded-image-rounded border-image-border border-image-border-width" width="540" />
+    <figcaption class="caption">Common Room cookies</figcaption>
+</figure>
+</p>
+</div>
 
                                 
                                 <!-- Required only on API pages -->
