@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807758341962">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807805057126">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,12 +34,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.807758341962" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.807805057126" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807758341962" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807805057126" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807758341962" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807758341962" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807805057126" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807805057126" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -407,15 +407,15 @@ identify(&quot;johndoe@contoso.com&quot;);</code></pre>
 <li>Open the <a href="https://developer.chrome.com/docs/devtools/" class="outbound" target="_blank">DevTools</a> console and look for logs starting with <code v-pre>[common-room]</code>.</li>
 <li>Refer to the sample on <a href="https://github.com/workleap/wl-telemetry/tree/main/samples/all-platforms" class="outbound" target="_blank">GitHub</a>.</li>
 </ul>
-<doc-anchor-target id="delete-common-room-cookies">
+<doc-anchor-target id="renew-cookies">
     <h4>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#delete-common-room-cookies">#</doc-anchor-trigger>
-        <span>Delete Common Room cookies</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#renew-cookies">#</doc-anchor-trigger>
+        <span>Renew cookies</span>
     </h4>
 </doc-anchor-target>
-<p>If nothing else works, renewing the Common Room cookies with new userId and sessionId values may help.</p>
-<p>To do this, open the browser’s developer tools, navigate to <code v-pre>Application</code> &gt; <code v-pre>Storage</code> &gt; <code v-pre>Cookies</code>, select the relevant site, and delete the <code v-pre>signals-sdk-session-id</code> and <code v-pre>signals-sdk-user-id</code> cookies.</p>
-<p>Finally, refresh the page.</p>
+<p>If nothing else works, renewing the Common Room cookies with new user id and session id values may help.</p>
+<p>To do this, open the browser&#x27;s developer tools, navigate to <code v-pre>Application</code> &gt; <code v-pre>Storage</code> &gt; <code v-pre>Cookies</code>, select the relevant site, and delete the <code v-pre>signals-sdk-session-id</code> and <code v-pre>signals-sdk-user-id</code> cookies.</p>
+<p>Finally, refresh the page to generate new cookies.</p>
 <div class="align-image-left"><p><figure class="content-center">
     <img src="../../static/common-room/common-room-cookies.png" alt="Common Room cookies" class="rounded-image-rounded border-image-border border-image-border-width" width="540" />
     <figcaption class="caption">Common Room cookies</figcaption>
