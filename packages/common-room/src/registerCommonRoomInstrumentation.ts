@@ -41,12 +41,12 @@ export function registerCommonRoomInstrumentation(siteId: string, options: Regis
 
     registrationGuard.throw("[common-room] The Common Room instrumentation has already been registered. Did you call the \"registerCommonRoomInstrumentation\" function twice?");
 
+    setCommonRoomContext({
+        verbose
+    });
+
     loadSignals(siteId)
         .then(() => {
-            setCommonRoomContext({
-                verbose
-            });
-
             if (verbose) {
                 console.log("[common-room] Common Room instrumentation is registered.");
             }

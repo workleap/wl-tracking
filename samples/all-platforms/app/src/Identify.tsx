@@ -70,7 +70,7 @@ export function IdentifyPage() {
         setGlobalSpanAttribute("app.user", JSON.stringify(form));
         setSuperProperty("User", JSON.stringify(form));
 
-        identifyCommonRoom("johndoe@outlook.com");
+        identifyCommonRoom("pat-2025-08-05-v10@gmail.com");
     };
 
     return (
