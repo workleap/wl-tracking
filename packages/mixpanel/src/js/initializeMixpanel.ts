@@ -1,6 +1,6 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { setMixpanelContext } from "./context.ts";
-import { getTrackingEndpoint, type Environment } from "./env.ts";
+import { getTrackingBaseUrl, type Environment } from "./env.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperProperties, setSuperProperty } from "./properties.ts";
 
@@ -9,6 +9,12 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  */
 export interface InitializeMixpanelOptions {
     verbose?: boolean;
+    /**
+     * The endpoint to use for tracking events.
+     * If not provided, the default endpoint for the environment will be used.
+     * @default "tracking/track"
+     */
+    trackingEndpoint?: string;
 }
 function registerLogRocketSessionUrlListener(verbose = false) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -51,7 +57,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
 
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
-    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl);
+    const baseUrl = getTrackingBaseUrl(envOrTrackingApiBaseUrl);
     const telemetryContext = getTelemetryContext({ verbose });
 
     setSuperProperties(getTelemetryProperties(telemetryContext));
@@ -73,7 +79,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
 
     setMixpanelContext({
         productId,
-        endpoint,
+        baseUrl,
         superProperties: getSuperProperties(),
         verbose
     });
