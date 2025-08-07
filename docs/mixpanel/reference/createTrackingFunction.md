@@ -21,6 +21,7 @@ const track = createTrackingFunction(options?: { targetProductId })
 
 - `options`: An optional object literal of options:
     - `targetProductId`: The product id of the target product. Useful to track an event for another product.
+    - `trackingEndpoint`: The endpoint to use for tracking events. If not provided, the default endpoint will be used.
 
 ### Returns
 
@@ -30,7 +31,6 @@ A `TrackingFunction` with the following signature: `(eventName, properties: {}, 
 - `properties`: The event properties.
 - `options`: An optional object literal of options:
     - `keepAlive`: Whether or not to keep the connection alive for the tracking request. It is mostly used for tracking links where the user might navigate away before the request is completed.
-    - `trackingEndpoint`: The endpoint to use for tracking events. If not provided, the default endpoint will be used.
 !!!tip
 The body size for keepalive requests is [limited to 64 kibibytes](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#keepalive).
 !!!
