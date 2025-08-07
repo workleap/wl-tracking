@@ -30,6 +30,7 @@ A `TrackingFunction` with the following signature: `(eventName, properties: {}, 
 - `properties`: The event properties.
 - `options`: An optional object literal of options:
     - `keepAlive`: Whether or not to keep the connection alive for the tracking request. It is mostly used for tracking links where the user might navigate away before the request is completed.
+
 !!!tip
 The body size for keepalive requests is [limited to 64 kibibytes](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit#keepalive).
 !!!

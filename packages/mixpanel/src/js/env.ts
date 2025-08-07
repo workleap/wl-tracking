@@ -15,6 +15,7 @@ const NavigationApiBaseUrl: Record<Environment, string> = {
 function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
     return `${baseUrl}${baseUrl!.endsWith("/") ? "" : "/"}${path.startsWith("/") ? path.substring(1) : path}`;
 }
+
 export function getTrackingEndpoint(envOrTrackingApiBaseUrl: Environment | (string & {}), trackingEndpoint = "tracking/track"): string {
     let baseUrl: string;
 
