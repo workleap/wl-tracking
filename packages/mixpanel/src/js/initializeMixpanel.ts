@@ -1,6 +1,6 @@
 import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
 import { setMixpanelContext } from "./context.ts";
-import { getTrackingBaseUrl, type Environment } from "./env.ts";
+import { getTrackingEndpoint, type Environment } from "./env.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperProperties, setSuperProperty } from "./properties.ts";
 
@@ -52,12 +52,13 @@ export function __resetInitializationGuard() {
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {
-        verbose = false
+        verbose = false,
+        trackingEndpoint
     } = options;
 
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
-    const baseUrl = getTrackingBaseUrl(envOrTrackingApiBaseUrl);
+    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl, trackingEndpoint);
     const telemetryContext = getTelemetryContext({ verbose });
 
     setSuperProperties(getTelemetryProperties(telemetryContext));
@@ -79,7 +80,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
 
     setMixpanelContext({
         productId,
-        baseUrl,
+        endpoint,
         superProperties: getSuperProperties(),
         verbose
     });

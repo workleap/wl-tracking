@@ -4,7 +4,7 @@ export const ContextVariableName = "__WLP_MIXPANEL_CONTEXT__";
 
 export interface MixpanelContext {
     productId: string;
-    baseUrl: string;
+    endpoint: string;
     superProperties: SuperProperties;
     verbose: boolean;
 }

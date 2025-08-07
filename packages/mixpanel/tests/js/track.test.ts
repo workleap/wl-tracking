@@ -169,11 +169,11 @@ test("when an env is provided, the env is transformed to the matching endpoint U
 });
 
 test("when a custom tracking endpoint is provided, use the custom endpoint", async ({ expect }) => {
-    initializeMixpanel("wlp", "http://api/navigation");
-
-    const track = createTrackingFunction({
+    initializeMixpanel("wlp", "http://api/navigation", {
         trackingEndpoint: "custom/tracking/endpoint"
     });
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 
@@ -182,11 +182,11 @@ test("when a custom tracking endpoint is provided, use the custom endpoint", asy
 });
 
 test("when a custom tracking endpoint starts with slash, remove the leading slash", async ({ expect }) => {
-    initializeMixpanel("wlp", "http://api/navigation");
-
-    const track = createTrackingFunction({
+    initializeMixpanel("wlp", "http://api/navigation", {
         trackingEndpoint: "/custom/endpoint"
     });
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 
@@ -206,11 +206,11 @@ test("when no tracking endpoint is provided, use the default tracking/track endp
 });
 
 test("when a custom tracking endpoint is provided with env, use the custom endpoint", async ({ expect }) => {
-    initializeMixpanel("wlp", "development");
-
-    const track = createTrackingFunction({
-        trackingEndpoint: "custom/tracking/endpoint"
+    initializeMixpanel("wlp", "development", {
+        trackingEndpoint: "/custom/endpoint"
     });
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 
@@ -219,11 +219,11 @@ test("when a custom tracking endpoint is provided with env, use the custom endpo
 });
 
 test("when a custom tracking endpoint starts with slash and env is used, remove the leading slash", async ({ expect }) => {
-    initializeMixpanel("wlp", "staging");
-
-    const track = createTrackingFunction({
+    initializeMixpanel("wlp", "staging", {
         trackingEndpoint: "/custom/endpoint"
     });
+
+    const track = createTrackingFunction();
 
     await track("event", {});
 

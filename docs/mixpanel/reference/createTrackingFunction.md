@@ -21,7 +21,6 @@ const track = createTrackingFunction(options?: { targetProductId })
 
 - `options`: An optional object literal of options:
     - `targetProductId`: The product id of the target product. Useful to track an event for another product.
-    - `trackingEndpoint`: The endpoint to use for tracking events. If not provided, the default endpoint will be used.
 
 ### Returns
 

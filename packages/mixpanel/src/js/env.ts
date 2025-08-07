@@ -11,7 +11,11 @@ const NavigationApiBaseUrl: Record<Environment, string> = {
     "msw": "/api/shell/navigation/"
 };
 
-export function getTrackingBaseUrl(envOrTrackingApiBaseUrl: Environment | (string & {})): string {
+// Cannot use URL() because it doesn't support relative base url: https://github.com/whatwg/url/issues/531.
+function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
+    return `${baseUrl}${baseUrl!.endsWith("/") ? "" : "/"}${path.startsWith("/") ? path.substring(1) : path}`;
+}
+export function getTrackingEndpoint(envOrTrackingApiBaseUrl: Environment | (string & {}), trackingEndpoint = "tracking/track"): string {
     let baseUrl: string;
 
     if (EnvironmentList.includes(envOrTrackingApiBaseUrl as Environment)) {
@@ -20,5 +24,5 @@ export function getTrackingBaseUrl(envOrTrackingApiBaseUrl: Environment | (strin
         baseUrl = envOrTrackingApiBaseUrl;
     }
 
-    return baseUrl;
+    return resolveApiUrl(trackingEndpoint, baseUrl);
 }

@@ -6,10 +6,9 @@ export type UseTrackingFunctionOptions = CreateTrackingFunctionOptions;
 export function useTrackingFunction(options: UseTrackingFunctionOptions = {}) {
     const {
         targetProductId,
-        trackingEndpoint
     } = options;
 
     return useMemo(() => {
-        return createTrackingFunction({ targetProductId, trackingEndpoint });
+        return createTrackingFunction({ targetProductId });
     }, [targetProductId]);
 }

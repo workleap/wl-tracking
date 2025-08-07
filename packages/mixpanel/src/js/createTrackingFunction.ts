@@ -9,12 +9,6 @@ export interface CreateTrackingFunctionOptions {
      * The product identifier of the target product.
      */
     targetProductId?: string;
-    /**
-     * The endpoint to use for tracking events.
-     * If not provided, the default endpoint will be used.
-     * @default "tracking/track"
-     */
-    trackingEndpoint?: string;
 }
 
 /**
@@ -43,20 +37,14 @@ export interface TrackingFunctionOptions {
  */
 export type TrackingFunction = (eventName: string, properties: MixpanelEventProperties, options?: TrackingFunctionOptions) => Promise<void>;
 
-// Cannot use URL() because it doesn't support relative base url: https://github.com/whatwg/url/issues/531.
-function resolveApiUrl(path: string, baseUrl: string | undefined) : string {
-    return `${baseUrl}${baseUrl!.endsWith("/") ? "" : "/"}${path.startsWith("/") ? path.substring(1) : path}`;
-}
-
 export function createTrackingFunction(options: CreateTrackingFunctionOptions = {}) {
     const {
-        targetProductId,
-        trackingEndpoint = "tracking/track"
+        targetProductId
     } = options;
 
     const {
         productId,
-        baseUrl,
+        endpoint,
         superProperties
     } = getMixpanelContext();
 
@@ -74,7 +62,7 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
                 ...properties
             };
 
-            await fetch(resolveApiUrl(trackingEndpoint, baseUrl), {
+            await fetch(endpoint, {
                 method: "POST",
                 credentials: "include",
                 keepalive: keepAlive,
