@@ -8,13 +8,13 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  * @see https://workleap.github.io/wl-telemetry
  */
 export interface InitializeMixpanelOptions {
-    verbose?: boolean;
     /**
      * The endpoint to use for tracking events.
      * If not provided, the default endpoint for the environment will be used.
      * @default "tracking/track"
      */
     trackingEndpoint?: string;
+    verbose?: boolean;
 }
 function registerLogRocketSessionUrlListener(verbose = false) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
