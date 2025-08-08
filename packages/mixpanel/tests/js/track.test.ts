@@ -215,7 +215,7 @@ test("when a custom tracking endpoint is provided with env, use the custom endpo
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
-    expect(url).toBe("https://api.platform.workleap-dev.com/shell/navigation/custom/tracking/endpoint");
+    expect(url).toBe("https://api.platform.workleap-dev.com/shell/navigation/custom/endpoint");
 });
 
 test("when a custom tracking endpoint starts with slash and env is used, remove the leading slash", async ({ expect }) => {
