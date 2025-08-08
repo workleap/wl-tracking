@@ -22,6 +22,7 @@ initializeMixpanel(productId, envOrTrackingApiBaseUrl, options?: { verbose });
 - `productId`: The product id.
 - `envOrTrackingApiBaseUrl`: The environment to get the navigation url from or a base URL.
 - `options`: An optional object literal of options:
+    - `trackingEndpoint`: The endpoint to use for tracking events. If not provided, the default endpoint will be used.
     - `verbose`: Whether or not debug information should be logged to the console.
 
 ### Environments

@@ -8,6 +8,12 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  * @see https://workleap.github.io/wl-telemetry
  */
 export interface InitializeMixpanelOptions {
+    /**
+     * The endpoint to use for tracking events.
+     * If not provided, the default endpoint for the environment will be used.
+     * @default "tracking/track"
+     */
+    trackingEndpoint?: string;
     verbose?: boolean;
 }
 function registerLogRocketSessionUrlListener(verbose = false) {
@@ -46,12 +52,13 @@ export function __resetInitializationGuard() {
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {
-        verbose = false
+        verbose = false,
+        trackingEndpoint
     } = options;
 
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
-    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl);
+    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl, trackingEndpoint);
     const telemetryContext = getTelemetryContext({ verbose });
 
     setSuperProperties(getTelemetryProperties(telemetryContext));
