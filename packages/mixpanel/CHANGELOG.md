@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 2.0.2
+
+### Patch Changes
+
+- [#50](https://github.com/workleap/wl-telemetry/pull/50) [`e53857a`](https://github.com/workleap/wl-telemetry/commit/e53857a6c1ba13894f643076f3675dc2b61a9cc5) Thanks [@alexasselin008](https://github.com/alexasselin008)! - Add the trackingEndpoint options to the initializeMixpanel function to allow specifying a custom endpoint for tracking events.
+
 ## 2.0.1
 
 ### Patch Changes
