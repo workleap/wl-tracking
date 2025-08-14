@@ -23,7 +23,7 @@ export default {
             "label": "Packages should pin devDependencies."
         },
         {
-            "packages": ["@sample/*"],
+            "packages": ["@all-platforms/*", "@honeycomb-api-key/*", "@honeycomb-proxy/*"],
             "dependencyTypes": ["prod", "dev"],
             "range": "",
             "label": "Samples should pin dependencies and devDependencies."
