@@ -173,9 +173,9 @@ export class LogRocketLogger implements Logger {
     #log(fct: LogFunction, threshold: LogLevel) {
         if (this.#segments.length > 0) {
             if (this.#logLevel <= threshold) {
-                const segments = parseSegments(this.#segments);
+                const parsedSegments = parseSegments(this.#segments);
 
-                fct(...segments);
+                fct(...parsedSegments);
             }
 
             this.#resetSegments();
