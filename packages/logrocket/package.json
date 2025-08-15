@@ -45,6 +45,7 @@
         "@rsbuild/core": "1.4.6",
         "@rslib/core": "0.10.5",
         "@workleap/eslint-plugin": "3.4.2",
+        "@workleap/logging": "1.0.0",
         "@workleap/rslib-configs": "1.0.6",
         "@workleap/typescript-configs": "3.0.4",
         "eslint": "8.57.1",

@@ -163,6 +163,9 @@ importers:
       '@workleap/eslint-plugin':
         specifier: 3.4.2
         version: 3.4.2(@types/estree@1.0.8)(@typescript-eslint/parser@8.37.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)(vitest@3.2.4(@types/node@24.0.13)(tsx@4.20.3))
+      '@workleap/logging':
+        specifier: 1.0.0
+        version: 1.0.0
       '@workleap/rslib-configs':
         specifier: 1.0.6
         version: 1.0.6(@rsbuild/core@1.4.6)(@rslib/core@0.10.5(typescript@5.8.3))(typescript@5.8.3)
@@ -269,7 +272,7 @@ importers:
     dependencies:
       '@tanstack/react-query':
         specifier: 5.83.0
-        version: 5.83.0(react@19.1.1)
+        version: 5.83.0(react@19.1.0)
       '@workleap/common-room':
         specifier: workspace:*
         version: link:../../../packages/common-room
@@ -286,17 +289,17 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/telemetry
       logrocket:
-        specifier: ^10.1.0
+        specifier: 10.1.0
         version: 10.1.0
       react:
-        specifier: ^19.1.0
-        version: 19.1.1
+        specifier: 19.1.0
+        version: 19.1.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.1(react@19.1.1)
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
       react-router-dom:
         specifier: 7.6.3
-        version: 7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@rsbuild/core':
         specifier: 1.4.6
@@ -421,11 +424,11 @@ importers:
   samples/honeycomb/api-key/app:
     dependencies:
       '@opentelemetry/api':
-        specifier: ^1.9.0
+        specifier: 1.9.0
         version: 1.9.0
       '@tanstack/react-query':
         specifier: 5.83.0
-        version: 5.83.0(react@19.1.1)
+        version: 5.83.0(react@19.1.0)
       '@workleap/honeycomb':
         specifier: workspace:*
         version: link:../../../../packages/honeycomb
@@ -433,14 +436,14 @@ importers:
         specifier: workspace:*
         version: link:../../../../packages/telemetry
       react:
-        specifier: ^19.1.0
-        version: 19.1.1
+        specifier: 19.1.0
+        version: 19.1.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.1(react@19.1.1)
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
       react-router-dom:
         specifier: 7.6.3
-        version: 7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@rsbuild/core':
         specifier: 1.4.6
@@ -485,7 +488,7 @@ importers:
   samples/honeycomb/api-key/express-server:
     dependencies:
       '@opentelemetry/api':
-        specifier: ^1.9.0
+        specifier: 1.9.0
         version: 1.9.0
       '@opentelemetry/auto-instrumentations-node':
         specifier: 0.62.0
@@ -543,11 +546,11 @@ importers:
   samples/honeycomb/proxy/app:
     dependencies:
       '@opentelemetry/api':
-        specifier: ^1.9.0
+        specifier: 1.9.0
         version: 1.9.0
       '@tanstack/react-query':
         specifier: 5.83.0
-        version: 5.83.0(react@19.1.1)
+        version: 5.83.0(react@19.1.0)
       '@workleap/honeycomb':
         specifier: workspace:*
         version: link:../../../../packages/honeycomb
@@ -555,14 +558,14 @@ importers:
         specifier: workspace:*
         version: link:../../../../packages/telemetry
       react:
-        specifier: ^19.1.0
-        version: 19.1.1
+        specifier: 19.1.0
+        version: 19.1.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.1(react@19.1.1)
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
       react-router-dom:
         specifier: 7.6.3
-        version: 7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@rsbuild/core':
         specifier: 1.4.6
@@ -607,7 +610,7 @@ importers:
   samples/honeycomb/proxy/express-proxy:
     dependencies:
       '@opentelemetry/api':
-        specifier: ^1.9.0
+        specifier: 1.9.0
         version: 1.9.0
       '@opentelemetry/auto-instrumentations-node':
         specifier: 0.62.0
@@ -665,7 +668,7 @@ importers:
   samples/honeycomb/proxy/express-server:
     dependencies:
       '@opentelemetry/api':
-        specifier: ^1.9.0
+        specifier: 1.9.0
         version: 1.9.0
       '@opentelemetry/auto-instrumentations-node':
         specifier: 0.62.0
@@ -2593,6 +2596,9 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  '@workleap/logging@1.0.0':
+    resolution: {integrity: sha512-qrq9PRigjES7yP3ItKr6PCTiK5Jdre7JbpLLFfr/fbCrzb5AYMZQUfwKtbG9abRnCfd/tiWLjDakt74Csc1nFA==}
 
   '@workleap/rsbuild-configs@3.0.2':
     resolution: {integrity: sha512-/W4w4Fq1duFPveVtpVqHecCplWQ8cN1I0Rx5Whd3hOcPTsfd5i7UbXMRBdsg49fy+OMmpRM2CIL0Lq/anwgAog==}
@@ -4706,6 +4712,11 @@ packages:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
 
+  react-dom@19.1.0:
+    resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
+    peerDependencies:
+      react: ^19.1.0
+
   react-dom@19.1.1:
     resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
     peerDependencies:
@@ -4734,6 +4745,10 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react@19.1.0:
+    resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
+    engines: {node: '>=0.10.0'}
 
   react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
@@ -7572,10 +7587,10 @@ snapshots:
 
   '@tanstack/query-core@5.83.0': {}
 
-  '@tanstack/react-query@5.83.0(react@19.1.1)':
+  '@tanstack/react-query@5.83.0(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.83.0
-      react: 19.1.1
+      react: 19.1.0
 
   '@trysound/sax@0.2.0': {}
 
@@ -7948,6 +7963,8 @@ snapshots:
       - remark-lint-file-extension
       - supports-color
       - vitest
+
+  '@workleap/logging@1.0.0': {}
 
   '@workleap/rsbuild-configs@3.0.2(@rsbuild/core@1.4.6)(@rspack/core@1.4.6(@swc/helpers@0.5.17))(typescript@5.8.3)':
     dependencies:
@@ -10479,6 +10496,11 @@ snapshots:
       iconv-lite: 0.6.3
       unpipe: 1.0.0
 
+  react-dom@19.1.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      scheduler: 0.26.0
+
   react-dom@19.1.1(react@19.1.1):
     dependencies:
       react: 19.1.1
@@ -10488,19 +10510,21 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react-router-dom@7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-router-dom@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      react-router: 7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-router: 7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  react-router@7.6.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       cookie: 1.0.2
-      react: 19.1.1
+      react: 19.1.0
       set-cookie-parser: 2.7.1
     optionalDependencies:
-      react-dom: 19.1.1(react@19.1.1)
+      react-dom: 19.1.0(react@19.1.0)
+
+  react@19.1.0: {}
 
   react@19.1.1: {}
 
