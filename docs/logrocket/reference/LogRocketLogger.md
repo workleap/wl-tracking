@@ -92,7 +92,7 @@ logger.debug("Hello world!");
 
 Multiple segments can be chained to create a log entry that combines styled text, errors, and objects. To process all segments and output the log to the console, complete the chain by calling any log method.
 
-```ts
+```ts !#5-10
 import { LogRocketLogger } from "@workleap/logrocket";
 
 const logger = new LogRocketLogger();
@@ -140,7 +140,7 @@ scope.end();
 
 A scope can be dismissed to prevent it's log entries from being outputted to the console.
 
-```ts !#18-19
+```ts !#19
 import { LogRocketLogger } from "@workleap/logrocket";
 
 const logger = new LogRocketLogger();

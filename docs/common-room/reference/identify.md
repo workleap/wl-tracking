@@ -27,7 +27,7 @@ Nothing
 
 ## Usage
 
-```ts
+```ts !#3
 import { identify } from "@workleap/common-room";
 
 identify("johndoe@contoso.com");

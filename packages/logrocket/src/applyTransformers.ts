@@ -1,3 +1,4 @@
+import type { RootLogger } from "@workleap/logging";
 import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
 
 /**
@@ -5,6 +6,7 @@ import type { LogRocketSdkOptions } from "./logRocketTypes.ts";
  */
 export interface LogRocketSdkOptionsTransformerContext {
     verbose: boolean;
+    logger: RootLogger;
 }
 
 export type LogRocketSdkOptionsTransformer = (options: LogRocketSdkOptions, context: LogRocketSdkOptionsTransformerContext) => LogRocketSdkOptions;

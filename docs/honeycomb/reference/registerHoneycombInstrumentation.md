@@ -303,6 +303,23 @@ registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
 });
 ```
 
+### `loggers`
+
+- **Type**: `RootLogger[]`
+- **Default**: `undefined`
+
+The logger instances that will output messages.
+
+```ts !#6
+import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
+
+registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+});
+```
+
 ## Configuration transformers
 
 !!!warning
@@ -339,7 +356,7 @@ registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
 
 ### Execution context
 
-Generic transformers can use the `context` argument to gather additional information about their execution context, like if they are operating in `verbose` mode:
+Generic transformers can use the `context` argument to gather additional information about their execution context:
 
 ```ts !#4 transformer.js
 import type { HoneycombSdkOptionsTransformer } from "@workleap/honeycomb";
@@ -347,6 +364,7 @@ import type { HoneycombSdkOptionsTransformer } from "@workleap/honeycomb";
 const debugTransformer: HoneycombSdkOptionsTransformer = (config, context) => {
     if (context.verbose) {
         config.debug = true;
+        context.logger.debug("Debug mode has been activated.");
     }
 
     return config;
@@ -354,3 +372,4 @@ const debugTransformer: HoneycombSdkOptionsTransformer = (config, context) => {
 ```
 
 - `verbose`: `boolean`
+- `logger`: `Logger`

@@ -1,13 +1,8 @@
-import Cookies from "js-cookie";
+import type { Logger } from "@workleap/logging";
 import { v4 as uuidv4 } from "uuid";
+import { getDeviceId, setDeviceId } from "./deviceId.ts";
 
-// The identity cookie is a concept created by Workleap's marketing teams. With this cookie, telemetry data can be
-// correlated with a device id across multiple sites / apps.
-export const IdentityCookieName = "wl-identity";
-
-interface IdentityCookie {
-    deviceId: string;
-}
+export const TelemetryContextVariableName = "__WLP_TELEMETRY_CONTEXT__";
 
 export class TelemetryContext {
     readonly #telemetryId: string;
@@ -27,87 +22,60 @@ export class TelemetryContext {
     }
 }
 
-export interface CreateTelemetryContextOptions {
-    identityCookieExpiration?: Date;
-    identityCookieDomain?: string;
-    verbose?: boolean;
-}
-
-export function createTelemetryContext(options: CreateTelemetryContextOptions = {}) {
-    const {
-        identityCookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        identityCookieDomain = ".workleap.com",
-        verbose = false
-    } = options;
-
-    let deviceId = getDeviceId();
-
-    if (!deviceId) {
-        deviceId = uuidv4();
-
-        setDeviceId(deviceId, identityCookieExpiration, identityCookieDomain);
-    }
-
-    const telemetryId = uuidv4();
-
-    if (verbose) {
-        console.log(`[telemetry] Telemetry id is: ${telemetryId}`);
-        console.log(`[telemetry] Device id is: ${deviceId}`);
-    }
-
-    return new TelemetryContext(telemetryId, deviceId);
-}
-
-function getDeviceId() {
-    try {
-        const cookie = Cookies.get(IdentityCookieName);
-
-        if (cookie) {
-            const parsedCookie = JSON.parse(cookie) as IdentityCookie;
-
-            return parsedCookie.deviceId;
-        }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error: unknown) {
-        // Do nothing.
-    }
-}
-
-function setDeviceId(deviceId: string, cookieExpiration: Date, cookieDomain: string) {
-    const value = {
-        deviceId
-    } satisfies IdentityCookie;
-
-    try {
-        // Not setting an expiration date because we want a "session" cookie.
-        Cookies.set(IdentityCookieName, JSON.stringify(value), {
-            expires: cookieExpiration,
-            domain: cookieDomain
-        });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error: unknown) {
-        // Do nothing.
-    }
-}
-
-let telemetryContext: TelemetryContext | undefined;
-
 // This function should only be used by tests.
 export function __setTelemetryContext(context: TelemetryContext) {
-    telemetryContext = context;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[TelemetryContextVariableName] = context;
 }
 
 // This function should only be used by tests.
 export function __clearTelemetryContext() {
-    telemetryContext = undefined;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[TelemetryContextVariableName] = undefined;
 }
 
-export type GetTelemetryContextOptions = CreateTelemetryContextOptions;
+export function getTelemetryContext() {
+    // Saving the context on "globalThis" rather than an in-memory var to allow multiple
+    // instances of this library. This allows the telemetry libraries to set "@workleap/telemetry"
+    // as dependency rather than a peer dependency.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return globalThis[TelemetryContextVariableName] as TelemetryContext | undefined;
+}
 
-export function getTelemetryContext(options?: GetTelemetryContextOptions) {
-    if (!telemetryContext) {
-        telemetryContext = createTelemetryContext(options);
+export interface CreateTelemetryContextOptions {
+    identityCookieExpiration?: Date;
+    identityCookieDomain?: string;
+}
+
+export function createTelemetryContext(logger: Logger, options: CreateTelemetryContextOptions = {}) {
+    let context = getTelemetryContext();
+
+    if (!context) {
+        const {
+            identityCookieExpiration = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+            identityCookieDomain = ".workleap.com"
+        } = options;
+
+        let deviceId = getDeviceId(logger);
+
+        if (!deviceId) {
+            deviceId = uuidv4();
+
+            setDeviceId(deviceId, identityCookieExpiration, identityCookieDomain, logger);
+        }
+
+        const telemetryId = uuidv4();
+
+        logger.debug(`[telemetry] Telemetry id is: ${telemetryId}`);
+        logger.debug(`[telemetry] Device id is: ${deviceId}`);
+
+        context = new TelemetryContext(telemetryId, deviceId);
+
+        __setTelemetryContext(context);
     }
 
-    return telemetryContext;
+    return context;
 }

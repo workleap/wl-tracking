@@ -1,3 +1,4 @@
+import type { Logger } from "@workleap/logging";
 import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
 
 /**
@@ -5,6 +6,7 @@ import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
  */
 export interface HoneycombSdkOptionsTransformerContext {
     verbose: boolean;
+    logger: Logger;
 }
 
 /**

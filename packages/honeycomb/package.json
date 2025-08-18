@@ -35,8 +35,7 @@
         "test": "vitest --config vitest.config.ts --no-watch"
     },
     "peerDependencies": {
-        "@opentelemetry/api": "^1.9.0",
-        "@workleap/telemetry": "workspace:*"
+        "@opentelemetry/api": "^1.9.0"
     },
     "dependencies": {
         "@honeycombio/opentelemetry-web": "^0.21.0",
@@ -46,7 +45,9 @@
         "@opentelemetry/instrumentation-fetch": "^0.203.0",
         "@opentelemetry/instrumentation-user-interaction": "^0.48.0",
         "@opentelemetry/instrumentation-xml-http-request": "^0.203.0",
-        "@opentelemetry/sdk-trace-web": "^2.0.1"
+        "@opentelemetry/sdk-trace-web": "^2.0.1",
+        "@workleap/logging": "^1.0.2",
+        "@workleap/telemetry": "workspace:*"
     },
     "devDependencies": {
         "@rsbuild/core": "1.4.6",

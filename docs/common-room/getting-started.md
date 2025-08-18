@@ -25,15 +25,13 @@ pnpm add @workleap/common-room
 
 Then, register Common Room instrumentation using the [registerCommonRoomInstrumentation](./reference/registerCommonRoomInstrumentation.md) function:
 
-```tsx !#6-8 index.tsx
+```tsx !#6 index.tsx
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerCommonRoomInstrumentation("my-site-id", {
-    verbose: true
-});
+registerCommonRoomInstrumentation("my-site-id");
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -48,7 +46,7 @@ root.render(
 
 To associate the anonymous activities with an existing user, identify the current user using the [identify](./reference/identify.md) function:
 
-```ts
+```ts !#3
 import { identify } from "@workleap/common-room";
 
 identify("johndoe@contoso.com");

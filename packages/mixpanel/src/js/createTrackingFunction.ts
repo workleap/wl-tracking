@@ -45,7 +45,8 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
     const {
         productId,
         endpoint,
-        superProperties
+        superProperties,
+        logger
     } = getMixpanelContext();
 
     const trackFunction: TrackingFunction = async (eventName, properties, _options = {}) => {
@@ -76,9 +77,11 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
                     properties: allProperties
                 })
             });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error: unknown) {
-            // Do nothing...
+            logger
+                .withText(`[mixpanel] An error occured while sending a tracking event to "${endpoint}":`)
+                .withError(error as Error)
+                .error();
         }
     };
 

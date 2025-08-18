@@ -1,4 +1,5 @@
-import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
+import { createCompositeLogger, type RootLogger } from "@workleap/logging";
+import { createBootstrappingStore, createTelemetryContext } from "@workleap/telemetry";
 import { setMixpanelContext } from "./context.ts";
 import { getTrackingEndpoint, type Environment } from "./env.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
@@ -9,7 +10,9 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  */
 export interface InitializeMixpanelOptions {
     verbose?: boolean;
+    loggers?: RootLogger[];
 }
+
 function registerLogRocketSessionUrlListener(verbose = false) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -46,17 +49,19 @@ export function __resetInitializationGuard() {
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {
-        verbose = false
+        verbose = false,
+        loggers = []
     } = options;
 
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
+    const logger = createCompositeLogger(verbose, loggers);
     const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl);
-    const telemetryContext = getTelemetryContext({ verbose });
+    const telemetryContext = createTelemetryContext(logger);
 
     setSuperProperties(getTelemetryProperties(telemetryContext));
 
-    const bootstrappingStore = getBootstrappingStore();
+    const bootstrappingStore = createBootstrappingStore(logger);
 
     // If LogRocket is already available, register the listener. Otherwise, subscribe to the bootstrapping store
     // and register the listener once a notification is received that LogRocket is registered.
@@ -75,10 +80,8 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
         productId,
         endpoint,
         superProperties: getSuperProperties(),
-        verbose
+        logger
     });
 
-    if (verbose) {
-        console.log("[mixpanel] Mixpanel is initialized.");
-    }
+    logger.debug("[mixpanel] Mixpanel is initialized.");
 }

@@ -1,7 +1,9 @@
+import type { Logger } from "@workleap/logging";
+
 export const ContextVariableName = "__WLP_COMMON_ROOM_CONTEXT__";
 
 export interface CommonRootContext {
-    verbose: boolean;
+    logger: Logger;
 }
 
 export function setCommonRoomContext(context: CommonRootContext) {

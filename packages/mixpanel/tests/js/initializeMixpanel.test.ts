@@ -1,7 +1,7 @@
 import { BootstrappingStore } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
-import { ContextVariableName } from "../../src/js/context.ts";
+import { MixpanelContextVariableName } from "../../src/js/context.ts";
 import { __resetInitializationGuard, initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
 import { __clearSuperProperties } from "../../src/js/properties.ts";
 
@@ -67,5 +67,5 @@ test("the context global variable is set", ({ expect }) => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    expect(globalThis[ContextVariableName]).toBeDefined();
+    expect(globalThis[MixpanelContextVariableName]).toBeDefined();
 });

@@ -1,11 +1,6 @@
 import { test, vi } from "vitest";
 import { type BootstrappingAction, type BootstrappingActionType, type BootstrappingState, BootstrappingStore } from "../src/BootstrappingStore.ts";
 
-/*
-
-
-*/
-
 function createInitialBootstrappingState() {
     return {
         isLogRocketReady: false,

@@ -40,7 +40,7 @@ A [root hostname](https://docs.logrocket.com/reference/roothostname) to track se
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", {
     rootHostname: "an-host.com"
 });
 ```
@@ -55,7 +55,7 @@ Names of additional fields to exclude from session replays. These fields will be
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", {
     privateFieldNames: ["a-custom-field"]
 });
 ```
@@ -72,7 +72,7 @@ Names of additional fields to exclude from session replays. These fields will be
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", {
     privateQueryParameterNames: ["a-custom-param"]
 });
 ```
@@ -89,8 +89,24 @@ Indicates whether or not debug information should be logged to the console.
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", {
     verbose: true
+});
+```
+
+### `loggers`
+
+- **Type**: `RootLogger[]`
+- **Default**: `undefined`
+
+The logger instances that will output messages.
+
+```ts !#5
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
+
+registerLogRocketInstrumentation("my-app-id", {
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```
 
@@ -113,11 +129,8 @@ To view the default configuration of `registerLogRocketInstrumentation`, have a 
 transformer(options: LogRocketSdkOptions, context: LogRocketSdkOptionsTransformer) => LogRocketSdkOptions;
 ```
 
-```ts !#6-11,14
+```ts !#3-8,11
 import { registerLogRocketInstrumentation, type LogRocketSdkOptionsTransformer } from "@workleap/logrocket";
-import { createTelemetryContext } from "@workleap/telemetry";
-
-const telemetryContext = createTelemetryContext({ verbose: true });
 
 const disableConsoleLogging: LogRocketSdkOptionsTransformer = config => {
     config.console = ...(config.console || {});
@@ -126,22 +139,24 @@ const disableConsoleLogging: LogRocketSdkOptionsTransformer = config => {
     return config;
 };
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
+registerLogRocketInstrumentation("my-app-id", {
     transformers: [disableConsoleLogging]
 });
 ```
 
 ### Execution context
 
-Generic transformers can use the `context` argument to gather additional information about their execution context, like if they are operating in `verbose` mode:
+Generic transformers can use the `context` argument to gather additional information about their execution context:
 
-```ts !#4 transformer.js
+```ts !#4,8 transformer.js
 import type { LogRocketSdkOptionsTransformer } from "@workleap/logrocket";
 
 const disableConsoleLogging: LogRocketSdkOptionsTransformer = (config, context) => {
     if (!context.verbose) {
         config.console = ...(config.console || {});
-        config.console.isEnabled = false;
+        config.shouldDebugLog = false;
+
+        context.logger.debug("Disabling LogRocket SDK debug logs.");
     }
 
     return config;
@@ -149,3 +164,4 @@ const disableConsoleLogging: LogRocketSdkOptionsTransformer = (config, context) 
 ```
 
 - `verbose`: `boolean`
+- `logger`: `Logger`

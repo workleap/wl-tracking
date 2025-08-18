@@ -1,4 +1,5 @@
-import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
+import { createCompositeLogger, type RootLogger } from "@workleap/logging";
+import { createBootstrappingStore, createTelemetryContext } from "@workleap/telemetry";
 import LogRocket from "logrocket";
 import LogrocketFuzzySanitizer from "logrocket-fuzzy-search-sanitizer";
 import { applyTransformers, type LogRocketSdkOptionsTransformer } from "./applyTransformers.ts";
@@ -41,18 +42,19 @@ export interface RegisterLogRocketInstrumentationOptions {
     privateFieldNames?: string[];
     privateQueryParameterNames?: string[];
     verbose?: boolean;
+    loggers?: RootLogger[];
     transformers?: LogRocketSdkOptionsTransformer[];
 }
 
 // The function return type is mandatory, otherwise we got an error TS4058.
-export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentationOptions): LogRocketSdkOptions {
+export function getLogRocketSdkOptions(userOptions: RegisterLogRocketInstrumentationOptions, logger: RootLogger): LogRocketSdkOptions {
     const {
         rootHostname = "workleap.com",
         privateFieldNames = [],
         privateQueryParameterNames = [],
         verbose = false,
         transformers = []
-    } = options;
+    } = userOptions;
 
     const mergedPrivateFieldNames = DefaultPrivateFieldNames.concat(privateFieldNames);
     const mergedPrivateQueryParameterNames = DefaultPrivateQueryParameterNames.concat(privateQueryParameterNames);
@@ -66,6 +68,8 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
 
     const sdkOptions = {
         console: {
+            // Prevent console logs from being visible in LogRocket session replays and leaking PII.
+            // To capture logs in a session replay, use the LogRocketLogger class.
             isEnabled: false
         },
         rootHostname,
@@ -84,7 +88,8 @@ export function getLogRocketSdkOptions(options: RegisterLogRocketInstrumentation
     } satisfies LogRocketSdkOptions;
 
     return applyTransformers(sdkOptions, transformers, {
-        verbose
+        verbose,
+        logger
     });
 }
 
@@ -100,17 +105,20 @@ export function __resetRegistrationGuard() {
  */
 export function registerLogRocketInstrumentation(appId: string, options: RegisterLogRocketInstrumentationOptions = {}) {
     const {
-        verbose = false
+        verbose = false,
+        loggers = []
     } = options;
+
+    const logger = createCompositeLogger(verbose, loggers);
 
     registrationGuard.throw("[logrocket] The LogRocket instrumentation has already been registered. Did you call the \"registerLogRocketInstrumentation\" function twice?");
 
-    const sdkOptions = getLogRocketSdkOptions(options);
+    const sdkOptions = getLogRocketSdkOptions(options, logger);
 
     // Session starts anonymously when LogRocket.init() is called.
     LogRocket.init(appId, sdkOptions);
 
-    const telemetryContext = getTelemetryContext({ verbose });
+    const telemetryContext = createTelemetryContext(logger);
 
     // LogRocket maintains the same session even if the user starts as anonymous and later becomes identified via LogRocket.identify().
     // If LogRocket.identify is called multiple times during a recording, you can search for any of the identified users in the session.
@@ -119,11 +127,12 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
         [TelemetryIdTrait]: telemetryContext.telemetryId
     });
 
-    if (verbose) {
-        LogRocket.getSessionURL(url => {
-            console.log("[logrocket] Session replay URL is now available:", url);
-        });
-    }
+    LogRocket.getSessionURL(url => {
+        logger
+            .withText("[logrocket] Session replay URL is now available:")
+            .withText(url)
+            .debug();
+    });
 
     // Indicates to the host applications that logrocket has been initialized.
     // It's useful in cases where an "add-on", like the platform widgets needs
@@ -143,10 +152,9 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
         LogRocket.getSessionURL(listener);
     };
 
+    const bootstrappingStore = createBootstrappingStore(logger);
     // Let the other telemetry libraries know that LogRocket instrumentation is ready.
-    getBootstrappingStore().dispatch({ type: "logrocket-ready" });
+    bootstrappingStore.dispatch({ type: "logrocket-ready" });
 
-    if (verbose) {
-        console.log("[logrocket] LogRocket instrumentation is registered.");
-    }
+    logger.debug("[logrocket] LogRocket instrumentation is registered.");
 }

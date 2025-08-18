@@ -22,6 +22,7 @@ registerCommonRoomInstrumentation(siteId, options?: { onReady, verbose });
 - `siteId`: The site id.
 - `options`: An optional object literal of options:
     - `verbose`: Whether or not debug information should be logged to the console.
+    - `loggers`: An optional array of `RootLogger` instances.
 
 ### Returns
 
@@ -31,7 +32,7 @@ Nothing
 
 ### Initialize with a site id
 
-```ts
+```ts !#3
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 
 registerCommonRoomInstrumentation("my-site-id");
@@ -39,10 +40,22 @@ registerCommonRoomInstrumentation("my-site-id");
 
 ### Verbose mode
 
-```ts
+```ts !#4
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 
 registerCommonRoomInstrumentation("my-site-id", {
     verbose: true
+});
+```
+
+### Loggers
+
+```ts !#6
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
+
+registerCommonRoomInstrumentation("my-site-id", {
+    loggers: [new LogRocketLogger(), new BrowserConsoleLogger()]
 });
 ```

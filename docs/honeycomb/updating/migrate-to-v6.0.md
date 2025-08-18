@@ -9,10 +9,6 @@ meta:
 
 This new version introduces two correlation ids, `telemetryId` and `deviceId`, to help unify and correlate data across [LogRocket](https://logrocket.com/), [Honeycomb](https://www.honeycomb.io/) and [Mixpanel](https://mixpanel.com/) and a new automatic enrichment of the traces with the LogRocket session url if the [LogRocket instrumentation](../../logrocket/getting-started.md) is registered.
 
-## Breaking changes
-
-- The `@workleap/telemetry` package is a new peer dependency of the `@workleap/logrocket` package.
-
 ## Improvements
 
 ### Correlation ids
@@ -31,9 +27,3 @@ Once the LogRocket session URL is retrieved, each trace is enriched with an `app
 :::align-image-left
 ![Enrichment example](../../static/honeycomb/honeycomb-logrocket-session-url.png){width=328}
 :::
-
-## Migrate from `v5.0`
-
-Follow these steps to migrate an existing application `v5.0` to `v6.0`:
-
-- Add a dependency to `@workleap/telemetry`.
