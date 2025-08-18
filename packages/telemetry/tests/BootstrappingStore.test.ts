@@ -1,3 +1,4 @@
+import { NoopLogger } from "@workleap/logging";
 import { test, vi } from "vitest";
 import { type BootstrappingAction, type BootstrappingActionType, type BootstrappingState, BootstrappingStore } from "../src/BootstrappingStore.ts";
 
@@ -14,7 +15,7 @@ test.concurrent.for([
 ] satisfies [BootstrappingActionType, keyof BootstrappingState][]
 )("when \"%s\" is dispatched, \"%s\" is true", ([actionType, stateKey], { expect }) => {
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.dispatch({ type: actionType });
 
@@ -23,7 +24,7 @@ test.concurrent.for([
 
 test.concurrent("when the dispatched action type is not handled, throw an error", ({ expect }) => {
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     // @ts-expect-error This is expected given that the purpose of the test is to validate the behavior when an unknown action type is dispatched.
     expect(() => store.dispatch({ type: "foo" })).toThrow();
@@ -31,7 +32,7 @@ test.concurrent("when the dispatched action type is not handled, throw an error"
 
 test.concurrent("when an action is dispatched and no listener is registered, reduce the action", ({ expect }) => {
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     expect(store.state.isLogRocketReady).toBeFalsy();
 
@@ -44,7 +45,7 @@ test.concurrent("cannot add the same listener twice", ({ expect }) => {
     const listener = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener);
     store.subscribe(listener);
@@ -59,7 +60,7 @@ test.concurrent("when a single listener is registered and an action is dispatche
     const listener = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener);
 
@@ -77,7 +78,7 @@ test.concurrent("when multiple listeners are registered and an action is dispatc
     const listener3 = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener1);
     store.subscribe(listener2);
@@ -101,7 +102,7 @@ test.concurrent("can unsubscribe a listener, when a single listener is registere
     const listener = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener);
 
@@ -122,7 +123,7 @@ test.concurrent("can unsubscribe a listener when multiple listeners are register
     const listener3 = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener1);
     store.subscribe(listener2);
@@ -146,7 +147,7 @@ test.concurrent("can unsubscribe a listener with the function returned from it's
     const listener = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     const removeFunction = store.subscribe(listener);
 
@@ -167,7 +168,7 @@ test.concurrent("can unsubscribe a listener from the function provided as a seco
     });
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener);
 
@@ -184,7 +185,7 @@ test.concurrent("when the listener to unsubscribe doesn't exist, do nothing", ({
     const listener = vi.fn();
 
     const state = createInitialBootstrappingState();
-    const store = new BootstrappingStore(state);
+    const store = new BootstrappingStore(state, new NoopLogger());
 
     store.subscribe(listener);
 
