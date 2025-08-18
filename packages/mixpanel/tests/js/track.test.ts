@@ -1,3 +1,4 @@
+import { NoopLogger } from "@workleap/logging";
 import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
@@ -58,7 +59,7 @@ test("the LogRocket session url is sent", async ({ expect }) => {
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: true,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 
