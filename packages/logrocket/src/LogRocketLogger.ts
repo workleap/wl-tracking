@@ -95,6 +95,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 
     /**
+     * Write a debug log. The log will be processed only if the logger LogLevel is >= debug.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     debug(log?: string, options?: LogOptions) {
@@ -109,6 +110,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 
     /**
+     * Write an information log. The log will be processed only if the logger LogLevel is >= information.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     information(log?: string, options?: LogOptions) {
@@ -123,6 +125,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 
     /**
+     * Write a warning log. The log will be processed only if the logger LogLevel is >= warning.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     warning(log?: string, options?: LogOptions) {
@@ -137,6 +140,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 
     /**
+     * Write an error log. The log will be processed only if the logger LogLevel is >= error.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     error(log?: string, options?: LogOptions) {
@@ -151,6 +155,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 
     /**
+     * Write a critical log. The log will be processed only if the logger LogLevel is >= critical.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     critical(log?: string, options?: LogOptions) {
@@ -265,6 +270,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Write a debug log. The log will be processed only if the logger LogLevel is >= debug.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     debug(log?: string, options?: LogOptions) {
@@ -279,6 +285,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Write an information log. The log will be processed only if the logger LogLevel is >= information.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     information(log?: string, options?: LogOptions) {
@@ -293,6 +300,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Write a warning log. The log will be processed only if the logger LogLevel is >= warning.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     warning(log?: string, options?: LogOptions) {
@@ -307,6 +315,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Write an error log. The log will be processed only if the logger LogLevel is >= error.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     error(log?: string, options?: LogOptions) {
@@ -321,6 +330,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Write a critical log. The log will be processed only if the logger LogLevel is >= critical.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     critical(log?: string, options?: LogOptions) {
