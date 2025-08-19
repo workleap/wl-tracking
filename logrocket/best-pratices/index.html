@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807978235389">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.808881690572">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -12,7 +12,7 @@
     <!-- Primary Meta Tags -->
     <title>Best practices - Introduction</title>
     <meta name="title" content="Best practices - Introduction">
-    <meta name="description" content="It's recommended to log as much relevant information as possible to the console, as LogRocket includes console output in its session replays.">
+    <meta name="description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
@@ -21,23 +21,23 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
     <meta property="og:title" content="Best practices - Introduction">
-    <meta property="og:description" content="It's recommended to log as much relevant information as possible to the console, as LogRocket includes console output in its session replays.">
+    <meta property="og:description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
     <meta property="twitter:title" content="Best practices - Introduction">
-    <meta property="twitter:description" content="It's recommended to log as much relevant information as possible to the console, as LogRocket includes console output in its session replays.">
+    <meta property="twitter:description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.807978235389" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.808881690572" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807978235389" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.808881690572" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -336,8 +336,8 @@
         <span>Log relevant debugging information</span>
     </h2>
 </doc-anchor-target>
-<p>It&#x27;s recommended to <strong>log</strong> as much <strong>relevant information</strong> as possible to the <strong>console</strong>, as LogRocket includes console output in its session replays.</p>
-<p>This applies not only to instrumentation, but also to <strong>any frontend code or libraries in use</strong>.</p>
+<p>It’s recommended to <strong>log</strong> as much <strong>relevant information</strong> as possible into the LogRocket session replay console. This is typically done using the <a href="../reference/logrocketlogger/">LogRocketLogger</a> class or directly through the <a href="https://docs.logrocket.com/reference/console" class="outbound" target="_blank">LogRocket SDK</a>.</p>
+<p>At minimum, make sure to provide a <code v-pre>LogRocketLogger</code> instance to Workleap&#x27;s libraries accepting a <code v-pre>loggers</code> option.</p>
 <p>Here are some examples <span class="docs-emoji">&#x1F447;</span></p>
 <div class="flex mb-6">
     <div class="shrink-0 w-1.5 rounded-tl-lg rounded-bl-lg bg-callout-warning"></div>
@@ -352,22 +352,24 @@
         </div>
         <div class="pr-5 ml-3 w-full">
 <p>Never log any <strong>Personally Identifiable Information (PII)</strong>.</p>
-<p>API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all <code v-pre>console.log</code> statements that output API response before deploying to production, as these can expose private information in browser console logs that will be included in session replays.</p>
+<p>API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all logs outputting API response before deploying to production, as these can expose private information that will be included in session replays.</p>
         </div>
     </div>
 </div>
-<doc-anchor-target id="logrocket-verbose-mode">
+<doc-anchor-target id="logrocket">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#logrocket-verbose-mode">#</doc-anchor-trigger>
-        <span>LogRocket verbose mode</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#logrocket">#</doc-anchor-trigger>
+        <span>LogRocket</span>
     </h3>
 </doc-anchor-target>
-<p>Register LogRocket instrumentation with <a href="../reference/registerlogrocketinstrumentation/#verbose">verbose mode</a>:</p>
+<p>Register LogRocket instrumentation with <a href="../reference/registerlogrocketinstrumentation/#verbose">verbose mode</a> activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="4"><code v-pre class="language-typescript">import { registerLogRocketInstrumentation } from &quot;@workleap/logrocket&quot;;
+<pre translate="no" class="language-typescript" data-line="5-6"><code v-pre class="language-typescript">import { registerLogRocketInstrumentation, LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
 
-registerLogRocketInstrumentation(&quot;my-app-id&quot;, createTelemetryContext, {
-    verbose: true
+registerLogRocketInstrumentation(&quot;my-app-id&quot;, {
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="honeycomb-verbose-mode">
@@ -376,13 +378,16 @@ registerLogRocketInstrumentation(&quot;my-app-id&quot;, createTelemetryContext, 
         <span>Honeycomb verbose mode</span>
     </h3>
 </doc-anchor-target>
-<p>Register Honeycomb instrumentation with <a href="../../honeycomb/reference/registerhoneycombinstrumentation/#verbose">verbose mode</a>:</p>
+<p>Register Honeycomb instrumentation with <a href="../../honeycomb/reference/registerhoneycombinstrumentation/#verbose">verbose mode</a> activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="5"><code v-pre class="language-typescript">import { registerHoneycombInstrumentation } from &quot;@workleap/honeycomb&quot;;
+<pre translate="no" class="language-typescript" data-line="7-8"><code v-pre class="language-typescript">import { registerHoneycombInstrumentation } from &quot;@workleap/honeycomb&quot;;
+import { LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
 
 registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,], {
     proxy: &quot;https://sample-proxy&quot;,
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="mixpanel-verbose-mode">
@@ -391,12 +396,32 @@ registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,
         <span>Mixpanel verbose mode</span>
     </h3>
 </doc-anchor-target>
-<p>Initialize Mixpanel with <a href="../../mixpanel/reference/initializemixpanel/#verbose-mode">verbose mode</a>:</p>
+<p>Initialize Mixpanel with <a href="../../mixpanel/reference/initializemixpanel/#verbose-mode">verbose mode</a> activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="4"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+<pre translate="no" class="language-typescript" data-line="6-7"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+import { LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
 
 initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;, {
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="common-room">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#common-room">#</doc-anchor-trigger>
+        <span>Common Room</span>
+    </h3>
+</doc-anchor-target>
+<p>Initialize Mixpanel with <a href="../../mixpanel/reference/initializemixpanel/#verbose-mode">verbose mode</a> activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre translate="no" class="language-typescript" data-line="6-7"><code v-pre class="language-typescript">import { registerCommonRoomInstrumentation } from &quot;@workleap/common-room&quot;;
+import { LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
+
+registerCommonRoomInstrumentation(&quot;my-site-id&quot;, {
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="squide-firefly-console-logger">
@@ -405,12 +430,14 @@ initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;, {
         <span>Squide firefly console logger</span>
     </h3>
 </doc-anchor-target>
-<p>Initialize Squide firefly with a <a href="https://workleap.github.io/wl-squide/reference/registration/initializefirefly/#register-a-logger" class="outbound" target="_blank">Console Logger</a>:</p>
+<p>Initialize Squide firefly with a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="4"><code v-pre class="language-typescript">import { ConsoleLogger, initializeFirefly } from &quot;@squide/firefly&quot;;
+<pre translate="no" class="language-typescript" data-line="6"><code v-pre class="language-typescript">import { initializeFirefly } from &quot;@squide/firefly&quot;;
+import { LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
 
 const runtime = initializeFirefly({
-    loggers: [x =&gt; new ConsoleLogger(x)]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="platform-widgets-verbose-mode">
@@ -419,12 +446,15 @@ const runtime = initializeFirefly({
         <span>Platform widgets verbose mode</span>
     </h3>
 </doc-anchor-target>
-<p>Initialize platform widgets with verbose mode:</p>
+<p>Initialize platform widgets with verbose mode activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript" data-line="4"><code v-pre class="language-typescript">import { initializeWidgets } from &quot;@workleap-widgets/client/react&quot;;
+<pre translate="no" class="language-typescript" data-line="6-7"><code v-pre class="language-typescript">import { initializeWidgets } from &quot;@workleap-widgets/client/react&quot;;
+import { LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger } from &quot;@workleap/logging&quot;;
 
 const widgetsRuntime = initializeWidgets(&quot;wlp&quot;, &quot;development&quot; , {
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });</code></pre>
 </doc-codeblock></div>
 

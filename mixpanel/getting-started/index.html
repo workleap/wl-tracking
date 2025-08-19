@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807978235389">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.808881690572">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -32,12 +32,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.807978235389" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.808881690572" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.807978235389" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.808881690572" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -340,7 +340,7 @@
 </doc-anchor-target>
 <p>First, open a terminal at the root of the application and install the following packages:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-bash"><code v-pre class="language-bash">pnpm add @workleap/telemetry @workleap/mixpanel</code></pre>
+<pre translate="no" class="language-bash"><code v-pre class="language-bash">pnpm @workleap/mixpanel</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="initialize-mixpanel">
     <h2>
@@ -350,11 +350,9 @@
 </doc-anchor-target>
 <p>Then, initialize Mixpanel using the <a href="../reference/initializemixpanel/">initializeMixpanel</a> function:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+<pre translate="no" class="language-typescript" data-line="3"><code v-pre class="language-typescript">import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
 
-initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;, {
-    verbose: true
-});</code></pre>
+initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;);</code></pre>
 </doc-codeblock></div>
 <div class="flex mb-6">
     <div class="shrink-0 w-1.5 rounded-tl-lg rounded-bl-lg bg-callout-tip"></div>
@@ -380,7 +378,7 @@ initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;, {
 </doc-anchor-target>
 <p>Then create a <code v-pre>track</code> function using the <a href="../reference/">useTrackingFunction</a> hook if the host application is in React:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { useTrackingFunction } from &quot;@workleap/mixpanel/react&quot;;
+<pre translate="no" class="language-typescript" data-line="3"><code v-pre class="language-typescript">import { useTrackingFunction } from &quot;@workleap/mixpanel/react&quot;;
 
 const track = useTrackingFunction();
 
@@ -388,7 +386,7 @@ track(&quot;ButtonClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, 
 </doc-codeblock></div>
 <p>Otherwise use the <code v-pre>createTrackingFunction</code> directly:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { createTrackingFunction } from &quot;@workleap/mixpanel&quot;;
+<pre translate="no" class="language-typescript" data-line="3"><code v-pre class="language-typescript">import { createTrackingFunction } from &quot;@workleap/mixpanel&quot;;
 
 const track = createTrackingFunction();
 
@@ -433,7 +431,7 @@ track(&quot;LinkClicked&quot;, { &quot;Trigger&quot;: &quot;ChangePlan&quot;, &q
 <p>Most applications need to set custom properties on events about the current user environment. To help with that, <code v-pre>@workleap/mixpanel</code> expose the <a href="../reference/setsuperproperties/">setSuperProperties</a> function.</p>
 <p>Update your application code to include the <code v-pre>setSuperProperties</code> function:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre translate="no" class="language-typescript"><code v-pre class="language-typescript">import { setSuperProperties } from &quot;@workleap/mixpanel&quot;;
+<pre translate="no" class="language-typescript" data-line="3-5"><code v-pre class="language-typescript">import { setSuperProperties } from &quot;@workleap/mixpanel&quot;;
 
 setSuperProperties({
     &quot;User Id&quot;: &quot;123&quot; 

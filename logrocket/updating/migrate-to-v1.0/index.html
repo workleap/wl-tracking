@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807978235389">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.808881690572">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,12 +34,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../../static/favicon.png" rel="icon">
-    <link href="../../../resources/css/retype.css?v=3.11.0.807978235389" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.11.0.808881690572" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.807978235389" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.808881690572" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -377,7 +377,6 @@
     </h3>
 </doc-anchor-target>
 <ul>
-<li>The <code v-pre>@workleap/telemetry</code> package is a new peer dependency of the <code v-pre>@workleap/logrocket</code> package.</li>
 <li>The <code v-pre>logrocket</code> package is a new peer dependency of the <code v-pre>@workleap/logrocket</code> package.</li>
 </ul>
 <doc-anchor-target id="changes-to-registerlogrocketinstrumentation">
@@ -480,7 +479,6 @@ registerLogRocketInstrumentation(appId);</code></pre>
     </h3>
 </doc-anchor-target>
 <ul>
-<li>Add the <code v-pre>@workleap/telemetry</code> dependency to the host application.</li>
 <li>Add the <code v-pre>logrocket</code> dependency to the host application.</li>
 </ul>
 <doc-anchor-target id="improvements">
@@ -522,7 +520,6 @@ registerLogRocketInstrumentation(appId);</code></pre>
 </doc-anchor-target>
 <p>Follow these steps to migrate an existing application <code v-pre>@workleap-tracking/logrocket</code> to <code v-pre>@workleap/logrocket</code>:</p>
 <ul>
-<li>Add a dependency to <code v-pre>@workleap/telemetry</code>.</li>
 <li>Rename <code v-pre>registerAnonymousLogRocketInstrumentation</code> to <a href="../../reference/registerlogrocketinstrumentation/">registerLogRocketInstrumentation</a>.</li>
 <li>Remove all usage of <code v-pre>getTrackingIdentifier</code>. The new <a href="../../reference/registerlogrocketinstrumentation/">registerLogRocketInstrumentation</a> function automatically sets the tracking identifier as a correlation id under the <code v-pre>Device Id</code> name.</li>
 <li>Remove the <code v-pre>trackingIdentifier</code> and <code v-pre>identifyOptions</code> options. To identify a user, use <a href="../../reference/createdefaultusertraits/">createDefaultUserTraits</a> in combination to <a href="https://docs.logrocket.com/reference/identify" class="outbound" target="_blank">LogRocket.identify</a>. <a href="../../getting-started/#identify-a-user">View example</a></li>

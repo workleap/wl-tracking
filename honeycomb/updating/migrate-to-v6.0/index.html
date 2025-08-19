@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.807978235389">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.808881690572">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,11 +34,11 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../../static/favicon.png" rel="icon">
-    <link href="../../../resources/css/retype.css?v=3.11.0.807978235389" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.11.0.808881690572" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.807978235389" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.808881690572" data-turbo-eval="false" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -340,15 +340,6 @@
     </h1>
 </doc-anchor-target>
 <p>This new version introduces two correlation ids, <code v-pre>telemetryId</code> and <code v-pre>deviceId</code>, to help unify and correlate data across <a href="https://logrocket.com/" class="outbound" target="_blank">LogRocket</a>, <a href="https://www.honeycomb.io/" class="outbound" target="_blank">Honeycomb</a> and <a href="https://mixpanel.com/" class="outbound" target="_blank">Mixpanel</a> and a new automatic enrichment of the traces with the LogRocket session url if the <a href="../../../logrocket/getting-started/">LogRocket instrumentation</a> is registered.</p>
-<doc-anchor-target id="breaking-changes">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#breaking-changes">#</doc-anchor-trigger>
-        <span>Breaking changes</span>
-    </h2>
-</doc-anchor-target>
-<ul>
-<li>The <code v-pre>@workleap/telemetry</code> package is a new peer dependency of the <code v-pre>@workleap/logrocket</code> package.</li>
-</ul>
 <doc-anchor-target id="improvements">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#improvements">#</doc-anchor-trigger>
@@ -380,16 +371,6 @@
 </figure>
 </p>
 </div>
-<doc-anchor-target id="migrate-from-v50">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#migrate-from-v50">#</doc-anchor-trigger>
-        <span>Migrate from <code v-pre>v5.0</code></span>
-    </h2>
-</doc-anchor-target>
-<p>Follow these steps to migrate an existing application <code v-pre>v5.0</code> to <code v-pre>v6.0</code>:</p>
-<ul>
-<li>Add a dependency to <code v-pre>@workleap/telemetry</code>.</li>
-</ul>
 
                                 
                                 <!-- Required only on API pages -->
