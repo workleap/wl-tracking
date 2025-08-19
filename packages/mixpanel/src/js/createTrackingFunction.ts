@@ -79,7 +79,7 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
             });
         } catch (error: unknown) {
             logger
-                .withText(`[mixpanel] An error occured while sending a tracking event to "${endpoint}":`)
+                .withText(`[mixpanel] An error occurred while sending a tracking event to "${endpoint}":`)
                 .withError(error as Error)
                 .error();
         }
