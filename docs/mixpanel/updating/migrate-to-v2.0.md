@@ -13,7 +13,6 @@ To support these new automations, a new [initializeMixpanel](../reference/initia
 
 ## Breaking changes
 
-- The `@workleap/telemetry` package is a new peer dependency of the `@workleap/mixpanel` package.
 - The [initializeMixpanel](../reference/initializeMixpanel.md) function must be executed during the bootstrapping of the application and must be called prior to the [useTrackingFunction](../reference/useTrackingFunction.md) hook or [createTrackingFunction](../reference/createTrackingFunction.md).
 - The [createTrackingFunction](../reference/createTrackingFunction.md) signature do not include the `productId` and `env` arguments anymore.
 
@@ -95,7 +94,6 @@ setSuperProperties({
 
 Follow these steps to migrate an existing application `v1.0` to `v2.0`:
 
-- Add a dependency to `@workleap/telemetry`.
 - Add the [initializeMixpanel](../reference/initializeMixpanel.md) function to the bootstrapping code of the application.
 - Remove the `productId` and `env` arguments from [createTrackingFunction](../reference/createTrackingFunction.md).
 - If the host application is in React, consider replacing [createTrackingFunction](../reference/createTrackingFunction.md) by the [useTrackingFunction](../reference/useTrackingFunction.md) hook.

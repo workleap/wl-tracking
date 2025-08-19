@@ -8,3 +8,4 @@ meta:
 
 - [registerLogRocketInstrumentation](./registerLogRocketInstrumentation.md)
 - [createDefaultUserTraits](./createDefaultUserTraits.md)
+- [LogRocketLogger](./LogRocketLogger.md)

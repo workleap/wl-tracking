@@ -13,22 +13,21 @@ While Honeycomb's in-house [HoneycombWebSDK](https://docs.honeycomb.io/send-data
 First, open a terminal at the root of the application and install the following packages:
 
 ```bash
-pnpm add @workleap/telemetry @workleap/honeycomb @opentelemetry/api
+pnpm add @workleap/honeycomb @opentelemetry/api
 ```
 
 ## Register instrumentation
 
 Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](./reference/registerHoneycombInstrumentation.md) function:
 
-```tsx !#6-9 index.tsx
+```tsx !#6-8 index.tsx
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
-    proxy: "https://sample-proxy",
-    verbose: true
+    proxy: "https://sample-proxy"
 });
 
 const root = createRoot(document.getElementById("root")!);

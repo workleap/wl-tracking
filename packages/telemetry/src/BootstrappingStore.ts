@@ -1,3 +1,7 @@
+import type { Logger } from "@workleap/logging";
+
+export const BootstrappingStoreVariableName = "__WLP_TELEMETRY_BOOTSTRAPPING_STORE__";
+
 export interface BootstrappingState {
     isLogRocketReady: boolean;
     isHoneycombReady: boolean;
@@ -15,10 +19,12 @@ export type BootstrappingStoreListenerFunction = (action: BootstrappingAction, s
 export class BootstrappingStore {
     #state: BootstrappingState;
 
+    readonly #logger: Logger;
     readonly #listeners = new Set<BootstrappingStoreListenerFunction>();
 
-    constructor(initialialState: BootstrappingState) {
+    constructor(initialialState: BootstrappingState, logger: Logger) {
         this.#state = initialialState;
+        this.#logger = logger;
     }
 
     subscribe(listener: BootstrappingStoreListenerFunction) {
@@ -34,7 +40,14 @@ export class BootstrappingStore {
     }
 
     dispatch(action: BootstrappingAction) {
+        this.#logger.debug(`[telemetry] The "${action.type.toString()}" action has been dispatched to the bootstrapping store.`);
+
         const newState = this.#reducer({ ...this.#state }, action);
+
+        this.#logger
+            .withText("[telemetry] The bootstrapping state has been updated to:")
+            .withObject(newState)
+            .debug();
 
         this.#state = newState;
 
@@ -76,27 +89,44 @@ export class BootstrappingStore {
     }
 }
 
-let bootstrappingStore: BootstrappingStore | undefined;
-
 // This function should only be used by tests.
 export function __setBootstrappingStore(store: BootstrappingStore) {
-    bootstrappingStore = store;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[BootstrappingStoreVariableName] = store;
 }
 
 // This function should only be used by tests.
 export function __clearBootstrappingStore() {
-    bootstrappingStore = undefined;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[BootstrappingStoreVariableName] = undefined;
 }
 
 export function getBootstrappingStore() {
-    if (!bootstrappingStore) {
-        bootstrappingStore = new BootstrappingStore({
+    // Saving the bootstrapping store on "globalThis" rather than an in-memory var to allow multiple
+    // instances of this library. This allows the telemetry libraries to set "@workleap/telemetry"
+    // as dependency rather than a peer dependency.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return globalThis[BootstrappingStoreVariableName] as BootstrappingStore | undefined;
+}
+
+export function createBootstrappingStore(logger: Logger) {
+    let store = getBootstrappingStore();
+
+    if (!store) {
+        const initialialState = {
             isLogRocketReady: false,
             isHoneycombReady: false
-        });
+        } satisfies BootstrappingState;
+
+        store = new BootstrappingStore(initialialState, logger);
+
+        __setBootstrappingStore(store);
     }
 
-    return bootstrappingStore;
+    return store;
 }
 
 

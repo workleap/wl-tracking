@@ -30,7 +30,7 @@ This integrated experience brings together LogRocket, Honeycomb, and Mixpanel. B
 First, open a terminal at the root of the application and install the telemetry libraries packages:
 
 ```bash
-pnpm add @workleap/telemetry @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemetry/api logrocket
+pnpm add @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemetry/api logrocket
 ```
 
 Then, update the application bootstrapping code to initialize the libraries:

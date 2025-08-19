@@ -1,4 +1,5 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
+import { NoopLogger } from "@workleap/logging";
 import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
@@ -158,7 +159,7 @@ test("when logrocket is ready, register a listener for logrocket get session url
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: true,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 
@@ -186,7 +187,7 @@ test("when logrocket is not ready, register a listener for logrocket get session
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: false,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 
@@ -218,7 +219,7 @@ test("honeycomb is marked as ready", ({ expect }) => {
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: false,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 

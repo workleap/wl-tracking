@@ -1,3 +1,4 @@
+import { createCompositeLogger, type RootLogger } from "@workleap/logging";
 import { setCommonRoomContext } from "./context.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 
@@ -10,9 +11,11 @@ export function __resetRegistrationGuard() {
 
 function loadSignals(siteId: string) {
     return new Promise<void>((resolve, reject) => {
+        const url = `https://cdn.cr-relay.com/v1/site/${siteId}/signals.js`;
+
         // Do not load the script as a "module" because it will mess with CORS.
         const script = document.createElement("script");
-        script.src = `https://cdn.cr-relay.com/v1/site/${siteId}/signals.js`;
+        script.src = url;
         script.async = true;
 
         script.onload = () => {
@@ -20,7 +23,7 @@ function loadSignals(siteId: string) {
         };
 
         script.onerror = () => {
-            reject();
+            reject(`Failed to load Common Room script at "${url}".`);
         };
 
         // Must append the element after setting the event handlers for unit tests.
@@ -30,28 +33,43 @@ function loadSignals(siteId: string) {
 
 export type ReadyFunction = () => void;
 
+/**
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export interface RegisterCommonRoomInstrumentationOptions {
+    /**
+     * Whether or not debug information should be logged to the console.
+     */
     verbose?: boolean;
+    /**
+     * An array of RootLogger instances.
+     */
+    loggers?: RootLogger[];
 }
 
+/**
+ * Register instrumentation for the Common Room platform.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export function registerCommonRoomInstrumentation(siteId: string, options: RegisterCommonRoomInstrumentationOptions = {}) {
     const {
-        verbose = false
+        verbose = false,
+        loggers = []
     } = options;
 
     registrationGuard.throw("[common-room] The Common Room instrumentation has already been registered. Did you call the \"registerCommonRoomInstrumentation\" function twice?");
 
+    const logger = createCompositeLogger(verbose, loggers);
+
     setCommonRoomContext({
-        verbose
+        logger
     });
 
     loadSignals(siteId)
         .then(() => {
-            if (verbose) {
-                console.log("[common-room] Common Room instrumentation is registered.");
-            }
+            logger.debug("[common-room] Common Room instrumentation is registered.");
         })
-        .catch(() => {
-            console.error("[common-room] Failed to load signals script.");
+        .catch((reason: string) => {
+            logger.error(`[common-room] ${reason}`);
         });
 }

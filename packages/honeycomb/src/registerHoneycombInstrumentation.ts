@@ -5,7 +5,8 @@ import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-
 import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instrumentation-user-interaction";
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
-import { getBootstrappingStore, getTelemetryContext } from "@workleap/telemetry";
+import { createCompositeLogger, type Logger, type RootLogger } from "@workleap/logging";
+import { createBootstrappingStore, createTelemetryContext } from "@workleap/telemetry";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { getGlobalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
@@ -23,22 +24,22 @@ export const TelemetryIdAttributeName = "app.telemetry_id";
 export const DeviceIdAttributeName = "app.device_id";
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type DefineXmlHttpRequestInstrumentationOptionsFunction = (defaultOptions: XMLHttpRequestInstrumentationConfig) => XMLHttpRequestInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type DefineDocumentLoadInstrumentationOptionsFunction = (defaultOptions: DocumentLoadInstrumentationConfig) => DocumentLoadInstrumentationConfig;
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type DefineUserInteractionInstrumentationOptionsFunction = (defaultOptions: UserInteractionInstrumentationConfig) => UserInteractionInstrumentationConfig;
 
@@ -71,12 +72,13 @@ function createHoneycombSdk(options: HoneycombOptions) {
 }
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface RegisterHoneycombInstrumentationOptions {
     proxy?: string;
     apiKey?: HoneycombSdkOptions["apiKey"];
     verbose?: boolean;
+    loggers?: RootLogger[];
     instrumentations?: HoneycombSdkInstrumentations;
     spanProcessors?: SpanProcessor[];
     fetchInstrumentation?: false | DefineFetchInstrumentationOptionsFunction;
@@ -91,6 +93,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
         proxy,
         apiKey,
         verbose = false,
+        loggers = [],
         instrumentations = [],
         spanProcessors = [],
         fetchInstrumentation = defaultDefineFetchInstrumentationOptions,
@@ -103,6 +106,8 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     if (!proxy && !apiKey) {
         throw new Error("[honeycomb] Instrumentation must be initialized with either a \"proxy\" or \"apiKey\" option.");
     }
+
+    const logger = createCompositeLogger(verbose, loggers);
 
     const instrumentationOptions = {
         ignoreNetworkEvents: true,
@@ -162,11 +167,12 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     } satisfies HoneycombSdkOptions;
 
     return applyTransformers(sdkOptions, transformers, {
-        verbose
+        verbose,
+        logger
     });
 }
 
-function registerLogRocketSessionUrlListener(verbose = false) {
+function registerLogRocketSessionUrlListener(logger: Logger) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__) {
@@ -174,14 +180,15 @@ function registerLogRocketSessionUrlListener(verbose = false) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__((sessionUrl: string) => {
-            if (verbose) {
-                console.log("[honeycomb] Received LogRocket session replay URL:", sessionUrl);
-            }
+            logger
+                .withText("[honeycomb] Received LogRocket session replay URL:")
+                .withText(sessionUrl)
+                .debug();
 
             setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
         });
-    } else if (verbose) {
-        console.log("[honeycomb] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
+    } else {
+        logger.debug("[honeycomb] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
     }
 }
 
@@ -193,15 +200,18 @@ export function __resetRegistrationGuard() {
 }
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
     const {
         proxy,
-        verbose
+        verbose = false,
+        loggers = []
     } = options;
 
     registrationGuard.throw("[honeycomb] The Honeycomb instrumentation has already been registered. Did you call the \"registerHoneycombInstrumentation\" function twice?");
+
+    const logger = createCompositeLogger(verbose, loggers);
 
     if (proxy) {
         patchXmlHttpRequest(proxy);
@@ -215,23 +225,23 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // This is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute(ServiceNamespaceAttributeName, namespace);
 
-    const telemetryContext = getTelemetryContext({ verbose });
+    const telemetryContext = createTelemetryContext(logger);
 
     // Add correlation ids to traces as attributes.
     setGlobalSpanAttribute(TelemetryIdAttributeName, telemetryContext.telemetryId);
     setGlobalSpanAttribute(DeviceIdAttributeName, telemetryContext.deviceId);
 
-    const bootstrappingStore = getBootstrappingStore();
+    const bootstrappingStore = createBootstrappingStore(logger);
 
     // If LogRocket is already available, register the listener. Otherwise, subscribe to the bootstrapping store
     // and register the listener once a notification is received that LogRocket is registered.
     if (bootstrappingStore.state.isLogRocketReady) {
-        registerLogRocketSessionUrlListener(verbose);
+        registerLogRocketSessionUrlListener(logger);
     } else {
         bootstrappingStore.subscribe((action, store, unsubscribe) => {
             if (store.state.isLogRocketReady) {
                 unsubscribe();
-                registerLogRocketSessionUrlListener(verbose);
+                registerLogRocketSessionUrlListener(logger);
             }
         });
     }
@@ -268,7 +278,5 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // Let the other telemetry libraries know that Honeycomb instrumentation is ready.
     bootstrappingStore.dispatch({ type: "honeycomb-ready" });
 
-    if (verbose) {
-        console.log("[honeycomb] Honeycomb instrumentation is registered.");
-    }
+    logger.debug("[honeycomb] Honeycomb instrumentation is registered.");
 }

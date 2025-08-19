@@ -1,3 +1,4 @@
+import { NoopLogger } from "@workleap/logging";
 import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import LogRocket from "logrocket";
@@ -62,7 +63,7 @@ test("logrocket is marked as ready", ({ expect }) => {
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: false,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 

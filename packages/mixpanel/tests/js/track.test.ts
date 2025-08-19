@@ -1,3 +1,4 @@
+import { NoopLogger } from "@workleap/logging";
 import { BootstrappingStore, TelemetryContext } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore, __setTelemetryContext } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
@@ -58,7 +59,7 @@ test("the LogRocket session url is sent", async ({ expect }) => {
     const bootstrappingStore = new BootstrappingStore({
         isLogRocketReady: true,
         isHoneycombReady: false
-    });
+    }, new NoopLogger());
 
     __setBootstrappingStore(bootstrappingStore);
 
@@ -104,6 +105,7 @@ test("when the keep alive option is provided, the fetch options include the \"ke
     await track("keepaliveEvent", {}, { keepAlive: true });
 
     const [, init] = fetchMock.mock.calls[0];
+
     expect(init.keepalive).toBe(true);
 });
 
@@ -118,6 +120,7 @@ test("when a target product id is provided, the request body include the provide
 
     const [, init] = fetchMock.mock.calls[0];
     const body = JSON.parse(init.body);
+
     expect(body.targetProductIdentifier).toBe("target-app");
 });
 
@@ -146,7 +149,7 @@ test("when a base URL is provided, the endpoint include the provided base URL", 
     expect(url).toBe("http://api/navigation/tracking/track");
 });
 
-test("when a base URL is provided ending with a slash is provided, the ending slash is escaped", async ({ expect }) => {
+test("when the provided base URL end with a slash is provided, the ending slash is escaped", async ({ expect }) => {
     initializeMixpanel("wlp", "http://api/navigation/");
 
     const track = createTrackingFunction();
@@ -157,7 +160,7 @@ test("when a base URL is provided ending with a slash is provided, the ending sl
     expect(url).toBe("http://api/navigation/tracking/track");
 });
 
-test("when an env is provided, the env is transformed to the matching endpoint URL", async ({ expect }) => {
+test("when an environment is provided, the resolved endpoint URL match the provided environment", async ({ expect }) => {
     initializeMixpanel("wlp", "development");
 
     const track = createTrackingFunction();
@@ -165,10 +168,11 @@ test("when an env is provided, the env is transformed to the matching endpoint U
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
+
     expect(url).toBe("https://api.platform.workleap-dev.com/shell/navigation/tracking/track");
 });
 
-test("when a custom tracking endpoint is provided, use the custom endpoint", async ({ expect }) => {
+test("when a custom tracking endpoint is provided, use the provided custom endpoint", async ({ expect }) => {
     initializeMixpanel("wlp", "http://api/navigation", {
         trackingEndpoint: "custom/tracking/endpoint"
     });
@@ -178,10 +182,11 @@ test("when a custom tracking endpoint is provided, use the custom endpoint", asy
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
+
     expect(url).toBe("http://api/navigation/custom/tracking/endpoint");
 });
 
-test("when a custom tracking endpoint starts with slash, remove the leading slash", async ({ expect }) => {
+test("when a custom tracking endpoint starts with slash, remove the leading slash from the provided custom tracking endpoint", async ({ expect }) => {
     initializeMixpanel("wlp", "http://api/navigation", {
         trackingEndpoint: "/custom/endpoint"
     });
@@ -191,10 +196,11 @@ test("when a custom tracking endpoint starts with slash, remove the leading slas
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
+
     expect(url).toBe("http://api/navigation/custom/endpoint");
 });
 
-test("when no tracking endpoint is provided, use the default tracking/track endpoint", async ({ expect }) => {
+test("when no tracking endpoint is provided, use the default \"tracking/track\" endpoint", async ({ expect }) => {
     initializeMixpanel("wlp", "http://api/navigation");
 
     const track = createTrackingFunction();
@@ -205,7 +211,7 @@ test("when no tracking endpoint is provided, use the default tracking/track endp
     expect(url).toBe("http://api/navigation/tracking/track");
 });
 
-test("when a custom tracking endpoint is provided with env, use the custom endpoint", async ({ expect }) => {
+test("when a custom tracking endpoint is provided with an environment, use the provided custom endpoint", async ({ expect }) => {
     initializeMixpanel("wlp", "development", {
         trackingEndpoint: "/custom/endpoint"
     });
@@ -215,10 +221,11 @@ test("when a custom tracking endpoint is provided with env, use the custom endpo
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
+
     expect(url).toBe("https://api.platform.workleap-dev.com/shell/navigation/custom/endpoint");
 });
 
-test("when a custom tracking endpoint starts with slash and env is used, remove the leading slash", async ({ expect }) => {
+test("when a custom tracking endpoint starts with slash and an environment is provided, remove the custom tracking endpoint leading slash", async ({ expect }) => {
     initializeMixpanel("wlp", "staging", {
         trackingEndpoint: "/custom/endpoint"
     });
@@ -228,6 +235,7 @@ test("when a custom tracking endpoint starts with slash and env is used, remove 
     await track("event", {});
 
     const [url] = fetchMock.mock.calls[0];
+
     expect(url).toBe("https://api.platform.workleap-stg.com/shell/navigation/custom/endpoint");
 });
 

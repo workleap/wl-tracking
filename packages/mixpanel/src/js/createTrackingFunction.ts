@@ -2,7 +2,7 @@ import { getMixpanelContext } from "./context.ts";
 import { getBaseProperties, type MixpanelEventProperties } from "./properties.ts";
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface CreateTrackingFunctionOptions {
     /**
@@ -12,7 +12,7 @@ export interface CreateTrackingFunctionOptions {
 }
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface TrackingFunctionOptions {
     /**
@@ -33,10 +33,13 @@ export interface TrackingFunctionOptions {
  * @param eventName The name of the event to track.
  * @param properties The properties to send with the event.
  * @param options Options for tracking the event.
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type TrackingFunction = (eventName: string, properties: MixpanelEventProperties, options?: TrackingFunctionOptions) => Promise<void>;
 
+/**
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export function createTrackingFunction(options: CreateTrackingFunctionOptions = {}) {
     const {
         targetProductId
@@ -45,7 +48,8 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
     const {
         productId,
         endpoint,
-        superProperties
+        superProperties,
+        logger
     } = getMixpanelContext();
 
     const trackFunction: TrackingFunction = async (eventName, properties, _options = {}) => {
@@ -76,9 +80,11 @@ export function createTrackingFunction(options: CreateTrackingFunctionOptions = 
                     properties: allProperties
                 })
             });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error: unknown) {
-            // Do nothing...
+            logger
+                .withText(`[mixpanel] An error occurred while sending a tracking event to "${endpoint}":`)
+                .withError(error as Error)
+                .error();
         }
     };
 

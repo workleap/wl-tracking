@@ -11,75 +11,103 @@ toc:
 
 ## Log relevant debugging information
 
-It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
+It’s recommended to **log** as much **relevant information** as possible into the LogRocket session replay console. This is typically done using the [LogRocketLogger](./reference/LogRocketLogger.md) class or directly through the [LogRocket SDK](https://docs.logrocket.com/reference/console).
 
-This applies not only to instrumentation, but also to **any frontend code or libraries in use**.
+At minimum, make sure to provide a `LogRocketLogger` instance to Workleap's libraries accepting a `loggers` option.
 
 Here are some examples :point_down:
 
 !!!warning
 Never log any **Personally Identifiable Information (PII)**.
 
-API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all `console.log` statements that output API response before deploying to production, as these can expose private information in browser console logs that will be included in session replays.
+API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all logs outputting API response before deploying to production, as these can expose private information that will be included in session replays.
 !!!
 
-### LogRocket verbose mode
+### LogRocket
 
-Register LogRocket instrumentation with [verbose mode](./reference/registerLogRocketInstrumentation.md#verbose):
+Register LogRocket instrumentation with [verbose mode](./reference/registerLogRocketInstrumentation.md#verbose) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#4
-import { registerLogRocketInstrumentation } from "@workleap/logrocket";
+```ts !#5-6
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
 
-registerLogRocketInstrumentation("my-app-id", createTelemetryContext, {
-    verbose: true
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```
 
 ### Honeycomb verbose mode
 
-Register Honeycomb instrumentation with [verbose mode](../honeycomb/reference/registerHoneycombInstrumentation.md#verbose):
+Register Honeycomb instrumentation with [verbose mode](../honeycomb/reference/registerHoneycombInstrumentation.md#verbose) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#5
+```ts !#7-8
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy",
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```
 
 ### Mixpanel verbose mode
 
-Initialize Mixpanel with [verbose mode](../mixpanel/reference/initializeMixpanel.md#verbose-mode):
+Initialize Mixpanel with [verbose mode](../mixpanel/reference/initializeMixpanel.md#verbose-mode) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#4
+```ts !#6-7
 import { initializeMixpanel } from "@workleap/mixpanel";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
 
 initializeMixpanel("wlp", "development", {
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+});
+```
+
+### Common Room
+
+Initialize Mixpanel with [verbose mode](../mixpanel/reference/initializeMixpanel.md#verbose-mode) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
+
+```ts !#6-7
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
+
+registerCommonRoomInstrumentation("my-site-id", {
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```
 
 ### Squide firefly console logger
 
-Initialize Squide firefly with a [Console Logger](https://workleap.github.io/wl-squide/reference/registration/initializefirefly/#register-a-logger):
+Initialize Squide firefly with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#4
-import { ConsoleLogger, initializeFirefly } from "@squide/firefly";
+```ts !#6
+import { initializeFirefly } from "@squide/firefly";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
 
 const runtime = initializeFirefly({
-    loggers: [x => new ConsoleLogger(x)]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```
 
 ### Platform widgets verbose mode
 
-Initialize platform widgets with verbose mode:
+Initialize platform widgets with verbose mode activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#4
+```ts !#6-7
 import { initializeWidgets } from "@workleap-widgets/client/react";
+import { LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
 
 const widgetsRuntime = initializeWidgets("wlp", "development" , {
-    verbose: true
+    verbose: true,
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
 });
 ```

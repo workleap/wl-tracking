@@ -18,19 +18,17 @@ This package add basic Mixpanel tracking capabilities to an application. It prov
 First, open a terminal at the root of the application and install the following packages:
 
 ```bash
-pnpm add @workleap/telemetry @workleap/mixpanel
+pnpm @workleap/mixpanel
 ```
 
 ## Initialize Mixpanel
 
 Then, initialize Mixpanel using the [initializeMixpanel](./reference/initializeMixpanel.md) function:
 
-```ts
+```ts !#3
 import { initializeMixpanel } from "@workleap/mixpanel";
 
-initializeMixpanel("wlp", "development", {
-    verbose: true
-});
+initializeMixpanel("wlp", "development");
 ```
 
 !!!tip
@@ -43,7 +41,7 @@ This applies not only to Mixpanel, but also to **any frontend code or libraries 
 
 Then create a `track` function using the [useTrackingFunction](./reference//) hook if the host application is in React:
 
-```ts
+```ts !#3
 import { useTrackingFunction } from "@workleap/mixpanel/react";
 
 const track = useTrackingFunction();
@@ -53,7 +51,7 @@ track("ButtonClicked", { "Trigger": "ChangePlan", "Location": "Header" });
 
 Otherwise use the `createTrackingFunction` directly:
 
-```ts
+```ts !#3
 import { createTrackingFunction } from "@workleap/mixpanel";
 
 const track = createTrackingFunction();
@@ -93,7 +91,7 @@ Most applications need to set custom properties on events about the current user
 
 Update your application code to include the `setSuperProperties` function:
 
-```ts
+```ts !#3-5
 import { setSuperProperties } from "@workleap/mixpanel";
 
 setSuperProperties({

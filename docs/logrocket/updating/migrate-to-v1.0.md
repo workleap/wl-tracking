@@ -28,7 +28,6 @@ Follow this guide to migrate from `@workleap-tracking/logrocket` :point_down:
 
 ### Others
 
-- The `@workleap/telemetry` package is a new peer dependency of the `@workleap/logrocket` package.
 - The `logrocket` package is a new peer dependency of the `@workleap/logrocket` package.
 
 ### Changes to `registerLogRocketInstrumentation`
@@ -126,7 +125,6 @@ registerLogRocketInstrumentation(appId);
 
 ### Add new dependencies
 
-- Add the `@workleap/telemetry` dependency to the host application.
 - Add the `logrocket` dependency to the host application.
 
 ## Improvements
@@ -152,7 +150,6 @@ For example, with the Honeycomb integration, once the LogRocket session URL is r
 
 Follow these steps to migrate an existing application `@workleap-tracking/logrocket` to `@workleap/logrocket`:
 
-- Add a dependency to `@workleap/telemetry`.
 - Rename `registerAnonymousLogRocketInstrumentation` to [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md).
 - Remove all usage of `getTrackingIdentifier`. The new [registerLogRocketInstrumentation](../reference/registerLogRocketInstrumentation.md) function automatically sets the tracking identifier as a correlation id under the `Device Id` name.
 - Remove the `trackingIdentifier` and `identifyOptions` options. To identify a user, use [createDefaultUserTraits](../reference/createDefaultUserTraits.md) in combination to [LogRocket.identify](https://docs.logrocket.com/reference/identify). [View example](../getting-started.md#identify-a-user)

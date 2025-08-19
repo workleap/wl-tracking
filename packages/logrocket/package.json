@@ -35,10 +35,11 @@
         "test": "vitest --config vitest.config.ts --no-watch"
     },
     "peerDependencies": {
-        "@workleap/telemetry": "workspace:*",
         "logrocket": "^10.1.0"
     },
     "dependencies": {
+        "@workleap/logging": "^1.0.2",
+        "@workleap/telemetry": "workspace:*",
         "logrocket-fuzzy-search-sanitizer": "0.0.2"
     },
     "devDependencies": {

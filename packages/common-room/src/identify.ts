@@ -1,23 +1,27 @@
 import { getCommonRoomContext } from "./context.ts";
 
+/**
+ * Identify a user for the Common Room platform.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export function identify(email: string) {
+    const {
+        logger
+    } = getCommonRoomContext();
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (!globalThis.signals) {
-        console.error("[common-room] Cannot identify user because the signals scripts is not loaded. Did you initialize signals with the \"registerCommonRoomInstrumentation\" function?");
+    const signals = globalThis.signals;
+
+    if (!signals) {
+        logger.error("[common-room] Cannot identify user because the signals scripts is not loaded. Did you initialize signals with the \"registerCommonRoomInstrumentation\" function?");
 
         return;
     }
 
-    const context = getCommonRoomContext();
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    globalThis.signals.identify({
+    signals.identify({
         email
     });
 
-    if (context.verbose) {
-        console.log("[common-room] User has been identified.");
-    }
+    logger.debug("[common-room] User has been identified.");
 }

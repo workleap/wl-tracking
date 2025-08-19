@@ -1,12 +1,13 @@
+import type { Logger } from "@workleap/logging";
 import type { SuperProperties } from "./properties.ts";
 
-export const ContextVariableName = "__WLP_MIXPANEL_CONTEXT__";
+export const MixpanelContextVariableName = "__WLP_MIXPANEL_CONTEXT__";
 
 export interface MixpanelContext {
     productId: string;
     endpoint: string;
     superProperties: SuperProperties;
-    verbose: boolean;
+    logger: Logger;
 }
 
 export function setMixpanelContext(context: MixpanelContext) {
@@ -16,13 +17,13 @@ export function setMixpanelContext(context: MixpanelContext) {
     // of this package than the host application.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis[ContextVariableName] = context;
+    globalThis[MixpanelContextVariableName] = context;
 }
 
 export function getMixpanelContext() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const context = globalThis[ContextVariableName] as MixpanelContext;
+    const context = globalThis[MixpanelContextVariableName] as MixpanelContext;
 
     if (!context) {
         throw new Error("[mixpanel] The Mixpanel context is not available. Did you initialize Mixpanel with the \"initializeMixpanel\" function?");

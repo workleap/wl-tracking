@@ -1,3 +1,3 @@
-export { BootstrappingStore, getBootstrappingStore, type BootstrappingAction, type BootstrappingActionType, type BootstrappingState, type BootstrappingStoreListenerFunction } from "./BootstrappingStore.ts";
-export { getTelemetryContext, TelemetryContext, type CreateTelemetryContextOptions, type GetTelemetryContextOptions } from "./TelemetryContext.ts";
+export { BootstrappingStore, createBootstrappingStore, getBootstrappingStore, type BootstrappingAction, type BootstrappingActionType, type BootstrappingState, type BootstrappingStoreListenerFunction } from "./BootstrappingStore.ts";
+export { createTelemetryContext, getTelemetryContext, TelemetryContext, type CreateTelemetryContextOptions } from "./TelemetryContext.ts";
 

@@ -18,22 +18,20 @@ This package provides default LogRocket instrumentation tailored to Workleap's a
 First, open a terminal at the root of the application and install the following packages:
 
 ```bash
-pnpm add @workleap/telemetry @workleap/logrocket logrocket
+pnpm add @workleap/logrocket logrocket
 ```
 
 ## Register instrumentation
 
 Then, register LogRocket instrumentation using the [registerLogRocketInstrumentation](./reference/registerLogRocketInstrumentation.md) function:
 
-```tsx !#6-8 index.tsx
+```tsx !#6 index.tsx
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("my-app-id", {
-    verbose: true
-});
+registerLogRocketInstrumentation("my-app-id");
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -116,7 +114,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("my-app-id", telemetryContext);
+registerLogRocketInstrumentation("my-app-id");
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -147,13 +145,45 @@ LogRocket.identify(traits.userId, traits);
 
 Every session replay is associated with a unique URL. To register a callback receiving the session replay once it's available, use the [LogRocket.getSessionURL](https://docs.logrocket.com/reference/get-session-url) function: 
 
-```ts
+```ts index.tsx
 import LogRocket from "logrocket";
 
 LogRocket.getSessionUrl(url => {
     console.log(url);
 });
 ```
+
+## Capture debug logs
+
+By default, Workleap's LogRocket configuration does not capture console logs. To send loggers output to LogRocket, use the [LogRocketLogger](./reference/LogRocketLogger.md) class.
+
+```tsx !#8 index.tsx
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger } from "@workleap/logging";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
+
+registerLogRocketInstrumentation("my-app-id", {
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+});
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
+
+!!!info
+Console logs are not captured by default to reduce the risk of exposing Personally Identifiable Information (PII) in LogRocket session replays.
+!!!
+
+!!!tip
+To enable additional debug output from the LogRocket SDK _in the browser console_, set the [verbose](./reference/registerLogRocketInstrumentation.md#verbose) option to `true`.
+!!!
 
 ## Try it :rocket:
 
