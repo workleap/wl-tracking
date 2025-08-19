@@ -6,7 +6,7 @@ import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperProperties, setSuperProperty } from "./properties.ts";
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface InitializeMixpanelOptions {
     /**
@@ -56,7 +56,7 @@ export function __resetInitializationGuard() {
  * @param envOrTrackingApiBaseUrl The environment to get the navigation url from or a base URL.
  * @param options Options for creating the tracking function.
  * @returns A function that sends tracking events to the tracking API.
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {

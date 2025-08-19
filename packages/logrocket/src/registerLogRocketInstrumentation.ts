@@ -34,15 +34,32 @@ const DefaultPrivateQueryParameterNames = [
 ];
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface RegisterLogRocketInstrumentationOptions {
-    // Set to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
+    /**
+     * A root hostname to track sessions across subdomains. Set this option to capture traffic from all subdomains under one session: https://docs.logrocket.com/reference/roothostname.
+     */
     rootHostname?: LogRocketSdkOptions["rootHostname"];
+    /**
+     * Names of additional fields to exclude from session replays. These fields will be removed from network requests, responses using a fuzzy-matching algorithm.
+     */
     privateFieldNames?: string[];
+    /**
+     * Names of additional fields to exclude from session replays. These fields will be removed from query parameters using a fuzzy-matching algorithm.
+     */
     privateQueryParameterNames?: string[];
+    /**
+     * Indicates whether or not debug information should be logged to the console.
+     */
     verbose?: boolean;
+    /**
+     * The logger instances that will output messages.
+     */
     loggers?: RootLogger[];
+    /**
+     * Hooks to transform the resulting LogRocket SDK options.
+     */
     transformers?: LogRocketSdkOptionsTransformer[];
 }
 
@@ -101,7 +118,7 @@ export function __resetRegistrationGuard() {
 }
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export function registerLogRocketInstrumentation(appId: string, options: RegisterLogRocketInstrumentationOptions = {}) {
     const {

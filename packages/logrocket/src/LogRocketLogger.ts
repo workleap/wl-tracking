@@ -18,6 +18,10 @@ function parseSegments(segments: Segment[]) {
     }, []);
 }
 
+/**
+ * An implementation of the LoggerScope interface for LogRocket.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export class LogRocketLoggerScope implements LoggerScope {
     readonly #logLevel: LogLevel;
     readonly #label: string;
@@ -154,6 +158,10 @@ export class LogRocketLoggerScope implements LoggerScope {
     }
 }
 
+/**
+ * An implementation of the RootLogger interface for LogRocket.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export class LogRocketLogger implements Logger {
     readonly #logLevel: LogLevel;
     #segments: Segment[] = [];

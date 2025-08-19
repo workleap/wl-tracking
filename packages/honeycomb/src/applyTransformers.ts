@@ -2,7 +2,7 @@ import type { Logger } from "@workleap/logging";
 import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export interface HoneycombSdkOptionsTransformerContext {
     verbose: boolean;
@@ -10,7 +10,7 @@ export interface HoneycombSdkOptionsTransformerContext {
 }
 
 /**
- * @see https://workleap.github.io/wl-telemetry
+ * @see {@link https://workleap.github.io/wl-telemetry}
  */
 export type HoneycombSdkOptionsTransformer = (options: HoneycombSdkOptions, context: HoneycombSdkOptionsTransformerContext) => HoneycombSdkOptions;
 

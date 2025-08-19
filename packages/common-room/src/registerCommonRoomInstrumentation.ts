@@ -33,11 +33,24 @@ function loadSignals(siteId: string) {
 
 export type ReadyFunction = () => void;
 
+/**
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export interface RegisterCommonRoomInstrumentationOptions {
+    /**
+     * Whether or not debug information should be logged to the console.
+     */
     verbose?: boolean;
+    /**
+     * An array of RootLogger instances.
+     */
     loggers?: RootLogger[];
 }
 
+/**
+ * Register instrumentation for the Common Room platform.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export function registerCommonRoomInstrumentation(siteId: string, options: RegisterCommonRoomInstrumentationOptions = {}) {
     const {
         verbose = false,

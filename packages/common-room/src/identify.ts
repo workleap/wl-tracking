@@ -1,5 +1,9 @@
 import { getCommonRoomContext } from "./context.ts";
 
+/**
+ * Identify a user for the Common Room platform.
+ * @see {@link https://workleap.github.io/wl-telemetry}
+ */
 export function identify(email: string) {
     const {
         logger
