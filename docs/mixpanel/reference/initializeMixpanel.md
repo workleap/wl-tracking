@@ -22,7 +22,7 @@ initializeMixpanel(productId, envOrTrackingApiBaseUrl, options?: { verbose });
 - `productId`: The product id.
 - `envOrTrackingApiBaseUrl`: The environment to get the navigation url from or a base URL.
 - `options`: An optional object literal of options:
-    - `trackingEndpoint`: The endpoint to use for tracking events. If not provided, the default endpoint will be used.
+    - `trackingEndpoint`: An optional tracking endpoint.
     - `verbose`: Whether or not debug information should be logged to the console.
     - `loggers`: An optional array of `RootLogger` instances.
 
@@ -48,7 +48,7 @@ Mixpanel can be initialized for any of the following predefined environments:
 - `local`
 - `msw`
 
-```ts
+```ts !#3
 import { initializeMixpanel } from "@workleap/mixpanel";
 
 initializeMixpanel("wlp", "development");
@@ -56,10 +56,20 @@ initializeMixpanel("wlp", "development");
 
 ### Initialize with a base url
 
-```ts
+```ts !#3
 import { initializeMixpanel } from "@workleap/mixpanel";
 
 initializeMixpanel("wlp", "https://my-tracking-api");
+```
+
+### Use a custom tracking endpoint
+
+```ts !#4
+import { initializeMixpanel } from "@workleap/mixpanel";
+
+initializeMixpanel("wlp", "https://my-tracking-api", {
+    trackingEndpoint: "custom/tracking/track"
+});
 ```
 
 ### Verbose mode

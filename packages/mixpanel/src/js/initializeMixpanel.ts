@@ -10,7 +10,7 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  */
 export interface InitializeMixpanelOptions {
     /**
-     * A custom endpoint to use for tracking events. When no endpoint is provided, the default endpoint for the environment will be used.
+     * An optional tracking endpoint.
      * @default "tracking/track"
      */
     trackingEndpoint?: string;
