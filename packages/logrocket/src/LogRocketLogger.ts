@@ -30,6 +30,9 @@ export class LogRocketLoggerScope implements LoggerScope {
     #pendingLogs: PendingLog[] = [];
     #hasEnded: boolean = false;
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     constructor(label: string, logLevel: LogLevel) {
         this.#logLevel = logLevel;
         this.#label = label;
@@ -57,6 +60,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         }
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withText(text: string, options: LogOptions = {}) {
         this.#segments.push({
             text,
@@ -66,6 +72,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withError(error: Error) {
         this.#segments.push({
             error
@@ -74,6 +83,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withObject(obj: object) {
         this.#segments.push({
             obj
@@ -82,6 +94,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     debug(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -93,6 +108,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         this.#log(LogRocket.log, LogLevel.debug);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     information(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -104,6 +122,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         this.#log(LogRocket.log, LogLevel.information);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     warning(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -115,6 +136,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         this.#log(LogRocket.warn, LogLevel.warning);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     error(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -126,6 +150,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         this.#log(LogRocket.error, LogLevel.error);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     critical(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -137,6 +164,9 @@ export class LogRocketLoggerScope implements LoggerScope {
         this.#log(LogRocket.error, LogLevel.critical);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     end(options: LoggerScopeEndOptions = {}) {
         const {
             dismiss = false
@@ -166,6 +196,9 @@ export class LogRocketLogger implements Logger {
     readonly #logLevel: LogLevel;
     #segments: Segment[] = [];
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     constructor(options: LoggerOptions = {}) {
         const {
             logLevel = LogLevel.debug
@@ -190,10 +223,16 @@ export class LogRocketLogger implements Logger {
         }
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     getName() {
         return LogRocketLogger.name;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withText(text: string, options: LogOptions = {}) {
         this.#segments.push({
             text,
@@ -203,6 +242,9 @@ export class LogRocketLogger implements Logger {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withError(error: Error) {
         this.#segments.push({
             error
@@ -211,6 +253,9 @@ export class LogRocketLogger implements Logger {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     withObject(obj: object) {
         this.#segments.push({
             obj
@@ -219,6 +264,9 @@ export class LogRocketLogger implements Logger {
         return this;
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     debug(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -230,6 +278,9 @@ export class LogRocketLogger implements Logger {
         this.#log(LogRocket.log, LogLevel.debug);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     information(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -241,6 +292,9 @@ export class LogRocketLogger implements Logger {
         this.#log(LogRocket.log, LogLevel.information);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     warning(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -252,6 +306,9 @@ export class LogRocketLogger implements Logger {
         this.#log(LogRocket.warn, LogLevel.warning);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     error(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -263,6 +320,9 @@ export class LogRocketLogger implements Logger {
         this.#log(LogRocket.error, LogLevel.error);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     critical(log?: string, options?: LogOptions) {
         if (log) {
             this.#segments.push({
@@ -274,6 +334,9 @@ export class LogRocketLogger implements Logger {
         this.#log(LogRocket.error, LogLevel.critical);
     }
 
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
     startScope(label: string) {
         return new LogRocketLoggerScope(label, this.#logLevel);
     }
