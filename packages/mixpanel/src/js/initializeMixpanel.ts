@@ -9,7 +9,18 @@ import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperPr
  * @see https://workleap.github.io/wl-telemetry
  */
 export interface InitializeMixpanelOptions {
+    /**
+     * A custom endpoint to use for tracking events. When no endpoint is provided, the default endpoint for the environment will be used.
+     * @default "tracking/track"
+     */
+    trackingEndpoint?: string;
+    /**
+     * Whether or not debug information should be logged to the console.
+     */
     verbose?: boolean;
+    /**
+     * An array of RootLogger instances.
+     */
     loggers?: RootLogger[];
 }
 
@@ -49,6 +60,7 @@ export function __resetInitializationGuard() {
  */
 export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: Environment | (string & {}), options: InitializeMixpanelOptions = {}) {
     const {
+        trackingEndpoint,
         verbose = false,
         loggers = []
     } = options;
@@ -56,7 +68,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
     initializationGuard.throw("[mixpanel] Mixpanel has already been initialized. Did you call the \"initializeMixpanel\" function twice?");
 
     const logger = createCompositeLogger(verbose, loggers);
-    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl);
+    const endpoint = getTrackingEndpoint(envOrTrackingApiBaseUrl, trackingEndpoint);
     const telemetryContext = createTelemetryContext(logger);
 
     setSuperProperties(getTelemetryProperties(telemetryContext));
