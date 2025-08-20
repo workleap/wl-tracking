@@ -55,7 +55,7 @@
         }
     },
     "dependencies": {
-        "@workleap/logging": "^1.0.2",
+        "@workleap/logging": "^1.2.0",
         "@workleap/telemetry": "workspace:*"
     },
     "devDependencies": {

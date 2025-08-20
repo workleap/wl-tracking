@@ -3,8 +3,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "./ErrorBoundary.tsx";
 import { FailingPage } from "./FailingPage.tsx";
 import { HomePage } from "./HomePage.tsx";
-import { IdentifyPage } from "./Identify.tsx";
+import { IdentifyPage } from "./IdentifyPage.tsx";
 import { Layout } from "./Layout.tsx";
+import { LogRocketLoggerPage } from "./LogRocketLoggerPage.tsx";
 import { MoviesPage } from "./MoviesPage.tsx";
 import { SubscriptionPage } from "./SubscriptionPage.tsx";
 import { ThrowingPage } from "./ThrowingPage.tsx";
@@ -64,6 +65,12 @@ export function App() {
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     // @ts-ignore
                                     element: <ThrowingPage />
+                                },
+                                {
+                                    path: "logrocket-logger",
+                                    element: (
+                                        <LogRocketLoggerPage />
+                                    )
                                 }
                             ]
                         }

@@ -112,6 +112,28 @@ describe("LogRocketLogger", () => {
             expect(logMock).toHaveBeenCalledWith("Error occurred:", error);
         });
 
+        test.for(pairs)("can build a \"%s\" log with line changes", ([loggerFunction, logRocketMethod], { expect }) => {
+            const logMock = getMocks()[logRocketMethod];
+
+            const logger = new LogRocketLogger({ logLevel: LogLevel.debug });
+            const obj = { name: "John", age: 30 };
+            const error = new Error("Test error");
+
+            logger
+                .withText("Processing segment")
+                .withLineChange()
+                .withText("on multiple lines")
+                .withObject(obj)
+                .withLineChange()
+                .withText("failed with error")
+                .withError(error)
+                // eslint-disable-next-line no-unexpected-multiline
+                [loggerFunction]();
+
+            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledWith("Processing segment", "\r\n", "on multiple lines", obj, "\r\n", "failed with error", error);
+        });
+
         test.for(pairs)("can build a \"%s\" log with mixed segments", ([loggerFunction, logRocketMethod], { expect }) => {
             const logMock = getMocks()[logRocketMethod];
 
@@ -252,6 +274,30 @@ describe("LogRocketLoggerScope", () => {
 
             expect(logMock).toHaveBeenCalledOnce();
             expect(logMock).toHaveBeenCalledWith("(foo)", "Error occurred:", error);
+        });
+
+        test.for(pairs)("can build a \"%s\" log with error", ([loggerFunction, logRocketMethod], { expect }) => {
+            const logMock = getMocks()[logRocketMethod];
+
+            const scope = new LogRocketLoggerScope("foo", LogLevel.debug);
+            const obj = { name: "John", age: 30 };
+            const error = new Error("Test error");
+
+            scope
+                .withText("Processing segment")
+                .withLineChange()
+                .withText("on multiple lines")
+                .withObject(obj)
+                .withLineChange()
+                .withText("failed with error")
+                .withError(error)
+                // eslint-disable-next-line no-unexpected-multiline
+                [loggerFunction]();
+
+            scope.end();
+
+            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledWith("(foo)", "Processing segment", "\r\n", "on multiple lines", obj, "\r\n", "failed with error", error);
         });
 
         test.for(pairs)("can build a \"%s\" log with mixed segments", ([loggerFunction, logRocketMethod], { expect }) => {

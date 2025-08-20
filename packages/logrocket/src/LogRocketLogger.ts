@@ -12,6 +12,8 @@ function parseSegments(segments: Segment[]) {
             acc.push(x.obj);
         } else if (x.error) {
             acc.push(x.error);
+        } else if (x.lineChange) {
+            acc.push("\r\n");
         }
 
         return acc;
@@ -89,6 +91,17 @@ export class LogRocketLoggerScope implements LoggerScope {
     withObject(obj: object) {
         this.#segments.push({
             obj
+        });
+
+        return this;
+    }
+
+    /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
+    withLineChange() {
+        this.#segments.push({
+            lineChange: true
         });
 
         return this;
@@ -270,6 +283,17 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * @see {@link https://workleap.github.io/wl-logging}
+     */
+    withLineChange() {
+        this.#segments.push({
+            lineChange: true
+        });
+
+        return this;
+    }
+
+    /**
      * Write a debug log. The log will be processed only if the logger LogLevel is >= debug.
      * @see {@link https://workleap.github.io/wl-logging}
      */
@@ -345,6 +369,7 @@ export class LogRocketLogger implements Logger {
     }
 
     /**
+     * Start a new logging scope. The scope will inherit the LogLevel of the root logger.
      * @see {@link https://workleap.github.io/wl-logging}
      */
     startScope(label: string) {
