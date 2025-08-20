@@ -6,4 +6,4 @@
 "@workleap/mixpanel": patch
 ---
 
-LogRocket logget now supports optional segments.
+LogRocket logger now supports optional segments.
