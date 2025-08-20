@@ -1,5 +1,14 @@
 # @workleap/mixpanel
 
+## 2.1.2
+
+### Patch Changes
+
+- [#56](https://github.com/workleap/wl-telemetry/pull/56) [`7be6e06`](https://github.com/workleap/wl-telemetry/commit/7be6e06b0f1f42e549ff043dc9b68db91ceb8d15) Thanks [@patricklafrance](https://github.com/patricklafrance)! - LogRocket logger now supports optional segments.
+
+- Updated dependencies [[`7be6e06`](https://github.com/workleap/wl-telemetry/commit/7be6e06b0f1f42e549ff043dc9b68db91ceb8d15)]:
+  - @workleap/telemetry@1.1.2
+
 ## 2.1.1
 
 ### Patch Changes
