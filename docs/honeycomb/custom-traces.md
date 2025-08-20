@@ -4,7 +4,7 @@ order: 90
 
 Applications are expected to use the [OpenTelemetry API](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution/#add-custom-instrumentation) to send custom traces to Honeycomb:
 
-```tsx src/Page.tsx
+```tsx !#4,9-10 src/Page.tsx
 import { useEffect } from "react";
 import { trace } from "@opentelemetry/api";
 

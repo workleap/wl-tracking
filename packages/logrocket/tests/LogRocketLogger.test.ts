@@ -153,6 +153,33 @@ describe("LogRocketLogger", () => {
             // The sequencing has been preserved because there's no styling.
             expect(logMock).toHaveBeenCalledWith("Processing segment", obj, "failed with error", error);
         });
+
+        test.concurrent("when the text is undefined, do not log an entry", ({ expect }) => {
+            const logMock = vi.spyOn(console, "log").mockImplementation(() => {});
+
+            const logger = new LogRocketLogger({ logLevel: LogLevel.debug });
+            logger.withText().debug();
+
+            expect(logMock).not.toHaveBeenCalled();
+        });
+
+        test.concurrent("when the object is undefined, do not log an entry", ({ expect }) => {
+            const logMock = vi.spyOn(console, "log").mockImplementation(() => {});
+
+            const logger = new LogRocketLogger({ logLevel: LogLevel.debug });
+            logger.withObject().debug();
+
+            expect(logMock).not.toHaveBeenCalled();
+        });
+
+        test.concurrent("when the error is undefined, do not log an entry", ({ expect }) => {
+            const logMock = vi.spyOn(console, "log").mockImplementation(() => {});
+
+            const logger = new LogRocketLogger({ logLevel: LogLevel.debug });
+            logger.withError().debug();
+
+            expect(logMock).not.toHaveBeenCalled();
+        });
     });
 
     describe("scope", () => {
@@ -319,6 +346,39 @@ describe("LogRocketLoggerScope", () => {
 
             expect(logMock).toHaveBeenCalledOnce();
             expect(logMock).toHaveBeenCalledWith("(foo)", "Processing segment", obj, "failed with error", error);
+        });
+
+        test.concurrent("when the text is undefined, do not log an entry", ({ expect }) => {
+            const logMock = getMocks().log;
+
+            const scope = new LogRocketLoggerScope("foo", LogLevel.debug);
+
+            scope.withText().debug();
+            scope.end();
+
+            expect(logMock).not.toHaveBeenCalled();
+        });
+
+        test.concurrent("when the object is undefined, do not log an entry", ({ expect }) => {
+            const logMock = getMocks().log;
+
+            const scope = new LogRocketLoggerScope("foo", LogLevel.debug);
+
+            scope.withObject().debug();
+            scope.end();
+
+            expect(logMock).not.toHaveBeenCalled();
+        });
+
+        test.concurrent("when the error is undefined, do not log an entry", ({ expect }) => {
+            const logMock = getMocks().log;
+
+            const scope = new LogRocketLoggerScope("foo", LogLevel.debug);
+
+            scope.withError().debug();
+            scope.end();
+
+            expect(logMock).not.toHaveBeenCalled();
         });
     });
 

@@ -119,7 +119,7 @@ Most applications need to set custom attributes on traces about the current user
 
 Update your application code to include the `setGlobalSpanAttribute` function:
 
-```ts
+```ts !#3
 import { setGlobalSpanAttributes } from "@workleap/honeycomb";
 
 setGlobalSpanAttribute("app.user_id", "123");

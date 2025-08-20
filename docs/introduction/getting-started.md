@@ -44,7 +44,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerLogRocketInstrumentation("my-app-id");
+registerLogRocketInstrumentation("my-app-id", {});
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy"
@@ -109,7 +109,7 @@ If your application is using older versions, refer to the [migration guide](./mi
 
 ## LogRocket session URL
 
-In additional to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it's available:
+In addition to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it's available:
 
 | Honeycomb | Mixpanel |
 | --- | --- |
@@ -124,6 +124,56 @@ This feature is available only when using the following package versions or high
 
 If your application is using older versions, refer to the [migration guide](./migrate.md) to update.
 !!!
+
+## Set up loggers
+
+Providing loggers to the registration and initialization functions is optional, but recommended to simplify troubleshooting.
+
+```tsx !#10-14,17-18,23-24,28-29,33-34 index.tsx
+import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger, type RootLogger } from "@workleap/logging";
+import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { initializeMixpanel } from "@workleap/mixpanel";
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
+
+const loggers: RootLogger[] = [
+    new BrowserConsoleLogger(),
+    // Only add LogRocket logger if your product is set up with LogRocket.
+    new LogRocketLogger()
+];
+
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: true,
+    loggers
+});
+
+registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
+    proxy: "https://sample-proxy",
+    verbose: true,
+    loggers
+});
+
+initializeMixpanel("wlp", "development", {
+    verbose: true,
+    loggers
+});
+
+registerCommonRoomInstrumentation("my-site-id", {
+    verbose: true,
+    loggers
+});
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
 
 ## Migrate
 
