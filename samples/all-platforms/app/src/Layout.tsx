@@ -23,6 +23,9 @@ export function Layout() {
                 <li>
                     <Link to="/throwing">Throwing</Link>
                 </li>
+                <li>
+                    <Link to="/logrocket-logger">LogRocket Logger</Link>
+                </li>
             </ul>
             <div data-public>
                 <Suspense fallback={<div>Loading...</div>}>
