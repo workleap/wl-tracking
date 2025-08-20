@@ -65,11 +65,13 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text: string, options: LogOptions = {}) {
-        this.#segments.push({
-            text,
-            options
-        });
+    withText(text?: string, options: LogOptions = {}) {
+        if (text) {
+            this.#segments.push({
+                text,
+                options
+            });
+        }
 
         return this;
     }
@@ -77,10 +79,12 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withError(error: Error) {
-        this.#segments.push({
-            error
-        });
+    withError(error?: Error) {
+        if (error) {
+            this.#segments.push({
+                error
+            });
+        }
 
         return this;
     }
@@ -88,10 +92,12 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withObject(obj: object) {
-        this.#segments.push({
-            obj
-        });
+    withObject(obj?: object) {
+        if (obj) {
+            this.#segments.push({
+                obj
+            });
+        }
 
         return this;
     }
@@ -251,11 +257,13 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text: string, options: LogOptions = {}) {
-        this.#segments.push({
-            text,
-            options
-        });
+    withText(text?: string, options: LogOptions = {}) {
+        if (text) {
+            this.#segments.push({
+                text,
+                options
+            });
+        }
 
         return this;
     }
@@ -263,10 +271,12 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withError(error: Error) {
-        this.#segments.push({
-            error
-        });
+    withError(error?: Error) {
+        if (error) {
+            this.#segments.push({
+                error
+            });
+        }
 
         return this;
     }
@@ -274,10 +284,12 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withObject(obj: object) {
-        this.#segments.push({
-            obj
-        });
+    withObject(obj?: object) {
+        if (obj) {
+            this.#segments.push({
+                obj
+            });
+        }
 
         return this;
     }

@@ -27,7 +27,7 @@ Nothing
 
 ## Usage
 
-```ts
+```ts !#3-5
 import { setGlobalSpanAttributes } from "@workleap/honeycomb";
 
 setGlobalSpanAttributes({

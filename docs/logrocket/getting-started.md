@@ -125,7 +125,7 @@ root.render(
 );
 ```
 
-```ts !#4-11
+```ts !#4-11,13
 import { createDefaultUserTraits } from "@workleap/logrocket";
 import LogRocket from "logrocket";
 
@@ -145,7 +145,7 @@ LogRocket.identify(traits.userId, traits);
 
 Every session replay is associated with a unique URL. To register a callback receiving the session replay once it's available, use the [LogRocket.getSessionURL](https://docs.logrocket.com/reference/get-session-url) function: 
 
-```ts index.tsx
+```ts !#3-5 index.tsx
 import LogRocket from "logrocket";
 
 LogRocket.getSessionUrl(url => {
