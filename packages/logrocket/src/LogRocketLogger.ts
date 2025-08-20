@@ -92,7 +92,7 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withObject(obj?: object) {
+    withObject(obj?: unknown) {
         if (obj) {
             this.#segments.push({
                 obj
@@ -284,7 +284,7 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withObject(obj?: object) {
+    withObject(obj?: unknown) {
         if (obj) {
             this.#segments.push({
                 obj
