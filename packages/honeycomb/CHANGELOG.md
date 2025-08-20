@@ -1,5 +1,14 @@
 # @workleap/honeycomb
 
+## 6.1.3
+
+### Patch Changes
+
+- [#58](https://github.com/workleap/wl-telemetry/pull/58) [`10d0c3f`](https://github.com/workleap/wl-telemetry/commit/10d0c3fe6e7565a2a95aeed9f3bc83274d90f1ad) Thanks [@patricklafrance](https://github.com/patricklafrance)! - LogRocketLogger object segment type is now unknown.
+
+- Updated dependencies [[`10d0c3f`](https://github.com/workleap/wl-telemetry/commit/10d0c3fe6e7565a2a95aeed9f3bc83274d90f1ad)]:
+  - @workleap/telemetry@1.1.3
+
 ## 6.1.2
 
 ### Patch Changes
