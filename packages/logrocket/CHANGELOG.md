@@ -1,5 +1,16 @@
 # @workleap/logrocket
 
+## 1.2.0
+
+### Minor Changes
+
+- [#54](https://github.com/workleap/wl-telemetry/pull/54) [`79ce028`](https://github.com/workleap/wl-telemetry/commit/79ce028f2418cc43ed18017e82ce9599e97d0e40) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Added support for line change segments to the LogRocket logger.
+
+### Patch Changes
+
+- Updated dependencies [[`79ce028`](https://github.com/workleap/wl-telemetry/commit/79ce028f2418cc43ed18017e82ce9599e97d0e40)]:
+  - @workleap/telemetry@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
