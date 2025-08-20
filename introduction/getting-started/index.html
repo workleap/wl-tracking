@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.808977856385">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809028469062">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -34,12 +34,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.808977856385" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.809028469062" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.808977856385" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.809028469062" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.808977856385" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.808977856385" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.809028469062" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.809028469062" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -406,7 +406,7 @@ import { StrictMode } from &quot;react&quot;;
 import { createRoot } from &quot;react-dom/client&quot;;
 import { App } from &quot;./App.tsx&quot;;
 
-registerLogRocketInstrumentation(&quot;my-app-id&quot;);
+registerLogRocketInstrumentation(&quot;my-app-id&quot;, {});
 
 registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,], {
     proxy: &quot;https://sample-proxy&quot;
@@ -538,7 +538,7 @@ const track = useTrackingFunction();</code></pre>
         <span>LogRocket session URL</span>
     </h2>
 </doc-anchor-target>
-<p>In additional to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it&#x27;s available:</p>
+<p>In addition to the correlation ids, if LogRocket instrumentation is initialized, the Honeycomb and Mixpanel libraries will automatically enrich their data with the LogRocket session URL once it&#x27;s available:</p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
 <thead>
@@ -577,6 +577,59 @@ const track = useTrackingFunction();</code></pre>
         </div>
     </div>
 </div>
+<doc-anchor-target id="set-up-loggers">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#set-up-loggers">#</doc-anchor-trigger>
+        <span>Set up loggers</span>
+    </h2>
+</doc-anchor-target>
+<p>Providing loggers to the registration and initialization functions is optional, but recommended to simplify troubleshooting.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">index.tsx</div>
+<pre translate="no" class="language-tsx" data-line="10-14,17-18,23-24,28-29,33-34"><code v-pre class="language-tsx">import { registerLogrocketInstrumentation, LogRocketLogger } from &quot;@workleap/logrocket&quot;;
+import { BrowserConsoleLogger, type RootLogger } from &quot;@workleap/logging&quot;;
+import { registerHoneycombInstrumentation } from &quot;@workleap/honeycomb&quot;;
+import { initializeMixpanel } from &quot;@workleap/mixpanel&quot;;
+import { registerCommonRoomInstrumentation } from &quot;@workleap/common-room&quot;;
+import { StrictMode } from &quot;react&quot;;
+import { createRoot } from &quot;react-dom/client&quot;;
+import { App } from &quot;./App.tsx&quot;;
+
+const loggers: RootLogger[] = [
+    new BrowserConsoleLogger(),
+    // Only add LogRocket logger if your product is set up with LogRocket.
+    new LogRocketLogger()
+];
+
+registerLogRocketInstrumentation(&quot;my-app-id&quot;, {
+    verbose: true,
+    loggers
+});
+
+registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,], {
+    proxy: &quot;https://sample-proxy&quot;,
+    verbose: true,
+    loggers
+});
+
+initializeMixpanel(&quot;wlp&quot;, &quot;development&quot;, {
+    verbose: true,
+    loggers
+});
+
+registerCommonRoomInstrumentation(&quot;my-site-id&quot;, {
+    verbose: true,
+    loggers
+});
+
+const root = createRoot(document.getElementById(&quot;root&quot;)!);
+
+root.render(
+    &lt;StrictMode&gt;
+        &lt;App /&gt;
+    &lt;/StrictMode&gt;
+);</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="migrate">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#migrate">#</doc-anchor-trigger>
