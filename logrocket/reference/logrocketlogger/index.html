@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809058298854">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809059430553">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -32,12 +32,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../../static/favicon.png" rel="icon">
-    <link href="../../../resources/css/retype.css?v=3.11.0.809058298854" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.11.0.809059430553" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.809058298854" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.11.0.809059430553" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.809058298854" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.809058298854" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.11.0.809059430553" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.11.0.809059430553" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -451,6 +451,57 @@ const logger = new LogRocketLogger({
 // Will be ignored because &quot;debug&quot; is lower than the &quot;error&quot; severity.
 logger.debug(&quot;Hello world!&quot;);</code></pre>
 </doc-codeblock></div>
+<p>For reference, here&#x27;s a description of each level:</p>
+<doc-anchor-target id="debug">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#debug">#</doc-anchor-trigger>
+        <span>Debug</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Very detailed, often verbose, logs used mainly during development.</li>
+<li><em>Example: API request/response bodies, lifecycle hooks, variable state.</em></li>
+</ul>
+<doc-anchor-target id="information">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#information">#</doc-anchor-trigger>
+        <span>Information</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>General events that show the normal flow of the application.</li>
+<li><em>Example: User login, component mounted, scheduled task started.</em></li>
+</ul>
+<doc-anchor-target id="warning">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#warning">#</doc-anchor-trigger>
+        <span>Warning</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Non-critical issues that might need attention but don’t break functionality.</li>
+<li><em>Example: Deprecated API usage, retries after a failed network call.</em></li>
+</ul>
+<doc-anchor-target id="error">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#error">#</doc-anchor-trigger>
+        <span>Error</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Failures that prevent part of the system from working as intended.</li>
+<li><em>Example: Unhandled exceptions, failed database query, API call failed with 500.</em></li>
+</ul>
+<doc-anchor-target id="critical">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#critical">#</doc-anchor-trigger>
+        <span>Critical</span>
+    </h4>
+</doc-anchor-target>
+<ul>
+<li>Severe errors that cause the application to stop functioning or risk data integrity.</li>
+<li><em>Example: Application crash, loss of critical service connection.</em></li>
+</ul>
 <doc-anchor-target id="build-complex-log-entry">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#build-complex-log-entry">#</doc-anchor-trigger>
