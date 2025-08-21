@@ -188,7 +188,7 @@ function registerLogRocketSessionUrlListener(logger: Logger) {
             setGlobalSpanAttribute("app.logrocket_session_url", sessionUrl);
         });
     } else {
-        logger.debug("[honeycomb] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
+        logger.information("[honeycomb] Cannot integrate with LogRocket because \"globalThis.__WLP_LOGROCKET_INSTRUMENTATION_REGISTER_GET_SESSION_URL_LISTENER__\" is not available.");
     }
 }
 
@@ -278,5 +278,5 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // Let the other telemetry libraries know that Honeycomb instrumentation is ready.
     bootstrappingStore.dispatch({ type: "honeycomb-ready" });
 
-    logger.debug("[honeycomb] Honeycomb instrumentation is registered.");
+    logger.information("[honeycomb] Honeycomb instrumentation is registered.");
 }

@@ -313,10 +313,10 @@ The logger instances that will output messages.
 ```ts !#6
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
 });
 ```
 

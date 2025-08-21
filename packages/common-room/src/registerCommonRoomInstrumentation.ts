@@ -67,7 +67,7 @@ export function registerCommonRoomInstrumentation(siteId: string, options: Regis
 
     loadSignals(siteId)
         .then(() => {
-            logger.debug("[common-room] Common Room instrumentation is registered.");
+            logger.information("[common-room] Common Room instrumentation is registered.");
         })
         .catch((reason: string) => {
             logger.error(`[common-room] ${reason}`);

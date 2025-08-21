@@ -173,5 +173,5 @@ export function registerLogRocketInstrumentation(appId: string, options: Registe
     // Let the other telemetry libraries know that LogRocket instrumentation is ready.
     bootstrappingStore.dispatch({ type: "logrocket-ready" });
 
-    logger.debug("[logrocket] LogRocket instrumentation is registered.");
+    logger.information("[logrocket] LogRocket instrumentation is registered.");
 }

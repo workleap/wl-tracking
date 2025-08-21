@@ -129,7 +129,54 @@ If your application is using older versions, refer to the [migration guide](./mi
 
 Providing loggers to the registration and initialization functions is optional, but recommended to simplify troubleshooting.
 
-```tsx !#10-14,17-18,23-24,28-29,33-34 index.tsx
+```tsx !#13,16-17,22-23,27-28,32-33 index.tsx
+import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { BrowserConsoleLogger, LogLevel, type RootLogger } from "@workleap/logging";
+import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
+import { initializeMixpanel } from "@workleap/mixpanel";
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
+
+...
+
+// Only add LogRocket logger if your product is set up with LogRocket.
+const loggers: RootLogger[] = [isDev ? new BrowserConsoleLogger() : new LogRocketLogger(LogLevel.information)];
+
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: isDev,
+    loggers
+});
+
+registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
+    proxy: "https://sample-proxy",
+    verbose: isDev
+    loggers
+});
+
+initializeMixpanel("wlp", "development", {
+    verbose: isDev
+    loggers
+});
+
+registerCommonRoomInstrumentation("my-site-id", {
+    verbose: isDev
+    loggers
+});
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
+
+To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor and set the `verbose` option to `true`:
+
+```tsx !#12,15,21,26,31 index.tsx
 import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
 import { BrowserConsoleLogger, type RootLogger } from "@workleap/logging";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
@@ -139,11 +186,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-const loggers: RootLogger[] = [
-    new BrowserConsoleLogger(),
-    // Only add LogRocket logger if your product is set up with LogRocket.
-    new LogRocketLogger()
-];
+...
+
+const loggers: RootLogger[] = [isDev ? new BrowserConsoleLogger() : new LogRocketLogger()];
 
 registerLogRocketInstrumentation("my-app-id", {
     verbose: true,
@@ -152,17 +197,17 @@ registerLogRocketInstrumentation("my-app-id", {
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy",
-    verbose: true,
+    verbose: true
     loggers
 });
 
 initializeMixpanel("wlp", "development", {
-    verbose: true,
+    verbose: true
     loggers
 });
 
 registerCommonRoomInstrumentation("my-site-id", {
-    verbose: true,
+    verbose: true
     loggers
 });
 

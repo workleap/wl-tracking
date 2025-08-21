@@ -153,19 +153,19 @@ LogRocket.getSessionUrl(url => {
 });
 ```
 
-## Capture debug logs
+## Capture logs
 
 By default, Workleap's LogRocket configuration does not capture console logs. To send loggers output to LogRocket, use the [LogRocketLogger](./reference/LogRocketLogger.md) class.
 
 ```tsx !#8 index.tsx
 import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerLogRocketInstrumentation("my-app-id", {
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 
 const root = createRoot(document.getElementById("root")!);
@@ -181,9 +181,27 @@ root.render(
 Console logs are not captured by default to reduce the risk of exposing Personally Identifiable Information (PII) in LogRocket session replays.
 !!!
 
-!!!tip
-To enable additional debug output from the LogRocket SDK _in the browser console_, set the [verbose](./reference/registerLogRocketInstrumentation.md#verbose) option to `true`.
-!!!
+To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor and set the `verbose` option to `true`:
+
+```tsx !#7-8 index.tsx
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
+
+registerLogRocketInstrumentation("my-app-id", {
+    verbose: true,
+    loggers: [new LogRocketLogger()]
+});
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
 
 ## Try it :rocket:
 

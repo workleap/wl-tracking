@@ -53,9 +53,9 @@ registerCommonRoomInstrumentation("my-site-id", {
 ```ts !#6
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 registerCommonRoomInstrumentation("my-site-id", {
-    loggers: [new LogRocketLogger(), new BrowserConsoleLogger()]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
 });
 ```

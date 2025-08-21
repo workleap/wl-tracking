@@ -87,10 +87,10 @@ initializeMixpanel("wlp", "development", {
 ```ts !#6
 import { initializeMixpanel } from "@workleap/mixpanel";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 initializeMixpanel("wlp", "development", {
-    loggers: [new LogRocketLogger(), new BrowserConsoleLogger()]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
 });
 ```
 
