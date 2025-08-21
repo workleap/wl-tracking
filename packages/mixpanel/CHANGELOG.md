@@ -1,5 +1,14 @@
 # @workleap/mixpanel
 
+## 2.1.4
+
+### Patch Changes
+
+- [#60](https://github.com/workleap/wl-telemetry/pull/60) [`ed078b6`](https://github.com/workleap/wl-telemetry/commit/ed078b698cfb78e9299f53d0580bf5c5751b9294) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Improved debug vs information logs.
+
+- Updated dependencies [[`ed078b6`](https://github.com/workleap/wl-telemetry/commit/ed078b698cfb78e9299f53d0580bf5c5751b9294)]:
+  - @workleap/telemetry@1.1.4
+
 ## 2.1.3
 
 ### Patch Changes
