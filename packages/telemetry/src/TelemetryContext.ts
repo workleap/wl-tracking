@@ -69,8 +69,8 @@ export function createTelemetryContext(logger: Logger, options: CreateTelemetryC
 
         const telemetryId = uuidv4();
 
-        logger.debug(`[telemetry] Telemetry id is: ${telemetryId}`);
-        logger.debug(`[telemetry] Device id is: ${deviceId}`);
+        logger.information(`[telemetry] Telemetry id is: ${telemetryId}`);
+        logger.information(`[telemetry] Device id is: ${deviceId}`);
 
         context = new TelemetryContext(telemetryId, deviceId);
 

@@ -103,10 +103,10 @@ The logger instances that will output messages.
 
 ```ts !#5
 import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 registerLogRocketInstrumentation("my-app-id", {
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
 });
 ```
 

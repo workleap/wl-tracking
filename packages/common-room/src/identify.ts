@@ -23,5 +23,5 @@ export function identify(email: string) {
         email
     });
 
-    logger.debug("[common-room] User has been identified.");
+    logger.information("[common-room] User has been identified.");
 }

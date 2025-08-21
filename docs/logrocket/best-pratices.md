@@ -25,61 +25,57 @@ API responses frequently contain sensitive user data such as names, email addres
 
 ### LogRocket
 
-Register LogRocket instrumentation with [verbose mode](./reference/registerLogRocketInstrumentation.md#verbose) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
+Register LogRocket instrumentation with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#5-6
+```ts !#5
 import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 registerLogRocketInstrumentation("my-app-id", {
-    verbose: true,
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
 
 ### Honeycomb verbose mode
 
-Register Honeycomb instrumentation with [verbose mode](../honeycomb/reference/registerHoneycombInstrumentation.md#verbose) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
+Register Honeycomb instrumentation with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#7-8
+```ts !#7
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy",
-    verbose: true,
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
 
 ### Mixpanel verbose mode
 
-Initialize Mixpanel with [verbose mode](../mixpanel/reference/initializeMixpanel.md#verbose-mode) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
+Initialize Mixpanel with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#6-7
+```ts !#6
 import { initializeMixpanel } from "@workleap/mixpanel";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 initializeMixpanel("wlp", "development", {
-    verbose: true,
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
 
 ### Common Room
 
-Initialize Mixpanel with [verbose mode](../mixpanel/reference/initializeMixpanel.md#verbose-mode) activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
+Initialize Mixpanel with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#6-7
+```ts !#6
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 registerCommonRoomInstrumentation("my-site-id", {
-    verbose: true,
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
 
@@ -90,10 +86,10 @@ Initialize Squide firefly with a [LogRocketLogger](./reference/LogRocketLogger.m
 ```ts !#6
 import { initializeFirefly } from "@squide/firefly";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 const runtime = initializeFirefly({
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
 
@@ -101,13 +97,12 @@ const runtime = initializeFirefly({
 
 Initialize platform widgets with verbose mode activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
-```ts !#6-7
+```ts !#6
 import { initializeWidgets } from "@workleap-widgets/client/react";
 import { LogRocketLogger } from "@workleap/logrocket";
-import { BrowserConsoleLogger } from "@workleap/logging";
+import { LogLevel } from "@workleap/logging";
 
 const widgetsRuntime = initializeWidgets("wlp", "development" , {
-    verbose: true,
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger()]
+    loggers: [new LogRocketLogger(LogLevel.information)]
 });
 ```
