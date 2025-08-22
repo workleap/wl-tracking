@@ -11,7 +11,7 @@ toc:
 
 ## Log relevant debugging information
 
-It’s recommended to **log** as much **relevant information** as possible into the LogRocket session replay console. This is typically done using the [LogRocketLogger](./reference/LogRocketLogger.md) class or directly through the [LogRocket SDK](https://docs.logrocket.com/reference/console).
+It's recommended to **log** as much **relevant information** as possible into the LogRocket session replay console. This is typically done using the [LogRocketLogger](./reference/LogRocketLogger.md) class or directly through the [LogRocket SDK](https://docs.logrocket.com/reference/console).
 
 At minimum, make sure to provide a `LogRocketLogger` instance to Workleap's libraries accepting a `loggers` option.
 
@@ -36,7 +36,7 @@ registerLogRocketInstrumentation("my-app-id", {
 });
 ```
 
-### Honeycomb verbose mode
+### Honeycomb
 
 Register Honeycomb instrumentation with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
@@ -51,7 +51,7 @@ registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
 });
 ```
 
-### Mixpanel verbose mode
+### Mixpanel
 
 Initialize Mixpanel with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
@@ -79,7 +79,7 @@ registerCommonRoomInstrumentation("my-site-id", {
 });
 ```
 
-### Squide firefly console logger
+### Squide firefly
 
 Initialize Squide firefly with a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
@@ -93,7 +93,7 @@ const runtime = initializeFirefly({
 });
 ```
 
-### Platform widgets verbose mode
+### Platform widgets
 
 Initialize platform widgets with verbose mode activated and a [LogRocketLogger](./reference/LogRocketLogger.md) instance:
 
