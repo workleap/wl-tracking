@@ -142,7 +142,7 @@ import { App } from "./App.tsx";
 ...
 
 // Only add LogRocket logger if your product is set up with LogRocket.
-const loggers: RootLogger[] = [isDev ? new BrowserConsoleLogger() : new LogRocketLogger(LogLevel.information)];
+const loggers: RootLogger[] = [isDev ? new BrowserConsoleLogger() : new LogRocketLogger({ logLevel: LogLevel.information })];
 
 registerLogRocketInstrumentation("my-app-id", {
     verbose: isDev,
@@ -174,7 +174,7 @@ root.render(
 );
 ```
 
-To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor and set the `verbose` option to `true`:
+To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor options and set the `verbose` option to `true`:
 
 ```tsx !#12,15,21,26,31 index.tsx
 import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";

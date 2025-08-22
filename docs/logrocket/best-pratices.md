@@ -32,7 +32,7 @@ import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/log
 import { LogLevel } from "@workleap/logging";
 
 registerLogRocketInstrumentation("my-app-id", {
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
@@ -47,7 +47,7 @@ import { LogLevel } from "@workleap/logging";
 
 registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
     proxy: "https://sample-proxy",
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
@@ -61,7 +61,7 @@ import { LogRocketLogger } from "@workleap/logrocket";
 import { LogLevel } from "@workleap/logging";
 
 initializeMixpanel("wlp", "development", {
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
@@ -75,7 +75,7 @@ import { LogRocketLogger } from "@workleap/logrocket";
 import { LogLevel } from "@workleap/logging";
 
 registerCommonRoomInstrumentation("my-site-id", {
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
@@ -89,7 +89,7 @@ import { LogRocketLogger } from "@workleap/logrocket";
 import { LogLevel } from "@workleap/logging";
 
 const runtime = initializeFirefly({
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
@@ -103,6 +103,6 @@ import { LogRocketLogger } from "@workleap/logrocket";
 import { LogLevel } from "@workleap/logging";
 
 const widgetsRuntime = initializeWidgets("wlp", "development" , {
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```

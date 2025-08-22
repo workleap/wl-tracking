@@ -165,7 +165,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerLogRocketInstrumentation("my-app-id", {
-    loggers: [new LogRocketLogger(LogLevel.information)]
+    loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 
 const root = createRoot(document.getElementById("root")!);
@@ -181,7 +181,7 @@ root.render(
 Console logs are not captured by default to reduce the risk of exposing Personally Identifiable Information (PII) in LogRocket session replays.
 !!!
 
-To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor and set the `verbose` option to `true`:
+To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor options and set the `verbose` option to `true`:
 
 ```tsx !#7-8 index.tsx
 import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
