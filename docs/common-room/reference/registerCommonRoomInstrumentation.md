@@ -38,6 +38,16 @@ import { registerCommonRoomInstrumentation } from "@workleap/common-room";
 registerCommonRoomInstrumentation("my-site-id");
 ```
 
+### Verbose mode 
+
+```ts !#4
+import { registerCommonRoomInstrumentation } from "@workleap/common-room";
+
+registerCommonRoomInstrumentation("my-site-id", {
+    verbose: true
+});
+```
+
 ### Loggers
 
 ```ts !#6

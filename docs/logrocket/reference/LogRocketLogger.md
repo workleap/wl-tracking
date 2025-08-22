@@ -102,7 +102,7 @@ For reference, here's a description of each level:
 
 #### Warning
 
-- Non-critical issues that might need attention but don’t break functionality.
+- Non-critical issues that might need attention but don't break functionality.
 - _Example: Deprecated API usage, retries after a failed network call._
 
 #### Error
