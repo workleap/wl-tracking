@@ -84,7 +84,7 @@ To view the default private query parameters, have a look at the [registerLogRoc
 - **Type**: `boolean`
 - **Default**: `false`
 
-Indicates whether or not debug information should be logged to the console.
+If no `loggers` are configured, verbose mode will automatically send logs to the console. In some cases, enabling verbose mode also produces additional debug information.
 
 ```ts !#4
 import { registerLogRocketInstrumentation } from "@workleap/logrocket";
@@ -106,7 +106,7 @@ import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/log
 import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 registerLogRocketInstrumentation("my-app-id", {
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 

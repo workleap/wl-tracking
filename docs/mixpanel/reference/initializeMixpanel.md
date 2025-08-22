@@ -23,7 +23,7 @@ initializeMixpanel(productId, envOrTrackingApiBaseUrl, options?: { verbose });
 - `envOrTrackingApiBaseUrl`: The environment to get the navigation url from or a base URL.
 - `options`: An optional object literal of options:
     - `trackingEndpoint`: An optional tracking endpoint.
-    - `verbose`: Whether or not debug information should be logged to the console.
+    - `verbose`: If no `loggers` are configured, verbose mode will automatically send logs to the console. In some cases, enabling verbose mode also produces additional debug information.
     - `loggers`: An optional array of `RootLogger` instances.
 
 ### Environments
@@ -90,7 +90,7 @@ import { LogRocketLogger } from "@workleap/logrocket";
 import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 
 initializeMixpanel("wlp", "development", {
-    loggers: [new BrowserConsoleLogger(), new LogRocketLogger(LogLevel.information)]
+    loggers: [new BrowserConsoleLogger(), new LogRocketLogger({ logLevel: LogLevel.information })]
 });
 ```
 
