@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809191559979">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809191971254">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -12,7 +12,7 @@
     <!-- Primary Meta Tags -->
     <title>Best practices - Introduction</title>
     <meta name="title" content="Best practices - Introduction">
-    <meta name="description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
+    <meta name="description" content="It's recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
@@ -21,23 +21,23 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
     <meta property="og:title" content="Best practices - Introduction">
-    <meta property="og:description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
+    <meta property="og:description" content="It's recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://workleap.github.io/wl-telemetry/logrocket/best-pratices/">
     <meta property="twitter:title" content="Best practices - Introduction">
-    <meta property="twitter:description" content="It’s recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
+    <meta property="twitter:description" content="It's recommended to log as much relevant information as possible into the LogRocket session replay console. This is typically done using the ">
 
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.809191559979" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.809191971254" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.809191559979" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.809191971254" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.809191559979" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.809191559979" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.809191971254" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.809191971254" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -336,7 +336,7 @@
         <span>Log relevant debugging information</span>
     </h2>
 </doc-anchor-target>
-<p>It’s recommended to <strong>log</strong> as much <strong>relevant information</strong> as possible into the LogRocket session replay console. This is typically done using the <a href="../reference/logrocketlogger/">LogRocketLogger</a> class or directly through the <a href="https://docs.logrocket.com/reference/console" class="outbound" target="_blank">LogRocket SDK</a>.</p>
+<p>It&#x27;s recommended to <strong>log</strong> as much <strong>relevant information</strong> as possible into the LogRocket session replay console. This is typically done using the <a href="../reference/logrocketlogger/">LogRocketLogger</a> class or directly through the <a href="https://docs.logrocket.com/reference/console" class="outbound" target="_blank">LogRocket SDK</a>.</p>
 <p>At minimum, make sure to provide a <code v-pre>LogRocketLogger</code> instance to Workleap&#x27;s libraries accepting a <code v-pre>loggers</code> option.</p>
 <p>Here are some examples <span class="docs-emoji">&#x1F447;</span></p>
 <div class="flex mb-6">
@@ -371,10 +371,10 @@ registerLogRocketInstrumentation(&quot;my-app-id&quot;, {
     loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="honeycomb-verbose-mode">
+<doc-anchor-target id="honeycomb">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#honeycomb-verbose-mode">#</doc-anchor-trigger>
-        <span>Honeycomb verbose mode</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#honeycomb">#</doc-anchor-trigger>
+        <span>Honeycomb</span>
     </h3>
 </doc-anchor-target>
 <p>Register Honeycomb instrumentation with a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
@@ -388,10 +388,10 @@ registerHoneycombInstrumentation(&quot;sample&quot;, &quot;my-app&quot;, [/.+/g,
     loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="mixpanel-verbose-mode">
+<doc-anchor-target id="mixpanel">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#mixpanel-verbose-mode">#</doc-anchor-trigger>
-        <span>Mixpanel verbose mode</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#mixpanel">#</doc-anchor-trigger>
+        <span>Mixpanel</span>
     </h3>
 </doc-anchor-target>
 <p>Initialize Mixpanel with a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
@@ -420,10 +420,10 @@ registerCommonRoomInstrumentation(&quot;my-site-id&quot;, {
     loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="squide-firefly-console-logger">
+<doc-anchor-target id="squide-firefly">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#squide-firefly-console-logger">#</doc-anchor-trigger>
-        <span>Squide firefly console logger</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#squide-firefly">#</doc-anchor-trigger>
+        <span>Squide firefly</span>
     </h3>
 </doc-anchor-target>
 <p>Initialize Squide firefly with a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
@@ -436,10 +436,10 @@ const runtime = initializeFirefly({
     loggers: [new LogRocketLogger({ logLevel: LogLevel.information })]
 });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="platform-widgets-verbose-mode">
+<doc-anchor-target id="platform-widgets">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#platform-widgets-verbose-mode">#</doc-anchor-trigger>
-        <span>Platform widgets verbose mode</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#platform-widgets">#</doc-anchor-trigger>
+        <span>Platform widgets</span>
     </h3>
 </doc-anchor-target>
 <p>Initialize platform widgets with verbose mode activated and a <a href="../reference/logrocketlogger/">LogRocketLogger</a> instance:</p>
