@@ -1,24 +1,13 @@
-import { type Logger, type LoggerOptions, type LoggerScope, type LoggerScopeEndOptions, LogLevel, type LogOptions, type Segment } from "@workleap/logging";
+import { type Logger, type LoggerOptions, type LoggerScope, type LoggerScopeEndOptions, LogLevel } from "@workleap/logging";
 import LogRocket from "logrocket";
+
+interface Segment {
+    type: "text" | "object" | "error" | "line-change";
+    value: unknown;
+}
 
 type LogFunction = (...rest: unknown[]) => void;
 type PendingLog = () => void;
-
-function parseSegments(segments: Segment[]) {
-    return segments.reduce<unknown[]>((acc, x) => {
-        if (x.text) {
-            acc.push(x.text);
-        } else if (x.obj) {
-            acc.push(x.obj);
-        } else if (x.error) {
-            acc.push(x.error);
-        } else if (x.lineChange) {
-            acc.push("\r\n");
-        }
-
-        return acc;
-    }, []);
-}
 
 /**
  * An scope implementation for the LogRocket logger.
@@ -51,10 +40,10 @@ export class LogRocketLoggerScope implements LoggerScope {
                 const segments = this.#segments;
 
                 this.#pendingLogs.push(() => {
-                    const parsedSegments = parseSegments(segments);
-                    parsedSegments.unshift(`(${this.#label})`);
+                    const values = segments.map(x => x.value);
+                    values.unshift(`(${this.#label})`);
 
-                    fct(...parsedSegments);
+                    fct(...values);
                 });
             }
 
@@ -65,11 +54,11 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text?: string, options: LogOptions = {}) {
+    withText(text?: string) {
         if (text) {
             this.#segments.push({
-                text,
-                options
+                type: "text",
+                value: text
             });
         }
 
@@ -82,7 +71,8 @@ export class LogRocketLoggerScope implements LoggerScope {
     withError(error?: Error) {
         if (error) {
             this.#segments.push({
-                error
+                type: "error",
+                value: error
             });
         }
 
@@ -95,7 +85,8 @@ export class LogRocketLoggerScope implements LoggerScope {
     withObject(obj?: unknown) {
         if (obj) {
             this.#segments.push({
-                obj
+                type: "object",
+                value: obj
             });
         }
 
@@ -107,7 +98,8 @@ export class LogRocketLoggerScope implements LoggerScope {
      */
     withLineChange() {
         this.#segments.push({
-            lineChange: true
+            type: "line-change",
+            value: "\r\n"
         });
 
         return this;
@@ -117,11 +109,11 @@ export class LogRocketLoggerScope implements LoggerScope {
      * Write a debug log. The log will be processed only if the logger LogLevel is >= debug.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    debug(log?: string, options?: LogOptions) {
+    debug(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -132,11 +124,11 @@ export class LogRocketLoggerScope implements LoggerScope {
      * Write an information log. The log will be processed only if the logger LogLevel is >= information.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    information(log?: string, options?: LogOptions) {
+    information(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -147,11 +139,11 @@ export class LogRocketLoggerScope implements LoggerScope {
      * Write a warning log. The log will be processed only if the logger LogLevel is >= warning.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    warning(log?: string, options?: LogOptions) {
+    warning(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -162,11 +154,11 @@ export class LogRocketLoggerScope implements LoggerScope {
      * Write an error log. The log will be processed only if the logger LogLevel is >= error.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    error(log?: string, options?: LogOptions) {
+    error(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -177,11 +169,11 @@ export class LogRocketLoggerScope implements LoggerScope {
      * Write a critical log. The log will be processed only if the logger LogLevel is >= critical.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    critical(log?: string, options?: LogOptions) {
+    critical(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -238,9 +230,9 @@ export class LogRocketLogger implements Logger {
     #log(fct: LogFunction, threshold: LogLevel) {
         if (this.#segments.length > 0) {
             if (this.#logLevel <= threshold) {
-                const parsedSegments = parseSegments(this.#segments);
+                const values = this.#segments.map(x => x.value);
 
-                fct(...parsedSegments);
+                fct(...values);
             }
 
             this.#resetSegments();
@@ -257,11 +249,11 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text?: string, options: LogOptions = {}) {
+    withText(text?: string) {
         if (text) {
             this.#segments.push({
-                text,
-                options
+                type: "text",
+                value: text
             });
         }
 
@@ -274,7 +266,8 @@ export class LogRocketLogger implements Logger {
     withError(error?: Error) {
         if (error) {
             this.#segments.push({
-                error
+                type: "error",
+                value: error
             });
         }
 
@@ -287,7 +280,8 @@ export class LogRocketLogger implements Logger {
     withObject(obj?: unknown) {
         if (obj) {
             this.#segments.push({
-                obj
+                type: "object",
+                value: obj
             });
         }
 
@@ -299,7 +293,8 @@ export class LogRocketLogger implements Logger {
      */
     withLineChange() {
         this.#segments.push({
-            lineChange: true
+            type: "line-change",
+            value: "\r\n"
         });
 
         return this;
@@ -309,11 +304,11 @@ export class LogRocketLogger implements Logger {
      * Write a debug log. The log will be processed only if the logger LogLevel is >= debug.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    debug(log?: string, options?: LogOptions) {
+    debug(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -324,11 +319,11 @@ export class LogRocketLogger implements Logger {
      * Write an information log. The log will be processed only if the logger LogLevel is >= information.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    information(log?: string, options?: LogOptions) {
+    information(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -339,11 +334,11 @@ export class LogRocketLogger implements Logger {
      * Write a warning log. The log will be processed only if the logger LogLevel is >= warning.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    warning(log?: string, options?: LogOptions) {
+    warning(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -354,11 +349,11 @@ export class LogRocketLogger implements Logger {
      * Write an error log. The log will be processed only if the logger LogLevel is >= error.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    error(log?: string, options?: LogOptions) {
+    error(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
@@ -369,11 +364,11 @@ export class LogRocketLogger implements Logger {
      * Write a critical log. The log will be processed only if the logger LogLevel is >= critical.
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    critical(log?: string, options?: LogOptions) {
+    critical(log?: string) {
         if (log) {
             this.#segments.push({
-                text: log,
-                options
+                type: "text",
+                value: log
             });
         }
 
