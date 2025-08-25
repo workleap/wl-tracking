@@ -1,5 +1,14 @@
 # @workleap/honeycomb
 
+## 6.1.6
+
+### Patch Changes
+
+- [#68](https://github.com/workleap/wl-telemetry/pull/68) [`80c1f39`](https://github.com/workleap/wl-telemetry/commit/80c1f39747ac689d6e175ff6b880a2b8c8fa9abd) Thanks [@patricklafrance](https://github.com/patricklafrance)! - LogRocketLogger refactor.
+
+- Updated dependencies [[`80c1f39`](https://github.com/workleap/wl-telemetry/commit/80c1f39747ac689d6e175ff6b880a2b8c8fa9abd)]:
+  - @workleap/telemetry@1.1.6
+
 ## 6.1.5
 
 ### Patch Changes
