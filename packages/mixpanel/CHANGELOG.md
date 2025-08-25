@@ -1,5 +1,14 @@
 # @workleap/mixpanel
 
+## 2.1.5
+
+### Patch Changes
+
+- [#66](https://github.com/workleap/wl-telemetry/pull/66) [`6b79793`](https://github.com/workleap/wl-telemetry/commit/6b79793e26937f562f51193aedec1a7f57b1578c) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Bumped dependencies and LogRocketLogger refactor.
+
+- Updated dependencies [[`6b79793`](https://github.com/workleap/wl-telemetry/commit/6b79793e26937f562f51193aedec1a7f57b1578c)]:
+  - @workleap/telemetry@1.1.5
+
 ## 2.1.4
 
 ### Patch Changes
