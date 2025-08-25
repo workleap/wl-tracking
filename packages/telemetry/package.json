@@ -43,7 +43,7 @@
         "test": "vitest --config vitest.config.ts --no-watch"
     },
     "dependencies": {
-        "@workleap/logging": "^1.2.2",
+        "@workleap/logging": "^1.2.3",
         "js-cookie": "^3.0.5",
         "uuid": "^11.1.0"
     },

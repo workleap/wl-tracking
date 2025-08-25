@@ -38,7 +38,7 @@
         "logrocket": "^10.1.0"
     },
     "dependencies": {
-        "@workleap/logging": "^1.2.2",
+        "@workleap/logging": "^1.2.3",
         "@workleap/telemetry": "workspace:*",
         "logrocket-fuzzy-search-sanitizer": "0.0.2"
     },
