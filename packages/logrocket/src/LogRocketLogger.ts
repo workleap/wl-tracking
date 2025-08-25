@@ -1,9 +1,53 @@
-import { type Logger, type LoggerOptions, type LoggerScope, type LoggerScopeEndOptions, LogLevel } from "@workleap/logging";
+import { type Logger, type LoggerOptions, type LoggerScope, type LoggerScopeEndOptions, LogLevel, type LogOptions } from "@workleap/logging";
 import LogRocket from "logrocket";
 
 interface Segment {
     type: "text" | "object" | "error" | "line-change";
     value: unknown;
+    options?: LogOptions;
+}
+
+function appendText(currentText: string, newText: string, options: { leadingSpace?: boolean } = {}) {
+    const {
+        leadingSpace = true
+    } = options;
+
+    if (currentText.length > 0) {
+        return `${currentText}${leadingSpace ? " " : ""}${newText}`;
+    }
+
+    return newText;
+}
+
+function formatSegments(segments: Segment[]) {
+    const logs: unknown[] = [];
+
+    let textBuffer = "";
+
+    const flushText = () => {
+        if (textBuffer.length > 0) {
+            logs.push(textBuffer);
+
+            textBuffer = "";
+        }
+    };
+
+    segments.forEach(x => {
+        if (x.type === "text") {
+            textBuffer = appendText(textBuffer, x.value as string, {
+                leadingSpace: x.options?.leadingSpace
+            });
+        } else {
+            flushText();
+
+            logs.push(x.value);
+        }
+    });
+
+    // If the last segment is text, the text buffer hasn't been flushed.
+    flushText();
+
+    return logs;
 }
 
 type LogFunction = (...rest: unknown[]) => void;
@@ -40,10 +84,10 @@ export class LogRocketLoggerScope implements LoggerScope {
                 const segments = this.#segments;
 
                 this.#pendingLogs.push(() => {
-                    const values = segments.map(x => x.value);
-                    values.unshift(`(${this.#label})`);
+                    const formattedSegments = formatSegments(segments);
+                    formattedSegments.unshift(`(${this.#label})`);
 
-                    fct(...values);
+                    fct(...formattedSegments);
                 });
             }
 
@@ -54,11 +98,12 @@ export class LogRocketLoggerScope implements LoggerScope {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text?: string) {
+    withText(text?: string, options?: Omit<LogOptions, "style">) {
         if (text) {
             this.#segments.push({
                 type: "text",
-                value: text
+                value: text,
+                options
             });
         }
 
@@ -230,9 +275,9 @@ export class LogRocketLogger implements Logger {
     #log(fct: LogFunction, threshold: LogLevel) {
         if (this.#segments.length > 0) {
             if (this.#logLevel <= threshold) {
-                const values = this.#segments.map(x => x.value);
+                const formattedSegments = formatSegments(this.#segments);
 
-                fct(...values);
+                fct(...formattedSegments);
             }
 
             this.#resetSegments();
@@ -249,11 +294,12 @@ export class LogRocketLogger implements Logger {
     /**
      * @see {@link https://workleap.github.io/wl-logging}
      */
-    withText(text?: string) {
+    withText(text?: string, options?: Omit<LogOptions, "style">) {
         if (text) {
             this.#segments.push({
                 type: "text",
-                value: text
+                value: text,
+                options
             });
         }
 
