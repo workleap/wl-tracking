@@ -19,6 +19,14 @@ function appendText(currentText: string, newText: string, options: { leadingSpac
     return newText;
 }
 
+/**
+ * Formats an array of Segment objects into a list of log arguments.
+ *
+ * - Consecutive "text" segments are concatenated into a single string, separated by spaces (unless `leadingSpace` is false).
+ * - Non-"text" segments ("object", "error", "line-change") are added directly to the output array.
+ * - When a non-"text" segment is encountered, any buffered text is flushed to the output before adding the segment.
+ * - At the end, any remaining buffered text is flushed.
+ */
 function formatSegments(segments: Segment[]) {
     const logs: unknown[] = [];
 
