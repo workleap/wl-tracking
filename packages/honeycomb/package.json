@@ -46,7 +46,7 @@
         "@opentelemetry/instrumentation-user-interaction": "^0.48.0",
         "@opentelemetry/instrumentation-xml-http-request": "^0.203.0",
         "@opentelemetry/sdk-trace-web": "^2.0.1",
-        "@workleap/logging": "^1.2.3",
+        "@workleap/logging": "^1.2.5",
         "@workleap/telemetry": "workspace:*"
     },
     "devDependencies": {

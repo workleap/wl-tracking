@@ -1,4 +1,5 @@
-import { LogRocketLogger, type LogRocketLoggerScope } from "@workleap/logrocket";
+import { BrowserConsoleLogger, CompositeLogger, type CompositeLoggerScope } from "@workleap/logging";
+import { LogRocketLogger } from "@workleap/logrocket";
 import { useTrackingFunction } from "@workleap/mixpanel/react";
 import { useCallback, useState } from "react";
 
@@ -29,7 +30,7 @@ function generateRandomError(): Error {
 
 //////////////////////
 
-const logger = new LogRocketLogger();
+const logger = new CompositeLogger([new BrowserConsoleLogger(), new LogRocketLogger()]);
 
 function useLogCallback(level: string) {
     return useCallback(() => {
@@ -60,6 +61,16 @@ function LoggerSection() {
         logger.withError(generateRandomError());
     }, []);
 
+    const handleNoLeadingSpaceText = useCallback(() => {
+        logger.withText(`Text: ${getShortId()}`, {
+            leadingSpace: false
+        });
+    }, []);
+
+    const handleLineChange = useCallback(() => {
+        logger.withLineChange();
+    }, []);
+
     return (
         <>
             <h2>Logger</h2>
@@ -68,6 +79,8 @@ function LoggerSection() {
                     <button type="button" onClick={handleTextClick}>Text</button>
                     <button type="button" onClick={handleObjectClick}>Object</button>
                     <button type="button" onClick={handleErrorClick}>Error</button>
+                    <button type="button" onClick={handleNoLeadingSpaceText}>No leading space text</button>
+                    <button type="button" onClick={handleLineChange}>Line change</button>
                 </div>
                 <div style={{ display: "flex", gap: "10px" }}>
                     <button type="button" onClick={useLogCallback("debug")}>Debug</button>
@@ -96,7 +109,7 @@ function LoggerSection() {
 
 //////////////////////
 
-function useLogRocketScopeLogCallback(level: string, scope?: LogRocketLoggerScope) {
+function useLogRocketScopeLogCallback(level: string, scope?: CompositeLoggerScope) {
     return useCallback(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -104,7 +117,7 @@ function useLogRocketScopeLogCallback(level: string, scope?: LogRocketLoggerScop
     }, [scope, level]);
 }
 
-function useLogRocketScopeLogWithTextCallback(level: string, scope?: LogRocketLoggerScope) {
+function useLogRocketScopeLogWithTextCallback(level: string, scope?: CompositeLoggerScope) {
     return useCallback(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -113,7 +126,7 @@ function useLogRocketScopeLogWithTextCallback(level: string, scope?: LogRocketLo
 }
 
 function ScopeSection() {
-    const [scope, setScope] = useState<LogRocketLoggerScope>();
+    const [scope, setScope] = useState<CompositeLoggerScope>();
 
     const handleCreateScopeClick = useCallback(() => {
         if (scope) {

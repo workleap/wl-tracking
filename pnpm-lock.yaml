@@ -48,8 +48,8 @@ importers:
   packages/common-room:
     dependencies:
       '@workleap/logging':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.5
+        version: 1.2.5
     devDependencies:
       '@rsbuild/core':
         specifier: 1.4.6
@@ -112,8 +112,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(@opentelemetry/api@1.9.0)
       '@workleap/logging':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.5
+        version: 1.2.5
       '@workleap/telemetry':
         specifier: workspace:*
         version: link:../telemetry
@@ -152,8 +152,8 @@ importers:
   packages/logrocket:
     dependencies:
       '@workleap/logging':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.5
+        version: 1.2.5
       '@workleap/telemetry':
         specifier: workspace:*
         version: link:../telemetry
@@ -195,8 +195,8 @@ importers:
   packages/mixpanel:
     dependencies:
       '@workleap/logging':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.5
+        version: 1.2.5
       '@workleap/telemetry':
         specifier: workspace:*
         version: link:../telemetry
@@ -241,8 +241,8 @@ importers:
   packages/telemetry:
     dependencies:
       '@workleap/logging':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.2.5
+        version: 1.2.5
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -293,8 +293,8 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/honeycomb
       '@workleap/logging':
-        specifier: 1.2.3
-        version: 1.2.3
+        specifier: 1.2.5
+        version: 1.2.5
       '@workleap/logrocket':
         specifier: workspace:*
         version: link:../../../packages/logrocket
@@ -2604,8 +2604,8 @@ packages:
       typescript:
         optional: true
 
-  '@workleap/logging@1.2.3':
-    resolution: {integrity: sha512-wzwMh26NN6kqPvLuYNPcSvXucbxUSWr8gTDdGzQtqkMX8irJavwUoM4TlGKUjnFDxX558l6R6K5CDwC4wfwIUA==}
+  '@workleap/logging@1.2.5':
+    resolution: {integrity: sha512-Ou1im6GgqKAkyI12AqWG6ZQr+ktB1MXgdE/QiwTRjM0WGdH4dIdOe1MaJTDviPP8OVgbys5deF4y2QTkQLI67w==}
 
   '@workleap/rsbuild-configs@3.0.2':
     resolution: {integrity: sha512-/W4w4Fq1duFPveVtpVqHecCplWQ8cN1I0Rx5Whd3hOcPTsfd5i7UbXMRBdsg49fy+OMmpRM2CIL0Lq/anwgAog==}
@@ -7963,7 +7963,7 @@ snapshots:
       - supports-color
       - vitest
 
-  '@workleap/logging@1.2.3': {}
+  '@workleap/logging@1.2.5': {}
 
   '@workleap/rsbuild-configs@3.0.2(@rsbuild/core@1.4.6)(@rspack/core@1.4.6(@swc/helpers@0.5.17))(typescript@5.8.3)':
     dependencies:
