@@ -67,7 +67,7 @@ Session replays offer a wide range of features to help debug production issues, 
 #### Console logs
 
 :::align-image-left
-![](../static/logrocket/logrocket-console-logs.png)
+![](../static/logrocket/logrocket-console-logs.png){width=794}
 :::
 
 #### Network requests
