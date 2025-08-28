@@ -47,12 +47,6 @@ Avoid using `/.+/g,` in production, as it could expose customer data to third pa
 We recommend using an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/opentelemetry/collector/) with an authenticated proxy over an ingestion [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/#create-api-key), as API keys can expose Workleap to potential attacks.
 !!!
 
-!!!tip
-It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
-
-This applies not only to Honeycomb instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
-!!!
-
 With instrumentation in place, a few traces are now available 👇
 
 ### Fetch requests

@@ -9,7 +9,7 @@ toc:
 
 # Best practices
 
-## Log relevant debugging information
+## Log relevant information
 
 It's recommended to **log** as much **relevant information** as possible into the LogRocket session replay console. This is typically done using the [LogRocketLogger](./reference/LogRocketLogger.md) class or directly through the [LogRocket SDK](https://docs.logrocket.com/reference/console).
 
@@ -21,6 +21,8 @@ Here are some examples :point_down:
 Never log any **Personally Identifiable Information (PII)**.
 
 API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all logs outputting API response before deploying to production, as these can expose private information that will be included in session replays.
+
+For debugging, use `console.log` instead, since its output is not captured in LogRocket session replays.
 !!!
 
 ### LogRocket

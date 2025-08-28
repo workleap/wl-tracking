@@ -31,12 +31,6 @@ import { initializeMixpanel } from "@workleap/mixpanel";
 initializeMixpanel("wlp", "development");
 ```
 
-!!!tip
-It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
-
-This applies not only to Mixpanel, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
-!!!
-
 ## Create a track function
 
 Then create a `track` function using the [useTrackingFunction](./reference//) hook if the host application is in React:

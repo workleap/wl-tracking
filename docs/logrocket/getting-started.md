@@ -42,12 +42,6 @@ root.render(
 );
 ```
 
-!!!tip
-It's recommended to **log** as much **relevant information** as possible to the **console**, as LogRocket includes console output in its session replays.
-
-This applies not only to LogRocket instrumentation, but also to **any frontend code or libraries in use**. However, make sure not to log any _Personally Identifiable Information (PII)_.
-!!!
-
 ### Session replays
 
 With instrumentation in place, [session replays](https://docs.logrocket.com/docs/session-replay) are now available in LogRocket:
