@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/wl-telemetry">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809635561187">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.11.0.809664374101">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.11.0">
@@ -32,12 +32,12 @@
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.11.0.809635561187" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.11.0.809664374101" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.809635561187" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.11.0.809664374101" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.11.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.809635561187" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.809635561187" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.11.0.809664374101" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.11.0.809664374101" defer></script>
 
     <link href="https://workleap.github.io/wl-idp-docs-hub/static/retype-customization.css" rel="stylesheet" />
 
@@ -330,10 +330,10 @@
         <span>Best practices</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="log-relevant-debugging-information">
+<doc-anchor-target id="log-relevant-information">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#log-relevant-debugging-information">#</doc-anchor-trigger>
-        <span>Log relevant debugging information</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#log-relevant-information">#</doc-anchor-trigger>
+        <span>Log relevant information</span>
     </h2>
 </doc-anchor-target>
 <p>It&#x27;s recommended to <strong>log</strong> as much <strong>relevant information</strong> as possible into the LogRocket session replay console. This is typically done using the <a href="../reference/logrocketlogger/">LogRocketLogger</a> class or directly through the <a href="https://docs.logrocket.com/reference/console" class="outbound" target="_blank">LogRocket SDK</a>.</p>
@@ -353,6 +353,7 @@
         <div class="pr-5 ml-3 w-full">
 <p>Never log any <strong>Personally Identifiable Information (PII)</strong>.</p>
 <p>API responses frequently contain sensitive user data such as names, email addresses, phone numbers, or IDs. Remove all logs outputting API response before deploying to production, as these can expose private information that will be included in session replays.</p>
+<p>For debugging, use <code v-pre>console.log</code> instead, since its output is not captured in LogRocket session replays.</p>
         </div>
     </div>
 </div>
