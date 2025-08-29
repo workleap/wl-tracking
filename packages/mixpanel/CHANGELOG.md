@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 2.1.9
+
+### Patch Changes
+
+- [#76](https://github.com/workleap/wl-telemetry/pull/76) [`39f4cc7`](https://github.com/workleap/wl-telemetry/commit/39f4cc7485b5292ffaa3ea973109923c08330fb7) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Fix Mixpanel package internal file export path.
+
 ## 2.1.8
 
 ### Patch Changes
