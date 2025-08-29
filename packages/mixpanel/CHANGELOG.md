@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 2.1.7
+
+### Patch Changes
+
+- [#72](https://github.com/workleap/wl-telemetry/pull/72) [`baf14c4`](https://github.com/workleap/wl-telemetry/commit/baf14c474e4cac0eab8fa15bf3986c4f27f40342) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Added a global variables indicating that Mixpanel has been initialized.
+
 ## 2.1.6
 
 ### Patch Changes
