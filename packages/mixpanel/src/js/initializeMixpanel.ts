@@ -103,7 +103,7 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
     // to know whether or not the host application is using Mixpanel.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis[IsRegisteredVariableName] = true;
+    globalThis[IsInitializedVariableName] = true;
 
     logger.information("[mixpanel] Mixpanel is initialized.");
 }
