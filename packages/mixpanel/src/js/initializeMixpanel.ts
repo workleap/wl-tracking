@@ -5,6 +5,8 @@ import { getTrackingEndpoint, type Environment } from "./env.ts";
 import { HasExecutedGuard } from "./HasExecutedGuard.ts";
 import { getSuperProperties, getTelemetryProperties, OtherProperties, setSuperProperties, setSuperProperty } from "./properties.ts";
 
+export const IsInitializedVariableName = "__WLP_MIXPANEL_IS_INITIALIZED__";
+
 /**
  * @see {@link https://workleap.github.io/wl-telemetry}
  */
@@ -95,6 +97,13 @@ export function initializeMixpanel(productId: string, envOrTrackingApiBaseUrl: E
         superProperties: getSuperProperties(),
         logger
     });
+
+    // Indicates to the host applications that Mixpanel has been initialized.
+    // It's useful in cases where an "add-on", like the platform widgets needs
+    // to know whether or not the host application is using Mixpanel.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis[IsInitializedVariableName] = true;
 
     logger.information("[mixpanel] Mixpanel is initialized.");
 }
