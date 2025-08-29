@@ -3,7 +3,7 @@ import { BootstrappingStore } from "@workleap/telemetry";
 import { __clearBootstrappingStore, __clearTelemetryContext, __setBootstrappingStore } from "@workleap/telemetry/internal";
 import { afterEach, test, vi } from "vitest";
 import { MixpanelContextVariableName } from "../../src/js/context.ts";
-import { __resetInitializationGuard, initializeMixpanel } from "../../src/js/initializeMixpanel.ts";
+import { __resetInitializationGuard, initializeMixpanel, IsInitializedVariableName } from "../../src/js/initializeMixpanel.ts";
 import { __clearSuperProperties } from "../../src/js/properties.ts";
 
 afterEach(() => {
@@ -69,4 +69,12 @@ test("the context global variable is set", ({ expect }) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(globalThis[MixpanelContextVariableName]).toBeDefined();
+});
+
+test("the initialized global variable is set", ({ expect }) => {
+    initializeMixpanel("wlp", "http://api/navigation");
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(globalThis[IsInitializedVariableName]).toBeDefined();
 });
