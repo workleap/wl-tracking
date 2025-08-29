@@ -1,5 +1,11 @@
 # @workleap/mixpanel
 
+## 2.1.8
+
+### Patch Changes
+
+- [#74](https://github.com/workleap/wl-telemetry/pull/74) [`a67548c`](https://github.com/workleap/wl-telemetry/commit/a67548c2b0cd071f5e7b5c755fa05c46a544a1ea) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Exporting internal test utilities for Mixpanel.
+
 ## 2.1.7
 
 ### Patch Changes
