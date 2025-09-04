@@ -36,7 +36,7 @@ pnpm add @workleap/logrocket @workleap/honeycomb @workleap/mixpanel @opentelemet
 Then, update the application bootstrapping code to initialize the libraries:
 
 ```tsx !#9,11-13,15,17 index.tsx
-import { registerLogrocketInstrumentation } from "@workleap/logrocket";
+import { registerLogRocketInstrumentation } from "@workleap/logrocket";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { initializeMixpanel } from "@workleap/mixpanel";
 import { registerCommonRoomInstrumentation } from "@workleap/common-room";
@@ -130,7 +130,7 @@ If your application is using older versions, refer to the [migration guide](./mi
 Providing loggers to the registration and initialization functions is optional, but recommended to simplify troubleshooting.
 
 ```tsx !#13,16-17,22-23,27-28,32-33 index.tsx
-import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
 import { BrowserConsoleLogger, LogLevel, type RootLogger } from "@workleap/logging";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { initializeMixpanel } from "@workleap/mixpanel";
@@ -177,7 +177,7 @@ root.render(
 To troubleshoot an issue in production, remove the `LogLevel` from the `LogRocketLogger` constructor options and set the `verbose` option to `true`:
 
 ```tsx !#12,15,21,26,31 index.tsx
-import { registerLogrocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
+import { registerLogRocketInstrumentation, LogRocketLogger } from "@workleap/logrocket";
 import { BrowserConsoleLogger, type RootLogger } from "@workleap/logging";
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { initializeMixpanel } from "@workleap/mixpanel";
