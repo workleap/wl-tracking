@@ -13,7 +13,7 @@ By default, this instrumentation hides a wide range of Personally Identifiable I
 
 ### Record elements
 
-Use `data-public` to explicitly allow LogRocket to record the content of an element. When this attribute is present, the content inside the element, including child elements, will be captured in the session replay:
+By default, **every DOM element is sanitized**. To record the content of an element and its children, explicitly add the `data-public` property to the element. When this attribute is present, the content inside the element, including child elements, will be captured in the session replay:
 
 ```html !#1
 <div data-public>
