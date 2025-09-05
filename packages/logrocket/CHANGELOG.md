@@ -1,5 +1,11 @@
 # @workleap/logrocket
 
+## 1.2.6
+
+### Patch Changes
+
+- [#79](https://github.com/workleap/wl-telemetry/pull/79) [`7ad31c6`](https://github.com/workleap/wl-telemetry/commit/7ad31c6c317c4aad758e29862b6d06f9465b4da3) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Updated LogRocketLogger group logs by indenting the logs under the label rather than prefixing every log with the label.
+
 ## 1.2.5
 
 ### Patch Changes
