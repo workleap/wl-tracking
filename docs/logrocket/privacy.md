@@ -13,7 +13,7 @@ By default, this instrumentation hides a wide range of Personally Identifiable I
 
 ### Record elements
 
-By default, **every DOM elements are sanitized**. To record the content of an element and it's children, explicitly add the `data-public` property to the element. When this attribute is present, the content inside the element, including child elements, will be captured in the session replay:
+By default, **every DOM element is sanitized**. To record the content of an element and its children, explicitly add the `data-public` property to the element. When this attribute is present, the content inside the element, including child elements, will be captured in the session replay:
 
 ```html !#1
 <div data-public>
