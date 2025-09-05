@@ -410,7 +410,11 @@ describe("LogRocketLoggerScope", () => {
             }
 
             if (expectedResult) {
-                expect(logMock).toHaveBeenCalledOnce();
+                if ((loggerFunction === "debug" || loggerFunction === "information") && (logLevel === LogLevel.debug || logLevel === LogLevel.information)) {
+                    expect(logMock).toHaveBeenCalledTimes(2);
+                } else {
+                    expect(logMock).toHaveBeenCalledOnce();
+                }
             } else {
                 expect(logMock).not.toHaveBeenCalled();
             }
@@ -439,9 +443,18 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            if (logRocketMethod === "log") {
+                expect(logMock).toHaveBeenCalledTimes(2);
+                expect(logMock).toHaveBeenCalledWith("foo");
+            } else {
+                expect(logMock).toHaveBeenCalledOnce();
+
+                expect(getMocks().log).toHaveBeenCalledOnce();
+                expect(getMocks().log).toHaveBeenCalledWith("foo");
+            }
+
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "Hello World"
             );
         });
@@ -460,9 +473,18 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            if (logRocketMethod === "log") {
+                expect(logMock).toHaveBeenCalledTimes(2);
+                expect(logMock).toHaveBeenCalledWith("foo");
+            } else {
+                expect(logMock).toHaveBeenCalledOnce();
+
+                expect(getMocks().log).toHaveBeenCalledOnce();
+                expect(getMocks().log).toHaveBeenCalledWith("foo");
+            }
+
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "User:",
                 obj
             );
@@ -482,9 +504,18 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            if (logRocketMethod === "log") {
+                expect(logMock).toHaveBeenCalledTimes(2);
+                expect(logMock).toHaveBeenCalledWith("foo");
+            } else {
+                expect(logMock).toHaveBeenCalledOnce();
+
+                expect(getMocks().log).toHaveBeenCalledOnce();
+                expect(getMocks().log).toHaveBeenCalledWith("foo");
+            }
+
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "Error occurred:",
                 error
             );
@@ -510,9 +541,18 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            if (logRocketMethod === "log") {
+                expect(logMock).toHaveBeenCalledTimes(2);
+                expect(logMock).toHaveBeenCalledWith("foo");
+            } else {
+                expect(logMock).toHaveBeenCalledOnce();
+
+                expect(getMocks().log).toHaveBeenCalledOnce();
+                expect(getMocks().log).toHaveBeenCalledWith("foo");
+            }
+
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "Processing segment",
                 "\r\n",
                 "on multiple lines",
@@ -540,9 +580,18 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            if (logRocketMethod === "log") {
+                expect(logMock).toHaveBeenCalledTimes(2);
+                expect(logMock).toHaveBeenCalledWith("foo");
+            } else {
+                expect(logMock).toHaveBeenCalledOnce();
+
+                expect(getMocks().log).toHaveBeenCalledOnce();
+                expect(getMocks().log).toHaveBeenCalledWith("foo");
+            }
+
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "Processing segment",
                 obj,
                 "failed with error",
@@ -623,9 +672,9 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledTimes(2);
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "First line",
                 "\r\n",
                 "Second line"
@@ -647,9 +696,9 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledTimes(2);
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "First line",
                 "\r\n",
                 "\r\n",
@@ -679,9 +728,9 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledTimes(2);
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "First line",
                 obj1,
                 "\r\n",
@@ -707,9 +756,9 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledTimes(2);
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "FirstSecond"
             );
         });
@@ -732,9 +781,9 @@ describe("LogRocketLoggerScope", () => {
 
             scope.end();
 
-            expect(logMock).toHaveBeenCalledOnce();
+            expect(logMock).toHaveBeenCalledTimes(2);
             expect(logMock).toHaveBeenCalledWith(
-                "(foo)",
+                "    ",
                 "Text 1Text 2",
                 obj,
                 "Text 3Text 4",
