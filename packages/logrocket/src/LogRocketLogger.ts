@@ -93,7 +93,9 @@ export class LogRocketLoggerScope implements LoggerScope {
 
                 this.#pendingLogs.push(() => {
                     const formattedSegments = formatSegments(segments);
-                    formattedSegments.unshift(`(${this.#label})`);
+                    // Since LogRocket session replay UI doesn't have a concept similar to console.group,
+                    // the logs of a group are indented by 4 spaces under the group label.
+                    formattedSegments.unshift("    ");
 
                     fct(...formattedSegments);
                 });
@@ -246,6 +248,8 @@ export class LogRocketLoggerScope implements LoggerScope {
 
             if (!dismiss) {
                 if (this.#pendingLogs.length > 0) {
+                    LogRocket.log(this.#label);
+
                     this.#pendingLogs.forEach(x => {
                         x();
                     });
